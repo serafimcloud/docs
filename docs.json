@@ -16,6 +16,10 @@
   ],
   "scripts": [
     {
+      "src": "/add-title-suffix.js",
+      "async": true
+    },
+    {
       "src": "/fix-icons.js",
       "async": true
     }
