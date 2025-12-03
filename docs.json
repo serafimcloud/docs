@@ -47,7 +47,11 @@
       {
         "group": "Community",
         "pages": [
-          "community/index"
+          "community/index",
+          "community/components",
+          "community/screens",
+          "community/themes",
+          "community/keyboard-shortcuts"
         ]
       },
       {

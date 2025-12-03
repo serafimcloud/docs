@@ -151,3 +151,51 @@
   height: 20px !important;
   width: auto !important;
 }
+
+/* Custom scrollbar for overflow-auto elements */
+.stable-scrollbar-gutter.overflow-auto,
+[class*="stable-scrollbar-gutter"][class*="overflow-auto"] {
+  scrollbar-width: thin !important;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent !important;
+}
+
+/* Webkit scrollbar for overflow-auto elements */
+.stable-scrollbar-gutter.overflow-auto::-webkit-scrollbar,
+[class*="stable-scrollbar-gutter"][class*="overflow-auto"]::-webkit-scrollbar {
+  width: 8px !important;
+  height: 8px !important;
+}
+
+.stable-scrollbar-gutter.overflow-auto::-webkit-scrollbar-track,
+[class*="stable-scrollbar-gutter"][class*="overflow-auto"]::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+.stable-scrollbar-gutter.overflow-auto::-webkit-scrollbar-thumb,
+[class*="stable-scrollbar-gutter"][class*="overflow-auto"]::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2) !important;
+  border-radius: 4px !important;
+}
+
+.stable-scrollbar-gutter.overflow-auto::-webkit-scrollbar-thumb:hover,
+[class*="stable-scrollbar-gutter"][class*="overflow-auto"]::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Dark theme specific */
+.dark .stable-scrollbar-gutter.overflow-auto,
+.dark [class*="stable-scrollbar-gutter"][class*="overflow-auto"] {
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent !important;
+}
+
+.dark .stable-scrollbar-gutter.overflow-auto::-webkit-scrollbar-thumb,
+.dark
+  [class*="stable-scrollbar-gutter"][class*="overflow-auto"]::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2) !important;
+}
+
+.dark .stable-scrollbar-gutter.overflow-auto::-webkit-scrollbar-thumb:hover,
+.dark
+  [class*="stable-scrollbar-gutter"][class*="overflow-auto"]::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3) !important;
+}
