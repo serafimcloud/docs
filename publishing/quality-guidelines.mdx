@@ -1,0 +1,49 @@
+---
+title: Quality Guidelines
+description: Standards for high-quality components
+---
+
+## Visual Design
+
+- Polished look; follows modern UI/UX
+- Consistent spacing, sizing, and states (hover/focus/active)
+- Light & dark themes supported
+
+## Code Structure
+
+- Separate reusable code from demos
+- Component exposes props; demos provide content
+- Minimal external deps; typed with TypeScript
+
+## Theming
+
+- Use CSS variables (e.g., `hsl(var(--background))`)
+- Respect theme tokens; no hardcoded colors
+- Works in both light and dark modes
+
+## Accessibility
+
+- Proper ARIA attributes
+- Keyboard navigation support
+- Sufficient color contrast
+
+## Documentation
+
+- Clear prop descriptions
+- Usage examples in demos
+- Note required dependencies
+
+## Demos & Assets
+
+- Required: `demos/default/code.demo.tsx` + `preview.png`
+- Optional: `video.mp4` for richer previews
+- Show realistic content in demos
+
+## Review Flow
+
+<Info>
+**Status progression**: `on_review` → `posted` → `featured`
+
+Featured requires strong visuals, clean code, theming, a11y, and good docs.
+</Info>
+

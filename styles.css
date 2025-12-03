@@ -1,0 +1,153 @@
+/* Custom styles for 21st documentation - Dark theme background override */
+
+/* Override CSS variables for dark theme */
+:root.dark {
+  --background-dark: 23 23 23; /* #171717 in RGB format for Tailwind */
+}
+
+.dark {
+  --background-dark: 23 23 23 !important;
+}
+
+/* Override Tailwind gradient variables */
+.dark [class*="from-background-dark"] {
+  --tw-gradient-from: rgb(23 23 23 / 1) !important;
+  --tw-gradient-to: rgb(23 23 23 / 0) !important;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+}
+
+/* Force background color */
+.dark body {
+  background-color: #171717 !important;
+}
+
+.dark main,
+.dark [role="main"],
+.dark article {
+  background-color: #171717 !important;
+}
+
+.dark [data-sidebar],
+.dark aside {
+  background-color: #171717 !important;
+}
+
+.dark .mint-content,
+.dark [data-mint-content] {
+  background-color: #171717 !important;
+}
+
+/* Override gradient backgrounds */
+.dark .sticky.top-0.bg-gradient-to-b,
+.dark [class*="bg-gradient-to-b"][class*="from-background-dark"] {
+  background: linear-gradient(to bottom, #171717, #171717) !important;
+  background-image: linear-gradient(to bottom, #171717, #171717) !important;
+}
+
+/* Sidebar scrollbar */
+.dark [data-sidebar] ::-webkit-scrollbar,
+.dark aside ::-webkit-scrollbar,
+.dark nav ::-webkit-scrollbar {
+  width: 8px !important;
+}
+
+.dark [data-sidebar] ::-webkit-scrollbar-track,
+.dark aside ::-webkit-scrollbar-track,
+.dark nav ::-webkit-scrollbar-track {
+  background: #171717 !important;
+}
+
+.dark [data-sidebar] ::-webkit-scrollbar-thumb,
+.dark aside ::-webkit-scrollbar-thumb,
+.dark nav ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2) !important;
+  border-radius: 4px !important;
+}
+
+.dark [data-sidebar] ::-webkit-scrollbar-thumb:hover,
+.dark aside ::-webkit-scrollbar-thumb:hover,
+.dark nav ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3) !important;
+}
+
+.dark [data-sidebar],
+.dark aside,
+.dark nav {
+  scrollbar-width: thin !important;
+  scrollbar-color: rgba(255, 255, 255, 0.2) #171717 !important;
+}
+
+/* Sidebar buttons and links */
+.dark [data-sidebar] button,
+.dark [data-sidebar] a,
+.dark aside button,
+.dark aside a,
+.dark nav button,
+.dark nav a {
+  color: hsl(240, 4.8%, 95.9%) !important;
+}
+
+/* Selected/active state in sidebar */
+.dark [data-sidebar] li[aria-current="page"],
+.dark [data-sidebar] [data-active="true"],
+.dark [data-sidebar] a[aria-current="page"],
+.dark [data-sidebar] a[data-active="true"],
+.dark aside [aria-current="page"],
+.dark aside [data-active="true"],
+.dark aside a[aria-current="page"],
+.dark nav [aria-current="page"],
+.dark nav [data-active="true"],
+.dark nav a[aria-current="page"] {
+  background-color: rgba(0, 52, 255, 0.15) !important;
+  color: #0034ff !important;
+  border-left: 2px solid #0034ff !important;
+}
+
+/* Hover state for sidebar items */
+.dark [data-sidebar] a:hover,
+.dark [data-sidebar] button:hover,
+.dark aside a:hover,
+.dark aside button:hover,
+.dark nav a:hover,
+.dark nav button:hover {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  color: hsl(240, 4.8%, 95.9%) !important;
+}
+
+.dark [data-sidebar] ul li a,
+.dark nav ul li a {
+  color: hsl(240, 4.8%, 95.9%) !important;
+}
+
+/* Card icons */
+.dark g[class*="card"] svg,
+.dark g[class*="card"] svg *,
+.dark [class*="card"] svg,
+.dark [class*="card"] svg *,
+.dark .card svg,
+.dark .card svg * {
+  fill: #0034ff !important;
+  color: #0034ff !important;
+  stroke: #0034ff !important;
+}
+
+.dark g[class*="card"] svg path,
+.dark [class*="card"] svg path,
+.dark .card svg path {
+  fill: #0034ff !important;
+  stroke: #0034ff !important;
+}
+
+.dark [data-component-part="icon"] svg,
+.dark [data-component-part="icon"] svg *,
+.dark [data-component-part="icon"] svg path {
+  fill: #0034ff !important;
+  color: #0034ff !important;
+  stroke: #0034ff !important;
+}
+
+/* Logo size */
+.nav-logo {
+  height: 20px !important;
+  width: auto !important;
+}

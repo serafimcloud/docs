@@ -1,0 +1,43 @@
+---
+title: Component Structure
+description: Organize files for a clean publish
+---
+
+## Minimal Layout
+
+```
+{component}/
+├── code.tsx
+├── demos/
+│   └── default/
+│       └── code.demo.tsx
+├── globals.css
+└── tailwind.config.js
+```
+
+## Rules
+
+- Keep logic in `code.tsx`, content in demos
+- Use props to customize behavior and content
+- Multiple demos allowed (e.g., `advanced/`)
+- Include realistic content and states in demos
+
+## Dependencies
+
+- Community components and npm packages are allowed
+- Declare and import what you use inside demos
+
+## Tips
+
+<Tip>
+**Prefer small, focused components** — They're easier to use and maintain.
+</Tip>
+
+<Tip>
+**Ensure responsive behavior** — Test on different screen sizes.
+</Tip>
+
+<Tip>
+**Provide sensible defaults** — Components should work out of the box.
+</Tip>
+

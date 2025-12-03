@@ -1,0 +1,101 @@
+---
+title: Themes
+description: Discover and copy color schemes from beautiful websites
+---
+
+Themes are color palettes and typography settings extracted from real websites. Apply them to your projects to quickly achieve a polished, professional look.
+
+## Finding Themes
+
+### Theme Types
+
+**Presets** — Curated themes ready to use. Hand-picked color combinations that work well together.
+
+**Websites** — Themes extracted from real websites. See exactly what colors and fonts your favorite sites use.
+
+### Browse Themes
+
+Open the command menu (`⌘K`) and select the **Themes** tab, or go to **Themes** in the sidebar.
+
+## What's in a Theme
+
+Each theme includes:
+
+- **Colors** — Background, foreground, primary, secondary, accent, and more
+- **Typography** — Font families for sans, serif, and monospace
+- **Borders** — Border radius values
+- **Shadows** — Shadow configurations
+
+### Theme Preview
+
+Click any theme card to see a full preview showing how colors work together in a sample UI.
+
+## Using Themes
+
+### Copy Theme Styles
+
+<Steps>
+  <Step title="Open a theme">
+    Click any theme card to open the preview
+  </Step>
+  <Step title="Copy CSS variables">
+    Copy the CSS variables to paste into your project's globals.css
+  </Step>
+  <Step title="Apply to your project">
+    The theme will apply to all components using CSS variables
+  </Step>
+</Steps>
+
+### With shadcn/ui
+
+If your project uses shadcn/ui, themes work out of the box. The CSS variables match shadcn's theming system:
+
+```css
+:root {
+  --background: 0 0% 100%;
+  --foreground: 222.2 84% 4.9%;
+  --primary: 222.2 47.4% 11.2%;
+  --secondary: 210 40% 96.1%;
+  /* ... more variables */
+}
+```
+
+### Light & Dark Modes
+
+Most themes include both light and dark mode variants. The preview lets you toggle between them to see how your UI will look in each mode.
+
+## Theme Details
+
+### Colors
+
+| Variable | Usage |
+|----------|-------|
+| `background` | Page background |
+| `foreground` | Main text color |
+| `primary` | Primary buttons, links |
+| `secondary` | Secondary elements |
+| `accent` | Highlights, hover states |
+| `muted` | Subtle backgrounds |
+| `card` | Card backgrounds |
+| `border` | Borders and dividers |
+
+### Typography
+
+Themes can include custom font stacks:
+- **Sans** — Used for body text and UI
+- **Serif** — For headings or editorial content
+- **Mono** — For code and technical content
+
+<Tip>
+**Match your brand** — Browse website themes to find colors that match your brand, then customize from there.
+</Tip>
+
+<CardGroup cols={2}>
+  <Card title="Components" icon="puzzle-piece" href="/community/components">
+    Browse React components
+  </Card>
+  <Card title="Screens" icon="image" href="/community/screens">
+    Explore app screenshots
+  </Card>
+</CardGroup>
+

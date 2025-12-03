@@ -1,0 +1,79 @@
+---
+title: Chat Modes & Commands
+description: How chat works with variants, inline commands, and generation modes
+---
+
+## Chat ↔ Variant
+
+Each variant (frame) can have multiple chats. Click the **+** button in the chat header to create a new chat for the same variant. View and switch between all chats for a variant in the chat history panel (similar to Cursor).
+
+### Multiple Chats per Variant
+
+You can create multiple chats for a single variant (branch):
+
+- **Create new chat** — Click the **+** button in the chat header to start a new conversation
+- **View chat history** — Access all chats for the current variant in the chat history panel
+- **Switch between chats** — Jump between different conversations to work on different aspects of the same feature
+- **Isolated contexts** — Each chat maintains its own context and conversation history
+
+This is useful when you want to:
+- Work on different parts of the same feature in separate conversations
+- Keep discussions about different approaches organized
+- Maintain separate contexts for different tasks
+
+### What is a Variant?
+
+A variant is a frame on your canvas. What it represents depends on your setup:
+
+- **Connected repository**: A variant is a branch in your real project with a live preview of your actual codebase
+- **Blank frames**: A variant is an empty project for iterating on ideas and exploring concepts
+
+Each variant can have multiple chats, and duplicating (forking) a variant keeps all chat histories in the copy.
+
+## Inline Commands (`@`)
+
+Type `@` in the chat to reference:
+
+- **@Codebase** — files from your connected GitHub repository
+- **@Variants** — components/variants (frames) on your canvas
+- **@References** — reference items you've added to context
+
+Start typing to search by name — the AI will instantly search through file names, frame names, variants, and references as you type.
+
+<Tip>
+Images: attach via the upload button to use as context.
+</Tip>
+
+## Modes
+
+### Iterate (default)
+
+A full-featured coding agent powered by frontier models — the same level of code quality as Cursor and Claude Code. It has access to standard coding tools like grep, terminal, file operations, and code generation.
+
+- **Direct code editing** — Edits the currently selected variant/frame in place
+- **Standard coding tools** — Uses grep, terminal, file operations, and more
+- **Frontier models** — Powered by the latest AI models for high-quality code generation
+- **One focused result** — Produces a single, focused implementation
+
+<Info>
+Learn more about Iterate mode in the [dedicated guide](/canvas/iterate-mode).
+</Info>
+
+### Plan
+
+Creates multiple implementation approaches for a feature. The AI researches components and apps, asks clarifying questions, then generates several plans. When you approve, each plan becomes a separate branch.
+
+- Researches components from 21st.dev and your favorite apps
+- Studies your codebase
+- Asks clarifying questions
+- Creates multiple implementation plans
+- Generates separate branches for each approved plan
+
+<Info>
+Learn more about Plan mode in the [dedicated guide](/canvas/plan-mode).
+</Info>
+
+<Tip>
+Use Plan mode when you want to explore different approaches. Use Iterate mode for direct edits and quick changes.
+</Tip>
+

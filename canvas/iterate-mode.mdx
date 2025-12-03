@@ -1,0 +1,83 @@
+---
+title: Iterate Mode
+description: Full-featured coding agent with standard tools
+---
+
+Iterate mode is a full-featured coding agent powered by frontier models — the same code quality as Cursor and Claude Code. It directly edits your project with access to standard coding tools like grep, terminal, file operations, and code generation.
+
+## How Iterate Mode Works
+
+Iterate mode works like a standard AI coding assistant. You describe what you need, and it edits the code directly in your current variant (frame).
+
+### Standard Coding Tools
+
+Iterate mode has access to all the tools you'd expect from a modern coding agent:
+
+- **Code generation** — Write new code, components, and features
+- **File operations** — Create, edit, delete, and move files
+- **Grep/search** — Search through your codebase to understand context
+- **Terminal** — Run commands, install packages, execute scripts
+- **Code analysis** — Understand existing code patterns and structure
+
+### Powered by Frontier Models
+
+Iterate mode uses the latest frontier AI models — the same level of code quality and understanding as Cursor and Claude Code. It writes production-ready code that fits your patterns and style.
+
+## When to Use Iterate Mode
+
+<CardGroup cols={2}>
+  <Card title="Quick Fixes" icon="wrench">
+    Fix bugs, update styles, or make small changes
+  </Card>
+  <Card title="Refactoring" icon="code">
+    Improve code structure, extract components, or optimize
+  </Card>
+  <Card title="Feature Updates" icon="plus">
+    Add functionality to existing features
+  </Card>
+  <Card title="Code Improvements" icon="arrow-up">
+    Enhance existing code based on feedback
+  </Card>
+</CardGroup>
+
+## Example Workflow
+
+1. **You request**: "Fix the button spacing in the header component"
+2. **AI analyzes**: Uses grep to find the header component, understands the current styling
+3. **AI edits**: Updates the spacing directly in the code
+4. **You see the change**: The variant updates with the fix applied
+
+Or:
+
+1. **You request**: "Add error handling to the API call in the user profile"
+2. **AI searches**: Finds the API call, understands the context
+3. **AI writes**: Adds try/catch blocks and error states
+4. **Done**: Error handling is now in place
+
+<Tip>
+Iterate mode is perfect for tasks you'd normally do in Cursor or Claude Code. For exploring multiple approaches, use [Plan mode](/canvas/plan-mode) instead.
+</Tip>
+
+## Working with Variants
+
+Each variant (frame) can have multiple chats in Iterate mode. Click the **+** button in the chat header to create a new chat for the same variant:
+
+- **Multiple chats** — Create separate conversations for different aspects of the same feature
+- **Chat history** — View and switch between all chats for a variant in the chat history panel
+- **Isolated contexts** — Each chat maintains its own conversation context
+- **Forking** — Duplicate a variant to keep all chat histories when exploring alternatives
+
+## Best Practices
+
+<Tip>
+**Be specific** — The more context you provide, the better the results. Reference specific files, components, or patterns.
+</Tip>
+
+<Tip>
+**Use @Codebase** — Mention files from your repository using `@Codebase` to give the AI better context about your codebase structure.
+</Tip>
+
+<Tip>
+**Iterate incrementally** — Make small, focused changes rather than large refactors. It's easier to review and understand.
+</Tip>
+

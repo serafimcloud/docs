@@ -1,0 +1,132 @@
+---
+title: GitHub Integration
+description: Connect and run your GitHub repositories in Canvas
+---
+
+21st runs your actual GitHub repository — not just references it. Each variant becomes a local branch with a live preview of your running application. Branches stay local until you open a PR — only the selected branch gets published to GitHub when you create a pull request.
+
+## Why connect GitHub?
+
+- **Run your real application** — 21st clones and runs your actual repository
+- **Live previews** — See changes in a real running environment, not mockups
+- **Local branches** — Each variant is a local branch (not published to GitHub until you open a PR)
+- **Team collaboration** — Non-technical team members can contribute via PRs
+
+## Setup Process
+
+<Steps>
+  <Step title="Open Team Settings">
+    Navigate to **Team Settings → Integrations**
+  </Step>
+  <Step title="Enable GitHub">
+    In the **GitHub** card, click **Enable**
+  </Step>
+  <Step title="Grant access">
+    On GitHub, grant access to the app (organization or personal)
+  </Step>
+  <Step title="Select repository">
+    Select the repository you want to connect
+  </Step>
+  <Step title="Configure application path">
+    If you're working with a monorepo, specify the path to your application (e.g., `apps/web` or `packages/frontend`). For single-repo projects, leave this empty.
+  </Step>
+  <Step title="Set up build commands">
+    Configure how to install dependencies and run your app:
+    - **Install command**: e.g., `pnpm install`, `npm install`, or `yarn install`
+    - **Dev command**: e.g., `pnpm dev`, `npm run dev`, or `yarn dev`
+  </Step>
+  <Step title="Add environment variables">
+    Add any development environment variables your app needs (API keys, feature flags, etc.)
+  </Step>
+  <Step title="Wait for setup">
+    Wait for the repository to be cloned, dependencies installed, and the app to start. This usually takes a couple of minutes.
+  </Step>
+</Steps>
+
+Once setup is complete, you can start creating frames (variants) on your canvas. Each frame will be a local branch with a live preview. These branches stay local — they're only published to GitHub when you open a PR from the selected branch.
+
+## If You Don't Have GitHub Access
+
+If you don't have access to your organization's GitHub, you can delegate setup to a technical team member:
+
+1. Go to **Team Settings → Members**
+2. Invite a technical team member and give them admin access
+3. They can configure the GitHub integration
+4. Once set up, everyone on the team can use it — you don't need GitHub access to work in Canvas
+
+<Tip>
+This is perfect for non-technical team members who want to contribute but don't have GitHub access. A developer sets it up once, then everyone can use it.
+</Tip>
+
+## What You Get
+
+After the initial setup (usually a couple of minutes), you can:
+
+- **Create frames immediately** — Start creating variants on your canvas right away
+- **Local branches** — Each variant in Canvas is a local branch (not published to GitHub automatically)
+- **Live previews** — Your app runs in 21st, so you see real changes in real time
+- **Share previews** — Quickly share branch previews with colleagues and clients to get feedback on new features or prototypes
+- **Reference your codebase** — Use `@Codebase` in chat to reference files from your repo
+- **Create PRs** — Open a pull request from the selected branch to publish it to GitHub
+- **Work with your design system** — AI understands your components, patterns, and architecture
+
+## Sharing Previews
+
+Since 21st runs your real application and creates a live preview for each branch, you can quickly share previews with your team and clients:
+
+- **Get feedback fast** — Share a preview link so stakeholders can try new features before they're merged
+- **Client reviews** — Let clients see and test prototypes without waiting for deployment
+- **Team collaboration** — Get design and product feedback from non-technical team members
+- **No deployment needed** — Preview branches instantly without setting up staging environments
+
+<Tip>
+This is especially useful for getting quick feedback on new features or prototypes. Share the preview, collect feedback, iterate, and only create a PR when you're ready.
+</Tip>
+
+## Use Cases for Non-Technical Teams
+
+21st is perfect for enabling non-technical team members to contribute to your product:
+
+### Documentation Teams
+
+Connect your documentation repository (Mintlify, Docusaurus, etc.):
+
+- **Support team** can edit documentation, fix typos, update content
+- **They create PRs** directly from Canvas
+- **Technical team** only reviews and merges — no need to write docs themselves
+
+### Marketing & Growth Teams
+
+Connect your marketing website repository:
+
+- **Growth team** can create landing pages, update copy, add new sections
+- **They work visually** in Canvas without touching code
+- **Engineers** stay focused on product — no more "can you update the homepage copy?" requests
+
+### Product Teams
+
+Connect your main product repository:
+
+- **Product managers** can prototype features, test UX changes
+- **Designers** can implement their designs directly
+- **Everyone creates PRs** — engineers review and merge, not implement
+
+<Tip>
+The key is that non-technical team members can contribute through PRs, while engineers focus on code review and architecture — not content updates.
+</Tip>
+
+## Getting Your Code
+
+When working with a connected repository, branches are local by default. They're only published to GitHub when you open a PR:
+
+- **Open a Pull Request** — Select the branch you want to publish, then create a PR. Only the selected branch will be pushed to GitHub and become available for review
+- **Copy Git Patch** — Get a patch file that you can apply to your local repository using `git apply`
+
+<Tip>
+You can work on multiple branches locally, iterate on different approaches, and only publish the one you want to share. The selected branch is the one that will be published when you create a PR.
+</Tip>
+
+<Warning>
+21st never commits directly to your repository. Branches stay local until you explicitly open a PR. You always control when changes are published and integrated.
+</Warning>
+

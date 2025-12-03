@@ -1,0 +1,85 @@
+---
+title: Plan Mode
+description: Get multiple implementation approaches with AI research
+---
+
+Plan mode helps you explore different ways to implement a feature. The AI researches how other products solve similar problems, studies your codebase to understand your constraints, asks clarifying questions, then proposes several implementation approaches — each with reasoning about why it works.
+
+When you approve a plan, it becomes a working branch you can see, test, and refine. Compare multiple approaches side by side and merge the best parts.
+
+## How Plan Mode Works
+
+<Steps>
+  <Step title="Research">
+    Before asking questions, the AI automatically researches:
+    - Components from the 21st.dev library
+    - Your favorite apps from the [community screens](https://21st.dev/community/screens) section
+    Bookmark apps at https://21st.dev/community/screens so the AI understands which apps inspire you.
+  </Step>
+  <Step title="Study Your Project">
+    The AI analyzes your codebase to understand your patterns, components, and architecture.
+  </Step>
+  <Step title="Ask Clarifying Questions">
+    The AI asks questions to better understand your requirements and preferences.
+  </Step>
+  <Step title="Create Multiple Plans">
+    The AI generates several implementation plans, each with a different approach or variation.
+  </Step>
+  <Step title="Review and Approve">
+    Review the plans and select which ones you want to implement.
+  </Step>
+  <Step title="Create Branches">
+    For each approved plan, the AI creates a new branch (frame) in your canvas, each implementing a different variation of the feature.
+  </Step>
+</Steps>
+
+## When to Use Plan Mode
+
+<CardGroup cols={2}>
+  <Card title="Explore Approaches" icon="lightbulb">
+    When you want to see multiple ways to implement a feature
+  </Card>
+  <Card title="Product Decisions" icon="check-circle">
+    When you need to compare different UX or architectural approaches
+  </Card>
+  <Card title="Learn from Others" icon="book">
+    When you want the AI to research how other apps solve similar problems
+  </Card>
+  <Card title="A/B Testing" icon="flask">
+    When you want to create multiple variations to test
+  </Card>
+</CardGroup>
+
+## Setting Up Favorite Apps
+
+To help the AI understand your design preferences:
+
+1. Browse screens at [21st.dev/community/screens](https://21st.dev/community/screens)
+2. Bookmark apps that inspire you or match your style
+3. The AI will reference these when researching solutions in Plan mode
+
+<Tip>
+The more apps you bookmark, the better the AI understands your taste and can suggest solutions that match your preferences.
+</Tip>
+
+## Example Workflow
+
+Imagine you need to add a user profile page. Here's how Plan mode helps:
+
+1. **You request**: "Add a user profile page"
+2. **AI researches**: It looks at components from 21st.dev, studies your bookmarked apps (maybe Linear's clean profiles, Stripe's detailed views, Vercel's minimal approach), and analyzes how similar products handle user profiles.
+3. **AI asks**: "Should it include an activity feed? What information is most important to your users?"
+4. **AI creates 3 plans**:
+   - Plan A: Minimal profile with key stats (inspired by Vercel's approach)
+   - Plan B: Full profile with activity timeline (similar to Linear)
+   - Plan C: Card-based layout with tabs (more traditional, easier to scan)
+5. **You approve Plans A and C** — you want to compare minimal vs. detailed
+6. **AI creates 2 branches** — each with working code implementing a different approach
+7. **You compare visually** in the canvas, see which feels right, and merge the best parts
+
+You get working code for each approach, so you can make an informed decision by comparing real implementations.
+
+<Tip>
+After Plan mode creates branches, you can use Iterate mode to refine each implementation or merge ideas from different branches.
+</Tip>
+

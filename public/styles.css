@@ -1,0 +1,384 @@
+/* Custom styles for 21st documentation - Dark theme background override */
+
+/* Hide Guides selector/tabs if only one section */
+[data-tabs],
+[data-tab-selector],
+button[aria-label*="Guides"],
+button[aria-label*="guides"],
+[role="tablist"],
+[role="tab"][aria-label*="Guides"],
+[role="tab"][aria-label*="guides"] {
+  display: none !important;
+}
+
+/* Override CSS variables for dark theme */
+:root.dark {
+  --background-dark: 23 23 23; /* #171717 in RGB format for Tailwind */
+  --primary: 0 52 255; /* #0034FF in RGB format for Tailwind */
+  --primary-light: 0 52 255; /* #0034FF in RGB format for Tailwind */
+}
+
+.dark {
+  --background-dark: 23 23 23 !important;
+  --primary: 0 52 255 !important;
+  --primary-light: 0 52 255 !important;
+}
+
+/* Selected sidebar items - use neutral light color instead of blue */
+.dark .text-primary-light,
+.dark [class*="text-primary-light"] {
+  color: hsl(240, 4.8%, 95.9%) !important;
+  color: #f5f5f5 !important;
+}
+
+.dark .bg-primary-light\/10,
+.dark [class*="bg-primary-light/10"],
+.dark .bg-primary\/10,
+.dark [class*="bg-primary/10"] {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Make selected sidebar items more visible with neutral colors */
+.dark a[class*="bg-primary-light/10"],
+.dark a[class*="bg-primary/10"],
+.dark g[class*="bg-primary-light/10"],
+.dark g[class*="bg-primary/10"] {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  color: hsl(240, 4.8%, 95.9%) !important;
+  color: #f5f5f5 !important;
+}
+
+/* Ensure text is visible on selected items - use neutral white */
+.dark a.text-primary-light,
+.dark a[class*="text-primary-light"],
+.dark g.text-primary-light,
+.dark g[class*="text-primary-light"] {
+  color: hsl(240, 4.8%, 95.9%) !important;
+  color: #f5f5f5 !important;
+}
+
+/* Override Tailwind gradient variables */
+.dark [class*="from-background-dark"] {
+  --tw-gradient-from: rgb(23 23 23 / 1) !important;
+  --tw-gradient-to: rgb(23 23 23 / 0) !important;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+}
+
+/* Force background color */
+.dark body {
+  background-color: #171717 !important;
+}
+
+.dark main,
+.dark [role="main"],
+.dark article {
+  background-color: #171717 !important;
+}
+
+.dark [data-sidebar],
+.dark aside {
+  background-color: #171717 !important;
+}
+
+.dark .mint-content,
+.dark [data-mint-content] {
+  background-color: #171717 !important;
+}
+
+/* Override gradient backgrounds */
+.dark .sticky.top-0.bg-gradient-to-b,
+.dark [class*="bg-gradient-to-b"][class*="from-background-dark"] {
+  background: linear-gradient(to bottom, #171717, #171717) !important;
+  background-image: linear-gradient(to bottom, #171717, #171717) !important;
+}
+
+/* Card background in dark theme */
+.dark .card[class*="bg-background-dark"],
+.dark g[class*="card"][class*="bg-background-dark"],
+.dark [class*="card"][class*="bg-background-dark"] {
+  background-color: #171717 !important;
+}
+
+/* Sidebar scrollbar */
+.dark [data-sidebar] ::-webkit-scrollbar,
+.dark aside ::-webkit-scrollbar,
+.dark nav ::-webkit-scrollbar {
+  width: 8px !important;
+}
+
+.dark [data-sidebar] ::-webkit-scrollbar-track,
+.dark aside ::-webkit-scrollbar-track,
+.dark nav ::-webkit-scrollbar-track {
+  background: #171717 !important;
+}
+
+.dark [data-sidebar] ::-webkit-scrollbar-thumb,
+.dark aside ::-webkit-scrollbar-thumb,
+.dark nav ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2) !important;
+  border-radius: 4px !important;
+}
+
+.dark [data-sidebar] ::-webkit-scrollbar-thumb:hover,
+.dark aside ::-webkit-scrollbar-thumb:hover,
+.dark nav ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3) !important;
+}
+
+.dark [data-sidebar],
+.dark aside,
+.dark nav {
+  scrollbar-width: thin !important;
+  scrollbar-color: rgba(255, 255, 255, 0.2) #171717 !important;
+}
+
+/* Sidebar buttons and links */
+.dark [data-sidebar] button,
+.dark [data-sidebar] a,
+.dark aside button,
+.dark aside a,
+.dark nav button,
+.dark nav a {
+  color: hsl(240, 4.8%, 95.9%) !important;
+}
+
+/* Selected/active state in sidebar - use neutral colors */
+.dark [data-sidebar] li[aria-current="page"],
+.dark [data-sidebar] [data-active="true"],
+.dark [data-sidebar] a[aria-current="page"],
+.dark [data-sidebar] a[data-active="true"],
+.dark aside [aria-current="page"],
+.dark aside [data-active="true"],
+.dark aside a[aria-current="page"],
+.dark nav [aria-current="page"],
+.dark nav [data-active="true"],
+.dark nav a[aria-current="page"] {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  color: hsl(240, 4.8%, 95.9%) !important;
+  color: #f5f5f5 !important;
+  border-left: 2px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Hover state for sidebar items */
+.dark [data-sidebar] a:hover,
+.dark [data-sidebar] button:hover,
+.dark aside a:hover,
+.dark aside button:hover,
+.dark nav a:hover,
+.dark nav button:hover {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  color: hsl(240, 4.8%, 95.9%) !important;
+}
+
+.dark [data-sidebar] ul li a,
+.dark nav ul li a {
+  color: hsl(240, 4.8%, 95.9%) !important;
+}
+
+/* Card icons - make them visible on dark background */
+.dark g[class*="card"] svg,
+.dark g[class*="card"] svg *,
+.dark [class*="card"] svg,
+.dark [class*="card"] svg *,
+.dark .card svg,
+.dark .card svg *,
+.dark g.card svg,
+.dark g.card svg * {
+  fill: #0034FF !important;
+  color: #0034FF !important;
+  stroke: #0034FF !important;
+}
+
+.dark g[class*="card"] svg path,
+.dark [class*="card"] svg path,
+.dark .card svg path,
+.dark g.card svg path {
+  fill: #0034FF !important;
+  stroke: #0034FF !important;
+}
+
+.dark [data-component-part="icon"] svg,
+.dark [data-component-part="icon"] svg *,
+.dark [data-component-part="icon"] svg path {
+  fill: #0034FF !important;
+  color: #0034FF !important;
+  stroke: #0034FF !important;
+}
+
+/* Override any currentColor usage in card icons */
+.dark g[class*="card"] svg[fill="currentColor"],
+.dark [class*="card"] svg[fill="currentColor"],
+.dark .card svg[fill="currentColor"] {
+  fill: #0034FF !important;
+  color: #0034FF !important;
+}
+
+.dark g[class*="card"] svg path[fill="currentColor"],
+.dark [class*="card"] svg path[fill="currentColor"],
+.dark .card svg path[fill="currentColor"] {
+  fill: #0034FF !important;
+}
+
+/* Force icon color for all SVG elements inside cards */
+.dark g.card svg *,
+.dark [class*="card"] svg * {
+  fill: #0034FF !important;
+  color: #0034FF !important;
+  stroke: #0034FF !important;
+}
+
+/* Global icon color override for dark theme cards */
+.dark g[class*="card"],
+.dark [class*="card"] {
+  color: #ffffff !important;
+}
+
+.dark g[class*="card"] svg,
+.dark [class*="card"] svg {
+  color: #0034FF !important;
+}
+
+/* Ensure all SVG paths and shapes in cards are visible */
+.dark g[class*="card"] svg path,
+.dark g[class*="card"] svg circle,
+.dark g[class*="card"] svg rect,
+.dark g[class*="card"] svg polygon,
+.dark [class*="card"] svg path,
+.dark [class*="card"] svg circle,
+.dark [class*="card"] svg rect,
+.dark [class*="card"] svg polygon {
+  fill: #0034FF !important;
+  stroke: #0034FF !important;
+}
+
+/* AGGRESSIVE: Target all SVG elements inside g.card or elements with card class */
+.dark g.card svg,
+.dark g.card svg *,
+.dark g.card svg path,
+.dark g.card svg circle,
+.dark g.card svg rect,
+.dark g.card svg polygon,
+.dark g.card svg line,
+.dark g.card svg polyline,
+.dark g.card svg ellipse,
+.dark g.card svg g {
+  fill: #0034FF !important;
+  stroke: #0034FF !important;
+  color: #0034FF !important;
+}
+
+/* Target SVG elements that are direct children of g.card */
+.dark g.card > svg,
+.dark g.card > svg *,
+.dark g.card > svg path,
+.dark g.card > svg circle,
+.dark g.card > svg rect {
+  fill: #0034FF !important;
+  stroke: #0034FF !important;
+  color: #0034FF !important;
+}
+
+/* Target any element with card class and its SVG children */
+.dark [class*="card"] svg,
+.dark [class*="card"] svg *,
+.dark [class*="card"] svg path,
+.dark [class*="card"] svg circle,
+.dark [class*="card"] svg rect,
+.dark [class*="card"] svg polygon,
+.dark [class*="card"] svg line,
+.dark [class*="card"] svg polyline,
+.dark [class*="card"] svg ellipse,
+.dark [class*="card"] svg g {
+  fill: #0034FF !important;
+  stroke: #0034FF !important;
+  color: #0034FF !important;
+}
+
+/* Override fill attribute directly */
+.dark g.card svg[fill],
+.dark g.card svg *[fill],
+.dark [class*="card"] svg[fill],
+.dark [class*="card"] svg *[fill] {
+  fill: #0034FF !important;
+}
+
+/* Force color for any text or currentColor usage */
+.dark g.card,
+.dark g.card * {
+  color: #0034FF !important;
+}
+
+.dark g.card svg,
+.dark g.card svg * {
+  color: #0034FF !important;
+}
+
+/* ULTRA AGGRESSIVE: Override everything, including inline styles */
+.dark g.card svg *[style*="fill"],
+.dark g.card svg *[style*="color"],
+.dark [class*="card"] svg *[style*="fill"],
+.dark [class*="card"] svg *[style*="color"] {
+  fill: #0034FF !important;
+  color: #0034FF !important;
+}
+
+/* Override CSS variables that might be used for icon colors */
+.dark g.card {
+  --icon-color: #0034FF !important;
+  --fill-color: #0034FF !important;
+  --stroke-color: #0034FF !important;
+}
+
+.dark g.card svg {
+  --icon-color: #0034FF !important;
+  --fill-color: #0034FF !important;
+  --stroke-color: #0034FF !important;
+}
+
+/* Target all possible icon containers */
+.dark g.card > *:first-child svg,
+.dark g.card > *:first-child svg *,
+.dark g.card > *:first-child svg path,
+.dark g.card > *:first-child svg circle {
+  fill: #0034FF !important;
+  stroke: #0034FF !important;
+  color: #0034FF !important;
+}
+
+/* Target elements before card-content-container */
+.dark g.card > *:not([data-component-part="card-content-container"]) svg,
+.dark g.card > *:not([data-component-part="card-content-container"]) svg *,
+.dark g.card > *:not([data-component-part="card-content-container"]) svg path {
+  fill: #0034FF !important;
+  stroke: #0034FF !important;
+  color: #0034FF !important;
+}
+
+/* FIX: Icons use mask-image, need to override background-color only */
+.dark [data-component-part="card-icon"] svg {
+  background-color: #0034FF !important;
+  /* Don't override background, only background-color to preserve mask-image */
+}
+
+/* Override Tailwind classes for icon colors */
+.dark [data-component-part="card-icon"].fill-gray-100,
+.dark [data-component-part="card-icon"].text-gray-100,
+.dark [data-component-part="card-icon"][class*="fill-gray-100"],
+.dark [data-component-part="card-icon"][class*="text-gray-100"] {
+  fill: #0034FF !important;
+  color: #0034FF !important;
+}
+
+/* Override bg-primary-light for dark theme - only background-color */
+.dark [data-component-part="card-icon"] svg.bg-primary-light,
+.dark [data-component-part="card-icon"] svg[class*="bg-primary-light"] {
+  background-color: #0034FF !important;
+  /* Keep mask-image intact */
+}
+
+/* Target SVG with mask-image - only set background-color */
+.dark [data-component-part="card-icon"] svg[style*="mask-image"] {
+  background-color: #0034FF !important;
+  /* Don't touch mask-image or other background properties */
+}
+

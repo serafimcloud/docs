@@ -1,0 +1,27 @@
+/* Dark theme background override - match Canvas style (#171717) */
+.dark body {
+  background-color: #171717 !important;
+}
+
+.dark main,
+.dark [role="main"],
+.dark article {
+  background-color: #171717 !important;
+}
+
+.dark [data-sidebar],
+.dark aside {
+  background-color: #171717 !important;
+}
+
+/* Ensure content areas also use the same background */
+.dark .mint-content,
+.dark [data-mint-content] {
+  background-color: #171717 !important;
+}
+
+/* Override any other background colors in dark mode */
+.dark [class*="bg-"],
+.dark [style*="background"] {
+  background-color: #171717 !important;
+}
