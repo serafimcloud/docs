@@ -1,37 +1,48 @@
 ---
 title: Welcome to 21st
-description: Visually work on your frontend. Get AI-powered product design.
+description: Visual frontend canvas for your repo, plus a component library for AI-assisted UI building.
 ---
 
-21st is a visual frontend development tool. Work on your repository in a canvas where each frame is a branch, see changes visually, and get AI-powered product design for your features.
+## Canvas: visual frontend work on your repo
 
-## Two Ways to Work
+21st is a **visual frontend canvas for your real repository**. Canvas turns your repository into a visual workspace where each frame is a branch. You work on real code with live previews, use **Iterate mode** for direct edits, and **Plan mode** when you want multiple implementation approaches to compare side by side — all before you open a PR.
 
-**Visual Frontend Work** — Work on your repository in a canvas where each frame is a branch. See your changes visually, iterate quickly, and compare approaches side by side.
+**Your core loop:**
 
-**Product Design** — Use Plan mode to explore multiple implementation approaches. The AI researches components from 21st.dev and your favorite apps, studies your codebase, asks clarifying questions, then creates several plans with different variations. When you approve, each plan becomes a working branch you can compare and refine.
+- Describe what you want in chat — from small tweaks to new flows
+- Let AI propose edits or multiple variants, grounded in your repo and context
+- Review diffs and previews on the canvas, then iterate again or open a PR
 
-## How It Works
+## Community: components for Canvas and AI agents
 
-1. **Connect Your Repository** — Link your GitHub repository. 21st scans your components, design system, and patterns to understand your codebase.
+On top of Canvas, 21st includes a **Community** library of open-source React/Tailwind components, real app screens, and themes that you can use inside Canvas or with any AI coding assistant (Cursor, Claude Code, Lovable, etc.).
 
-2. **Choose Your Mode** — Use Iterate mode for direct code editing, or Plan mode to explore multiple implementation approaches with AI research.
+- Copy components and drop them into your repo via Canvas or your editor
+- Use component links and prompts directly in Canvas chat as building blocks
+- Paste prompts into AI coding assistants like Cursor, Claude Code, Lovable, or others to generate variations in their environments
 
-3. **Work Visually** — See your changes in real-time, compare multiple approaches side by side, and iterate quickly in the canvas.
+## Who is 21st for?
 
-4. **Get Your Code** — Create a PR for connected repos, or download/copy code for blank frames. 21st never commits directly — you control when changes are integrated.
+- **Frontend engineers** — Build and refactor UI faster on a live repo with an AI coding agent.
+- **Designers** — Turn ideas, references, and screenshots into high-fidelity React components.
+- **Product teams & founders** — Prototype, compare variants, and collect feedback on real running UIs.
 
-## Choose Your Path
+## What makes 21st different?
 
-<CardGroup cols={3}>
+- **Frames as branches** — Every Canvas frame maps to a Git branch or empty project variant.
+- **Works on your real codebase** — Run your app inside 21st, not just mockups.
+- **Community of real components** — Not just screenshots: installable, remixable React code.
+- **AI that understands context** — Combines your repo, components library, and inspiration screens.
+
+## Jump in
+
+<CardGroup cols={2}>
   <Card title="Build with Canvas" icon="wand-magic-sparkles" href="/canvas">
-    AI-powered UI building tool with GitHub and Cursor integrations. Create beautiful interfaces with intelligent assistance.
+    Visual frontend work on your repository with AI-assisted iteration and
+    planning.
   </Card>
   <Card title="Use Community Components" icon="users" href="/community">
-    Browse and install thousands of high-quality React components created by developers worldwide.
-  </Card>
-  <Card title="Publish Components" icon="rocket" href="/publishing/quick-start">
-    Share your components with the community and earn from their usage through our monetization system.
+    Browse and install high-quality React components, screens, and themes.
   </Card>
 </CardGroup>
 
@@ -40,48 +51,82 @@ description: Visually work on your frontend. Get AI-powered product design.
 ### Canvas
 
 <CardGroup cols={2}>
-  <Card title="Quick Start" icon="rocket" href="/canvas/quick-start">
-    Get started with Canvas in minutes
+  <Card title="Canvas Overview" icon="wand-magic-sparkles" href="/canvas">
+    Learn how frames, branches, and previews work together.
   </Card>
-  <Card title="Chat Modes & Commands" icon="comments" href="/canvas/ai-chat">
-    Iterate vs Plan mode, inline @commands
+  <Card title="Quick Start" icon="rocket" href="/canvas/quick-start">
+    Get started with Canvas in minutes.
   </Card>
   <Card title="Iterate Mode" icon="code" href="/canvas/iterate-mode">
-    Full-featured coding agent with standard tools
+    Direct AI-powered edits on your repo.
   </Card>
   <Card title="Plan Mode" icon="list-check" href="/canvas/plan-mode">
-    Get multiple implementation approaches with AI research
+    Explore multiple implementation approaches.
   </Card>
-  <Card title="Context Management" icon="layer-group" href="/canvas/context-management">
-    Add on-canvas items, images, and @Codebase
+  <Card title="Chat Modes & Commands" icon="comments" href="/canvas/ai-chat">
+    Learn about inline @commands and modes.
   </Card>
-  <Card title="Version History" icon="clock-rotate-left" href="/canvas/versions">
-    Versions dialog and restore checkpoints
+  <Card
+    title="GitHub Integration"
+    icon="github"
+    href="/canvas/github-integration"
+  >
+    Connect and run your repository in Canvas.
   </Card>
-  <Card title="GitHub Integration Setup" icon="github" href="/canvas/github-integration">
-    Enable, authorize, index your repo
+  <Card
+    title="Context Management"
+    icon="layer-group"
+    href="/canvas/context-management"
+  >
+    Add on-canvas items, images, and @Codebase.
   </Card>
-</CardGroup>
-
-### Publishing
-
-<CardGroup cols={2}>
-  <Card title="Publish Your First Component" icon="upload" href="/publishing/quick-start">
-    Share your components and earn
+  <Card
+    title="Getting Your Code"
+    icon="file-export"
+    href="/canvas/getting-code"
+  >
+    Learn how to create PRs, patches, and downloads.
   </Card>
-  <Card title="Quality Guidelines" icon="check-double" href="/publishing/quality-guidelines">
-    Follow best practices for publishing
+  <Card title="Design Mode" icon="palette" href="/canvas/design-mode">
+    Visual no-code editor for styling.
   </Card>
-  <Card title="Component Structure" icon="folder-tree" href="/publishing/component-structure">
-    Recommended file layout
+  <Card
+    title="Version History"
+    icon="clock-rotate-left"
+    href="/canvas/versions"
+  >
+    Versions dialog and restore checkpoints.
+  </Card>
+  <Card
+    title="Keyboard Shortcuts"
+    icon="keyboard"
+    href="/canvas/keyboard-shortcuts"
+  >
+    Complete shortcuts reference.
   </Card>
 </CardGroup>
 
 ### Community
 
-<CardGroup cols={1}>
-  <Card title="Community" icon="globe" href="/community">
-    Explore the 21st community
+<CardGroup cols={2}>
+  <Card title="Community Overview" icon="users" href="/community">
+    Discover and use open-source React components.
+  </Card>
+  <Card title="Components" icon="puzzle-piece" href="/community/components">
+    Browse production-ready React/Tailwind components.
+  </Card>
+  <Card title="Screens" icon="image" href="/community/screens">
+    Explore real app UI screenshots.
+  </Card>
+  <Card title="Themes" icon="palette" href="/community/themes">
+    Copy color schemes and typography.
+  </Card>
+  <Card
+    title="Keyboard Shortcuts"
+    icon="keyboard"
+    href="/community/keyboard-shortcuts"
+  >
+    Navigate Community faster with hotkeys.
   </Card>
 </CardGroup>
 

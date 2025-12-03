@@ -199,3 +199,9 @@
   [class*="stable-scrollbar-gutter"][class*="overflow-auto"]::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.3) !important;
 }
+
+/* Fix low contrast bg-white/10 elements in dark theme */
+.dark [class*="bg-white/10"],
+.dark [class*="bg-white\\/10"] {
+  background-color: rgba(255, 255, 255, 0.25) !important;
+}

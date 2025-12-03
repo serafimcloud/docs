@@ -34,13 +34,14 @@
         "pages": [
           "canvas/index",
           "canvas/quick-start",
+          "canvas/github-integration",
           "canvas/ai-chat",
           "canvas/iterate-mode",
           "canvas/plan-mode",
           "canvas/context-management",
           "canvas/design-mode",
           "canvas/versions",
-          "canvas/github-integration",
+          "canvas/getting-code",
           "canvas/keyboard-shortcuts"
         ]
       },
