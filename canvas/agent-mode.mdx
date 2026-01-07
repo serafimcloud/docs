@@ -1,17 +1,17 @@
 ---
-title: Iterate Mode
+title: Agent Mode
 description: Full-featured coding agent with standard tools
 ---
 
-Iterate mode is a full-featured coding agent powered by frontier models — the same code quality as Cursor and Claude Code. It directly edits your project with access to standard coding tools like grep, terminal, file operations, and code generation.
+Agent mode is a full-featured coding agent powered by frontier models — the same code quality as Cursor and Claude Code. It directly edits your prototype with access to standard coding tools like grep, terminal, file operations, and code generation.
 
-## How Iterate Mode Works
+## How Agent Mode Works
 
-Iterate mode works like a standard AI coding assistant. You describe what you need, and it edits the code directly in your current variant (frame).
+Agent mode works like a standard AI coding assistant. You describe what you need, and it edits the code directly in your current prototype (frame).
 
 ### Standard Coding Tools
 
-Iterate mode has access to all the tools you'd expect from a modern coding agent:
+Agent mode has access to all the tools you'd expect from a modern coding agent:
 
 - **Code generation** — Write new code, components, and features
 - **File operations** — Create, edit, delete, and move files
@@ -21,9 +21,9 @@ Iterate mode has access to all the tools you'd expect from a modern coding agent
 
 ### Powered by Frontier Models
 
-Iterate mode uses the latest frontier AI models — the same level of code quality and understanding as Cursor and Claude Code. It writes production-ready code that fits your patterns and style.
+Agent mode uses the latest frontier AI models — the same level of code quality and understanding as Cursor and Claude Code. It writes production-ready code that fits your patterns and style.
 
-## When to Use Iterate Mode
+## When to Use Agent Mode
 
 <CardGroup cols={2}>
   <Card title="Quick Fixes" icon="wrench">
@@ -45,7 +45,7 @@ Iterate mode uses the latest frontier AI models — the same level of code quali
 1. **You request**: "Fix the button spacing in the header component"
 2. **AI analyzes**: Uses grep to find the header component, understands the current styling
 3. **AI edits**: Updates the spacing directly in the code
-4. **You see the change**: The variant updates with the fix applied
+4. **You see the change**: The prototype updates with the fix applied
 
 Or:
 
@@ -55,15 +55,12 @@ Or:
 4. **Done**: Error handling is now in place
 
 <Tip>
-Iterate mode is perfect for tasks you'd normally do in Cursor or Claude Code. For exploring multiple approaches, use [Plan mode](/canvas/plan-mode) instead.
+Agent mode is perfect for tasks you'd normally do in Cursor or Claude Code. For creating multiple variations at once, use [Prototype mode](/canvas/prototype-mode) instead.
 </Tip>
 
-## Working with Variants
+## Working with Prototypes
 
-Each variant (frame) can have multiple chats in Iterate mode, with separate
-contexts per conversation. For details on how chats relate to variants and how
-to manage multiple chats, see
-[Chat Modes & Commands](/canvas/ai-chat).
+Each prototype (frame) can have multiple chats in Agent mode, with separate contexts per conversation. For details on how chats relate to prototypes and how to manage multiple chats, see [Chat Modes & Commands](/canvas/ai-chat).
 
 ## Best Practices
 
@@ -72,10 +69,9 @@ to manage multiple chats, see
 </Tip>
 
 <Tip>
-**Use @Codebase** — Mention files from your repository using `@Codebase` to give the AI better context about your codebase structure.
+**Use @Codebase** — When working with a connected repository, mention files using `@Codebase` to give the AI better context about your codebase structure.
 </Tip>
 
 <Tip>
 **Iterate incrementally** — Make small, focused changes rather than large refactors. It's easier to review and understand.
 </Tip>
-
