@@ -34,22 +34,6 @@
         ]
       },
       {
-        "group": "Canvas",
-        "pages": [
-          "canvas/index",
-          "canvas/quick-start",
-          "canvas/github-integration",
-          "canvas/ai-chat",
-          "canvas/agent-mode",
-          "canvas/prototype-mode",
-          "canvas/context-management",
-          "canvas/design-mode",
-          "canvas/versions",
-          "canvas/getting-code",
-          "canvas/keyboard-shortcuts"
-        ]
-      },
-      {
         "group": "Community",
         "pages": [
           "community/index",
