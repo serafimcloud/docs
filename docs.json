@@ -34,6 +34,16 @@
         ]
       },
       {
+        "group": "Magic Chat",
+        "pages": [
+          "magic-chat/index",
+          "magic-chat/quick-start",
+          "magic-chat/pricing",
+          "magic-chat/manage-subscription",
+          "magic-chat/keyboard-shortcuts"
+        ]
+      },
+      {
         "group": "Community",
         "pages": [
           "community/index",
