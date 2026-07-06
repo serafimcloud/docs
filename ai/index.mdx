@@ -1,0 +1,70 @@
+---
+title: Overview
+description: Generate UI from a prompt, compare multiple drafts, and copy production-ready code.
+icon: "/icons/nav/magic-chat.svg"
+---
+
+<Frame>
+  <video
+    autoPlay
+    muted
+    playsInline
+    className="w-full rounded-2xl"
+    src="/videos/21st-ai.mp4"
+  />
+</Frame>
+
+**21st AI** turns a text prompt into working UI. Instead of one answer, it generates several drafts at once so you can compare and pick the direction you like, then refine your choice in plain language.
+
+## The core loop
+
+<Steps>
+  <Step title="Describe what you want">
+    Write a prompt — a landing hero, a pricing table, a settings page. Attach
+    images or reference a marketplace component as a starting point.
+  </Step>
+  <Step title="Get multiple drafts">
+    21st generates several variations in parallel so you can compare approaches
+    side by side instead of iterating on a single guess.
+  </Step>
+  <Step title="Pick and refine">
+    Choose your favorite draft and refine it with follow-up instructions
+    ("make it bolder", "add a toggle", "use this theme").
+  </Step>
+  <Step title="Take the code">
+    Copy the code or a paste-ready prompt and drop it into your project, editor,
+    or AI agent.
+  </Step>
+</Steps>
+
+## Two ways to generate
+
+<CardGroup cols={2}>
+  <Card title="Sketch mode" icon="/icons/nav/sketch.svg" href="/ai/generation#sketch-mode">
+    Fast HTML/Tailwind drafts rendered in the browser. Best for exploring layout
+    and visual direction quickly.
+  </Card>
+  <Card title="Code mode" icon="/icons/nav/code.svg" href="/ai/generation#code-mode">
+    Full React/shadcn components with a live preview and multi-turn editing. Best
+    when you want real, installable code.
+  </Card>
+</CardGroup>
+
+## Where you can use it
+
+<CardGroup cols={3}>
+  <Card title="Web" icon="/icons/nav/globe.svg" href="https://21st.dev/ai">
+    Generate and refine at 21st.dev/ai.
+  </Card>
+  <Card title="CLI" icon="/icons/nav/terminal.svg" href="/cli">
+    `21st generate`, `iterate`, and `take` from your terminal.
+  </Card>
+  <Card title="MCP" icon="/icons/nav/cable.svg" href="/ai/mcp">
+    The same generation tools inside Cursor, Claude, and VS Code.
+  </Card>
+</CardGroup>
+
+<Info>
+Generation uses **credits**. Search and browsing are free; each generation and
+refinement draws from your monthly credits. See [Pricing & Credits](/ai/pricing).
+</Info>

@@ -1,0 +1,64 @@
+---
+title: Generate with 21st AI
+description: Start a generation, list its drafts, refine a take, and grab the code — all from the terminal.
+icon: "/icons/nav/magic-chat.svg"
+---
+
+The CLI drives [21st AI](/ai) end to end: kick off a generation, watch it build, refine the draft you like, and pull its code. It's the same engine as the web app and [MCP](/ai/mcp).
+
+## Start a generation
+
+```bash
+21st generate "a settings page with tabs"
+```
+
+Starts a 21st AI sketch generation and opens a browser preview so you can watch the drafts build. Returns a `projectId` you use with the commands below.
+
+## List the drafts
+
+```bash
+21st generation <projectId>
+```
+
+Lists the "takes" (drafts) of a generation with their take numbers and ready state. Free.
+
+## Refine a take
+
+```bash
+21st iterate <projectId> "make it darker and add a footer"
+21st iterate <projectId> "tighten the spacing" --take 2
+```
+
+Edits one take in natural language. Without `--take` it refines the default take; pass `--take N` to target a specific one.
+
+## Grab the code
+
+```bash
+21st take <projectId>            # paste-ready copy-prompt (default)
+21st take <projectId> --take 2   # a specific take
+21st take <projectId> --code     # raw HTML instead of the copy-prompt
+```
+
+By default `take` prints a paste-ready **copy-prompt** you can drop into your editor or agent to recreate the UI in your own stack. Use `--code` to print the raw HTML. Free.
+
+<Info>
+`generate` and `iterate` consume [credits](/ai/pricing). Listing drafts
+(`generation`) and taking code (`take`) are free.
+</Info>
+
+## Typical flow
+
+```bash
+# 1. start
+21st generate "a pricing section, 3 tiers, annual toggle"
+#    → projectId: pr_abc123
+
+# 2. see what came back
+21st generation pr_abc123
+
+# 3. refine the one you like
+21st iterate pr_abc123 "make the middle tier the highlighted one" --take 3
+
+# 4. take the code
+21st take pr_abc123 --take 3 --code
+```

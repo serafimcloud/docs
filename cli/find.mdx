@@ -1,0 +1,83 @@
+---
+title: Find & install
+description: Search the marketplace, fetch code, install with shadcn, and manage bookmarks, lists, and teams.
+icon: "/icons/nav/grid.svg"
+---
+
+## Search
+
+```bash
+21st search "hero section"
+21st search "pricing table" --type component --limit 5
+21st search "dark dashboard" --type theme
+21st search "saas starter" --type template --free
+```
+
+`search` looks across components, themes, and templates and is always free. Flags:
+
+| Flag | Values | Purpose |
+| --- | --- | --- |
+| `--type` | `c` / `component`, `theme`, `template`, `all` | Restrict to one kind (default `all`) |
+| `--limit` | number | Max results |
+| `--tag` | slug | Filter by tag |
+| `--color` | color bucket | Filter themes/components by primary color |
+| `--sort` | sort key | Change result ordering |
+| `--free` / `--paid` | — | Only free or only paid items |
+| `--author` | username | Only a given author's work |
+| `--mine` | — | Only your own items |
+| `--liked` | — | Only items you've liked |
+| `--json` | — | Machine-readable output |
+
+## Fetch code
+
+```bash
+21st get <id>        # a component's code + demo (by search result id)
+21st theme <id>      # a theme's CSS
+```
+
+`theme` is free. `get` is free on paid plans and metered on the free tier — see [Pricing & Credits](/ai/pricing).
+
+## Install
+
+```bash
+21st add <user>/<slug>            # install into your project
+21st add <user>/<slug> --print    # just print the command, don't run it
+```
+
+`add` installs through 21st's shadcn-compatible registry by shelling out to `npx shadcn@latest add` against `/r/<user>/<slug>`, so the component and its dependencies land in your project like any other shadcn component.
+
+## Bookmarks
+
+```bash
+21st bookmarks                        # list your bookmarks
+21st bookmarks --type theme           # only bookmarked themes
+21st bookmark <id> --type component   # bookmark an item
+21st bookmark <id> --type component --remove
+```
+
+## Bookmark lists
+
+Named collections you can group saved items into.
+
+```bash
+21st lists                                   # your named lists
+21st list <listId>                           # items in a list
+21st list-new "Dashboard inspo"              # create a list
+21st list-add <listId> <id> --type component # add an item
+21st list-add <listId> <id> --type component --remove
+```
+
+## Teams & libraries
+
+```bash
+21st teams                              # your teams
+21st team <teamId>                      # a team's libraries
+21st team-lists <teamId>                # a team's shared bookmark lists
+21st team-components <teamId>           # components in a team library
+21st team-components <teamId> --library <id>
+```
+
+<Tip>
+Every command accepts `--json` for scripting. Combine `search --json` with `get`
+to pull code into your own tooling or an agent.
+</Tip>

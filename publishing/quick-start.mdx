@@ -1,43 +1,63 @@
 ---
 title: Quick Start
-description: Publish your first component in minutes
+description: Publish your first component in minutes.
+icon: "/icons/nav/publish.svg"
 ---
 
-## Start
+You can publish from the web Studio or straight from your terminal with the [CLI](/cli).
 
-- In Canvas: click **Publish** in the right sidebar
-- Or go to **[21st/studio](https://21st.dev/studio)** → **Create new**
+## Option A — Publish from Studio
 
-## Create Files
+### Start
+
+Go to **[21st.dev/studio](https://21st.dev/studio)** and click **Create new** (or open an existing sandbox and click **Publish**).
+
+### Create Files
 
 - `code.tsx` — main component
 - `demos/default/code.demo.tsx` — required demo
 - Add dependencies: community components or npm packages
 
-## Add Details
+### Add Details
 
-- Name, short description
-- Tags
-- Upload **Cover image** (required) and **Video** (optional) in Studio
-  (recommended)
+- Name, short description, and tags (1–5)
+- Upload a **Cover image** (required) and a **Video** (optional)
+- Choose a destination: your personal library or a team library
+- Set visibility: public, unlisted, or private
 
-## Publish
+### Publish
 
 <Steps>
   <Step title="Submit for review">
     Click **Publish** to submit your component for review.
   </Step>
   <Step title="Status flow">
-    Your component goes through these stages (подробности см. в
-    [Quality Guidelines](/publishing/quality-guidelines)):
+    Your component moves through these stages (see
+    [Quality Guidelines](/publishing/quality-guidelines) for details):
     - `on_review` — awaiting review
     - `posted` — approved, available via direct link (not listed)
     - `featured` — promoted and visible in public listings
   </Step>
   <Step title="If not approved">
-    Improve quality and **resubmit** for review
+    Improve quality and **resubmit** for review.
   </Step>
 </Steps>
+
+## Option B — Publish from the CLI
+
+```bash
+npm i -g @21st-dev/cli
+21st publish ./Component.tsx --description "A responsive pricing table"
+```
+
+The CLI auto-detects the component name, tags, and a sibling demo file (`Component.demo.tsx` or `demos/default.tsx`). Add `--to <registry-slug>` to publish into a team library, or `--public` to list it publicly.
+
+<Warning>
+Publishing requires a real API key (`21st_sk_…`) from
+[21st.dev/settings/api-keys](https://21st.dev/settings/api-keys).
+</Warning>
+
+You can also publish **themes** (`21st publish-theme ./theme.css`) and **templates** (`21st publish-template "My starter"`).
 
 ## Manage Visibility
 
@@ -46,5 +66,9 @@ Featured components can be set **private/hidden** later in Studio.
 ## Edit Details after Publish
 
 - In Studio: `⋯` → **Edit details**
-- On a component page: top-right `⋯` → **Edit**, or press **`E`** to open the edit dialog
+- On a component page: top-right `⋯` → **Edit**, or press **`E`**
+- From the CLI: `21st edit <id|slug>`
 
+## Get Paid or Promoted
+
+Want to sell a template, get hired, or collect tips? See [Monetization & Promotion](/publishing/monetization).

@@ -1,0 +1,93 @@
+---
+title: MCP
+description: Connect 21st to Cursor, Claude, VS Code, and other AI tools.
+icon: "/icons/nav/cable.svg"
+---
+
+The **21st MCP** server exposes the marketplace and 21st AI as tools your editor and AI agent can call directly. Search for components, pull code, generate UI, and manage your own items without leaving your workflow.
+
+## Endpoint
+
+- **URL:** `https://21st.dev/api/mcp` (HTTP, JSON-RPC 2.0)
+- **Auth:** header `x-api-key` with a 21st API key from [21st.dev/settings/api-keys](https://21st.dev/settings/api-keys)
+
+## Set it up
+
+The fastest way is the [CLI](/cli):
+
+```bash
+21st init --client cursor --write
+```
+
+Supported clients: `cursor`, `claude`, `codex`, `vscode`, `windsurf`. This merges a `21st` server into your client config without touching other MCP servers you already have.
+
+<Tabs>
+  <Tab title="Cursor / VS Code / Windsurf">
+    Writes `.cursor/mcp.json`:
+
+    ```json
+    {
+      "mcpServers": {
+        "21st": {
+          "url": "https://21st.dev/api/mcp",
+          "headers": { "x-api-key": "${API_KEY_21ST}" }
+        }
+      }
+    }
+    ```
+  </Tab>
+  <Tab title="Claude">
+    Writes `.mcp.json`:
+
+    ```json
+    {
+      "mcpServers": {
+        "21st": {
+          "type": "http",
+          "url": "https://21st.dev/api/mcp",
+          "headers": { "x-api-key": "${API_KEY_21ST}" }
+        }
+      }
+    }
+    ```
+  </Tab>
+  <Tab title="Codex">
+    Add to `~/.codex/config.toml`:
+
+    ```toml
+    [mcp_servers.21st]
+    url = "https://21st.dev/api/mcp"
+    bearer_token_env_var = "API_KEY_21ST"
+    ```
+  </Tab>
+</Tabs>
+
+Set `API_KEY_21ST` in your environment to the key from your settings.
+
+## What the tools do
+
+**Search & browse (free)**
+- `search` — find components, themes, and templates with filters
+- `get_component` / `get_theme` — fetch code / CSS
+
+**21st AI (credits)**
+- `generate` — start a sketch or code generation
+- `get_generation` — list a generation's drafts (free)
+- `iterate_generation` — refine a draft
+- `get_take` — fetch a draft's code + copy-prompt (free)
+
+**Bookmarks, lists & teams**
+- `list_bookmarks`, `bookmark`, `create_bookmark_list`, `add_to_list`
+- `list_teams`, `list_team_libraries`, `list_team_components`
+
+**Manage your own items (API key required)**
+- `edit_component` / `delete_component`, `edit_theme` / `delete_theme`, `edit_template` / `delete_template`
+- `get_profile` / `edit_profile` / `upload_profile_media`
+
+**Account**
+- `get_usage` — tier and remaining free quota
+
+<Info>
+Search and metadata tools are free. Generation, iteration, and code retrieval
+draw from your [credits](/ai/pricing).
+</Info>

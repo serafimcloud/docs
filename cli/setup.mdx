@@ -1,0 +1,42 @@
+---
+title: Editor & MCP setup
+description: Wire the 21st MCP into your editor and install the 21st skills.
+icon: "/icons/nav/cable.svg"
+---
+
+## Configure MCP
+
+```bash
+21st init --client cursor           # print the MCP config
+21st init --client cursor --write   # write it into your editor config
+```
+
+`init` sets up the [21st MCP](/ai/mcp) server so your editor and AI agent can search, generate, and pull code directly. Supported clients:
+
+| Client | `--write` target |
+| --- | --- |
+| `cursor` | `.cursor/mcp.json` |
+| `vscode` | `.cursor/mcp.json` (VS Code MCP config) |
+| `windsurf` | `.cursor/mcp.json` |
+| `claude` | `.mcp.json` |
+| `codex` | print-only TOML for `~/.codex/config.toml` |
+
+Without `--write`, the config is printed so you can paste it yourself. With `--write` it merges into your existing config file.
+
+## Install the skills
+
+```bash
+21st install-skill
+```
+
+Installs the global 21st.dev skills into `~/.claude/skills` and `~/.cursor/skills`:
+
+- `21st-cli-use` — how to drive the CLI
+- `21st-ai` — generating and iterating UI
+- `21st-registry` — publishing and installing
+- `21st-design-sync` — keeping a design system in sync
+
+<Note>
+The CLI and MCP share one endpoint and one login, so once you've run
+`21st login`, both surfaces are authenticated with the same account.
+</Note>

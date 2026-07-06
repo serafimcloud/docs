@@ -358,9 +358,7 @@ button[aria-label*="guides"],
 .dark [data-component-part="card-icon"] svg {
   background-color: #0034FF !important;
   /* Don't override background, only background-color to preserve mask-image */
-}
-
-/* Override Tailwind classes for icon colors */
+}/* Override Tailwind classes for icon colors */
 .dark [data-component-part="card-icon"].fill-gray-100,
 .dark [data-component-part="card-icon"].text-gray-100,
 .dark [data-component-part="card-icon"][class*="fill-gray-100"],

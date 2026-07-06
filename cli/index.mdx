@@ -1,0 +1,66 @@
+---
+title: Overview
+description: One terminal tool for the whole of 21st — search, install, generate, publish, and manage.
+icon: "/icons/nav/terminal.svg"
+---
+
+`@21st-dev/cli` (binary `21st`) is the single command-line tool for everything 21st: search and install marketplace items, generate UI with [21st AI](/ai), publish your own components, manage your profile, and wire the [21st MCP](/ai/mcp) into your editor. The CLI and the MCP share one endpoint and one login, so a command returns exactly what an MCP client sees.
+
+<Note>
+`@21st-dev/cli` supersedes the older `@21st-dev/registry` (publish/install) and
+`@21st-dev/magic` (MCP setup) packages. Use `21st` for all of it.
+</Note>
+
+## Install
+
+```bash
+npm i -g @21st-dev/cli
+# or run without installing:
+npx @21st-dev/cli search "pricing table"
+```
+
+## Sign in
+
+```bash
+21st login     # sign in via the browser, saved locally to ~/.config/21st/auth.json
+21st whoami    # show the signed-in account
+21st usage     # tier + remaining free quota
+21st logout    # clear the saved session
+```
+
+You can also authenticate with an [API key](https://21st.dev/settings/api-keys) instead of a browser session. The CLI resolves credentials in this order:
+
+1. `--token` / `--api-key` flag
+2. `TWENTYFIRST_TOKEN` env var
+3. `API_KEY_21ST` env var
+4. the stored `21st login` session
+
+<Warning>
+Publishing and management commands (`publish*`, `edit`, `delete`, `profile`)
+require a real secret API key (`21st_sk_…`). A `21st login` session token works
+for search / get / install / generation / MCP, but **not** for those commands.
+</Warning>
+
+## What you can do
+
+<CardGroup cols={2}>
+  <Card title="Find & install" icon="/icons/nav/grid.svg" href="/cli/find">
+    Search components, themes, and templates; fetch code; install via shadcn;
+    manage bookmarks, lists, and teams.
+  </Card>
+  <Card title="Generate with 21st AI" icon="/icons/nav/magic-chat.svg" href="/cli/generate">
+    Start a generation, list its drafts, refine a take, and grab the code.
+  </Card>
+  <Card title="Publish & manage" icon="/icons/nav/publish.svg" href="/cli/publish">
+    Publish components, themes, and templates, then edit or unpublish them.
+  </Card>
+  <Card title="Your profile" icon="/icons/nav/boxes.svg" href="/cli/profile">
+    Read and replace your bento profile board and upload media from the CLI.
+  </Card>
+  <Card title="Editor & MCP setup" icon="/icons/nav/cable.svg" href="/cli/setup">
+    Wire the 21st MCP into Cursor, Claude, VS Code, and install the skills.
+  </Card>
+  <Card title="Command reference" icon="/icons/nav/terminal.svg" href="/cli/reference">
+    Every command and flag in one table.
+  </Card>
+</CardGroup>

@@ -1,0 +1,43 @@
+---
+title: Your profile
+description: Read and replace your bento profile board and upload media from the terminal.
+icon: "/icons/nav/boxes.svg"
+---
+
+Your public author page can be a [bento profile](/community/profile) — a grid of blocks (bio, links, featured components, a "work with me" block, and more). The CLI lets you (or an agent acting with your key) read and rewrite that board as JSON.
+
+<Warning>
+Profile commands require a real secret API key (`21st_sk_…`). Pass `--api-key`
+or set `API_KEY_21ST`.
+</Warning>
+
+## Read your board
+
+```bash
+21st profile get           # print the board as content blocks
+21st profile get --json    # machine-readable
+```
+
+## Replace your board
+
+```bash
+21st profile set --file board.json   # replace from a JSON file
+cat board.json | 21st profile set    # or pipe via stdin
+21st profile set --clear             # revert to the classic (non-bento) profile
+```
+
+`profile set` replaces the whole board with the blocks array you provide. Use `profile get --json` first to see the current shape, edit it, then set it back.
+
+## Upload media
+
+```bash
+21st profile upload ./avatar.png
+```
+
+Uploads a `png`, `jpg`, `jpeg`, `gif`, or `webp` and prints the resulting URL, which you can drop into an image block's `mediaUrl` before calling `profile set`.
+
+<Tip>
+Because the board is plain JSON in and out, an AI agent holding your API key can
+manage your profile for you — read the board, add a "featured component" or
+"work with me" block, and set it back. See [Bento profile](/community/profile).
+</Tip>

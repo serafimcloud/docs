@@ -205,3 +205,167 @@
 .dark [class*="bg-white\\/10"] {
   background-color: rgba(255, 255, 255, 0.25) !important;
 }
+
+/* ============================================================
+   Sidebar restyle to match the app's real AppSidebar navigation
+   (rounded-md rows, neutral foreground/5 hover+active wash instead
+   of a colored highlight, compact muted group labels, thin
+   scrollbar). Ported from apps/web/components/features/app-sidebar.tsx
+   and categories-sidebar-content.tsx.
+   ============================================================ */
+
+:root {
+  --an-sidebar-fg: oklch(0.141 0.004 285.824);
+  --an-sidebar-muted-fg: oklch(0.552 0.014 285.942);
+  --an-sidebar-wash: oklch(0.141 0.004 285.824 / 0.05);
+}
+
+.dark {
+  --an-sidebar-fg: oklch(0.968 0.001 286.375);
+  --an-sidebar-muted-fg: oklch(0.654 0.014 286.01);
+  --an-sidebar-wash: oklch(0.968 0.001 286.375 / 0.08);
+}
+
+/* Nav rows: rounded-md (6px, matches --radius-md in the app) instead of
+   Mintlify's default rounded-xl, and a tighter hit target. */
+#sidebar a[href] {
+  border-radius: 6px !important;
+  transition:
+    background-color 150ms ease,
+    color 150ms ease !important;
+}
+
+/* Resting label color: muted, like text-muted-foreground in the app. */
+#sidebar a[href] {
+  color: var(--an-sidebar-muted-fg) !important;
+}
+
+/* Hover + active both use the same neutral bg-foreground/5 wash + full
+   foreground text color — no colored highlight, matching
+   categories-sidebar-content.tsx's `bg-foreground/5 text-foreground`. */
+#sidebar a[href]:hover,
+#sidebar a[href][class*="bg-primary"] {
+  background-color: var(--an-sidebar-wash) !important;
+  color: var(--an-sidebar-fg) !important;
+  text-shadow: none !important;
+}
+
+/* Group labels: small muted caption instead of bold near-black/white,
+   matching the app's `text-xs font-medium text-muted-foreground` category
+   headers (categories-sidebar-content.tsx). */
+.sidebar-group-header {
+  font-weight: 500 !important;
+  font-size: 0.75rem !important;
+  line-height: 1rem !important;
+  color: var(--an-sidebar-muted-fg) !important;
+  margin-bottom: 0.375rem !important;
+}
+
+.sidebar-group-header #sidebar-title {
+  font-weight: 500 !important;
+}
+
+/* Thin, subtle scrollbar (6px, 3px-radius thumb at muted-foreground 20-30%
+   opacity, transparent track) — matches the [data-agents-page] scrollbar
+   recipe used elsewhere in the app, ported here since Mintlify's sidebar
+   has no built-in equivalent. */
+#sidebar-content {
+  scrollbar-width: thin;
+  scrollbar-color: var(--an-sidebar-muted-fg) transparent;
+}
+
+#sidebar-content::-webkit-scrollbar {
+  width: 6px !important;
+}
+
+#sidebar-content::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+#sidebar-content::-webkit-scrollbar-thumb {
+  background-color: color-mix(in oklch, var(--an-sidebar-muted-fg) 30%, transparent) !important;
+  border-radius: 3px !important;
+}
+
+#sidebar-content::-webkit-scrollbar-thumb:hover {
+  background-color: color-mix(in oklch, var(--an-sidebar-muted-fg) 50%, transparent) !important;
+}
+
+/* ============================================================
+   Local nav/card icon recoloring.
+   Our /icons/nav/*.svg files are pure-black line art (stroke=currentColor,
+   which resolves to black inside an <img>). Mintlify renders local-path
+   icons as <img>, so they DON'T inherit the surrounding text color and
+   would sit near-invisible black-on-dark in dark mode. Recolor them per
+   theme with an invert() filter: invert(P) on pure black yields a grey of
+   lightness P, keeping transparency intact.
+   ============================================================ */
+
+/* Force a transparent backdrop first. A broad dark-theme contrast rule
+   (.dark [class*="bg-"]) paints a #171717 background onto anything with a
+   "bg-" class — our icon <img> carries `bg-transparent`, so it gets caught
+   and invert() would flip that dark box into a light-grey square around the
+   glyph. Override with higher specificity (.dark + attr) so invert() only
+   touches the (black) line art. */
+img[src*="/icons/nav/"],
+.dark img[src*="/icons/nav/"],
+.dark [class*="bg-"] img[src*="/icons/nav/"] {
+  background-color: transparent !important;
+  background: transparent !important;
+}
+
+/* Sidebar icons: muted at rest, full contrast on hover/active — mirrors the
+   app's text-muted-foreground -> text-foreground behavior. */
+#sidebar a[href] img[src*="/icons/nav/"] {
+  filter: invert(45%);
+  transition: filter 150ms ease;
+}
+.dark #sidebar a[href] img[src*="/icons/nav/"] {
+  filter: invert(63%);
+}
+#sidebar a[href]:hover img[src*="/icons/nav/"],
+#sidebar a[href][class*="bg-primary"] img[src*="/icons/nav/"] {
+  filter: invert(12%);
+}
+.dark #sidebar a[href]:hover img[src*="/icons/nav/"],
+.dark #sidebar a[href][class*="bg-primary"] img[src*="/icons/nav/"] {
+  filter: invert(95%);
+}
+
+/* Content-area icons (cards, callouts): prominent, high-contrast per theme. */
+img[src*="/icons/nav/"] {
+  filter: invert(25%);
+}
+.dark img[src*="/icons/nav/"] {
+  filter: invert(88%);
+}
+
+/* ============================================================
+   Theme toggle: swap Mintlify's default sun/moon glyphs for our own
+   ThemeIcon (the rotated circle-with-lines mark used in the app sidebar).
+   The built-in button holds two inline <svg>s; hide them and paint our
+   SVG as a mask so it takes the button's (theme-aware) text color.
+   ============================================================ */
+button[aria-label="Toggle dark mode"] svg {
+  display: none !important;
+}
+button[aria-label="Toggle dark mode"]::before {
+  content: "";
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  background-color: currentColor;
+  color: #9ca3af; /* gray-400, matches Mintlify's default resting tone */
+  -webkit-mask: url(/icons/nav/theme.svg) center / contain no-repeat;
+  mask: url(/icons/nav/theme.svg) center / contain no-repeat;
+  transition: color 150ms ease;
+}
+button[aria-label="Toggle dark mode"]:hover::before {
+  color: #4b5563; /* gray-600 on hover */
+}
+.dark button[aria-label="Toggle dark mode"]::before {
+  color: #9ca3af;
+}
+.dark button[aria-label="Toggle dark mode"]:hover::before {
+  color: #e5e7eb; /* gray-200 on hover in dark */
+}

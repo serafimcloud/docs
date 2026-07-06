@@ -1,0 +1,75 @@
+---
+title: Bento profile
+description: Build your author page from a grid of blocks — and let an agent manage it.
+icon: "/icons/nav/boxes.svg"
+---
+
+Your public author page (`21st.dev/@you`) can be a **bento profile**: a free-form grid of blocks you arrange to show off your work, get hired, and take support. Edit it in [Studio → Profile](https://21st.dev/studio), or manage it programmatically from the [CLI](/cli/profile) and [MCP](/ai/mcp).
+
+## Block types
+
+<CardGroup cols={2}>
+  <Card title="Featured component">
+    A live preview of one of your own published component demos, with optional
+    side media. Up to 20 component blocks per board.
+  </Card>
+  <Card title="Work with me">
+    A hire block — headline, short pitch, a CTA button, and a contact email.
+  </Card>
+  <Card title="Pro components">
+    Links to your premium catalog or template shop, and carries your referral.
+  </Card>
+  <Card title="Support">
+    A donation block linking to a supported platform (GitHub Sponsors, Ko-fi,
+    Patreon, and more).
+  </Card>
+  <Card title="Social">
+    A link card (X, GitHub, website…) with the icon auto-detected from the URL.
+  </Card>
+  <Card title="Image">
+    A photo or GIF, uploaded to 21st and framed with zoom/position controls.
+  </Card>
+  <Card title="Note">
+    A plain text card (up to 2,000 characters).
+  </Card>
+  <Card title="Divider">
+    A full-width divider that splits the board into sections.
+  </Card>
+</CardGroup>
+
+See [Selling & promotion](/publishing/monetization) for the Work with me, Pro components, and Support blocks in detail.
+
+## Let an agent manage it
+
+Your bento board is plain JSON in and out, so an AI agent holding your
+[secret API key](https://21st.dev/settings/api-keys) (`21st_sk_…`) can read and
+rewrite it for you — over the CLI, REST, or MCP. It's **owner-only**: the key
+only ever edits its own account's profile.
+
+<Tabs>
+  <Tab title="CLI">
+    ```bash
+    21st profile get --json         # read the current board
+    21st profile set --file board.json   # replace it
+    21st profile upload ./cover.png # upload media, get a first-party URL
+    ```
+    See [CLI → Your profile](/cli/profile).
+  </Tab>
+  <Tab title="MCP">
+    Your editor/agent can call the MCP tools `get_profile`, `edit_profile`, and
+    `upload_profile_media` directly. See [MCP](/ai/mcp).
+  </Tab>
+</Tabs>
+
+<Warning>
+Two rules the agent must follow: **Featured component** blocks can only
+reference your own **public** component demos, and **Image** blocks must use a
+21st-hosted URL — upload the file first (`21st profile upload` /
+`upload_profile_media`) and use the returned URL. Foreign image URLs are dropped.
+</Warning>
+
+<Info>
+Writes are a **full replace** of the board — any block you omit is removed. Read
+the current board first, edit it, then set it back. A board holds up to 60
+blocks (20 of them component blocks).
+</Info>

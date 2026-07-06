@@ -29,27 +29,44 @@
       {
         "group": "Getting Started",
         "pages": [
-          "index",
-          "comparisons"
+          "index"
         ]
       },
       {
-        "group": "Magic Chat",
+        "group": "FAQ",
         "pages": [
-          "magic-chat/index",
-          "magic-chat/quick-start",
-          "magic-chat/pricing",
-          "magic-chat/manage-subscription",
-          "magic-chat/keyboard-shortcuts"
+          "faq"
         ]
       },
       {
-        "group": "Community",
+        "group": "21st AI",
+        "pages": [
+          "ai/index",
+          "ai/generation",
+          "ai/mcp",
+          "ai/pricing"
+        ]
+      },
+      {
+        "group": "CLI",
+        "pages": [
+          "cli/index",
+          "cli/find",
+          "cli/generate",
+          "cli/publish",
+          "cli/profile",
+          "cli/setup",
+          "cli/reference"
+        ]
+      },
+      {
+        "group": "Marketplace",
         "pages": [
           "community/index",
           "community/components",
-          "community/screens",
           "community/themes",
+          "community/templates",
+          "community/profile",
           "community/keyboard-shortcuts"
         ]
       },
@@ -58,7 +75,8 @@
         "pages": [
           "publishing/quick-start",
           "publishing/quality-guidelines",
-          "publishing/component-structure"
+          "publishing/component-structure",
+          "publishing/monetization"
         ]
       }
     ]
@@ -71,7 +89,7 @@
     "links": [
       {
         "label": "Support",
-        "href": "https://discord.gg/Qx4rFunHfm"
+        "href": "mailto:support@21st.dev"
       }
     ]
   },

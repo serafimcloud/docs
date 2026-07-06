@@ -1,0 +1,74 @@
+---
+title: Publish & manage
+description: Publish components, themes, and templates from the terminal, then edit or unpublish them.
+icon: "/icons/nav/publish.svg"
+---
+
+<Warning>
+All commands on this page require a real secret API key (`21st_sk_…`) from
+[Settings → API keys](https://21st.dev/settings/api-keys). A `21st login`
+session token is not enough. Pass it with `--api-key`, or set `API_KEY_21ST`.
+</Warning>
+
+## Publish a component
+
+```bash
+21st publish ./Component.tsx --description "A responsive pricing table"
+```
+
+The CLI auto-detects the component name, slug, and tags from the source, and finds or synthesizes a demo file. Common flags:
+
+| Flag | Purpose |
+| --- | --- |
+| `--description` | Short description (recommended) |
+| `--to <registry-slug>` | Publish into a specific team library |
+| `--name` / `--slug` | Override the auto-detected name/slug |
+| `--tags a,b,c` | Set tags explicitly |
+| `--demo <file>` | Use a specific demo file |
+| `--preview <img>` | Attach a preview image |
+| `--registry ui\|hooks\|blocks\|icons` | Registry kind |
+| `--public` / `--unlisted` / `--private` | Visibility (default public) |
+| `--website <url>` | Link a live site |
+| `--registry-dep <dep>` | Declare a registry dependency (repeatable) |
+
+See [Publishing → Quick Start](/publishing/quick-start) for the full flow and requirements.
+
+## Publish a theme
+
+```bash
+21st publish-theme ./theme.css --name "Midnight" --tags dark,minimal
+```
+
+The CSS file must contain both `:root` and `.dark` blocks.
+
+## Publish a template
+
+```bash
+21st publish-template "My SaaS starter" \
+  --site https://demo.example.com \
+  --preview ./preview.png \
+  --price 49 \
+  --buy-url https://gumroad.com/l/my-starter \
+  --description "A full Next.js SaaS starter" \
+  --video https://youtu.be/xyz \
+  --tags 12,45
+```
+
+Submits a template listing for moderation (it lands as a draft). For paid templates, set `--price` and a `--buy-url` checkout link. See [Selling & promotion](/publishing/monetization).
+
+## Edit your content
+
+```bash
+21st edit <id|slug> --type component --visibility unlisted
+21st edit <id|slug> --type theme --name "New name" --tags a,b
+```
+
+`--type` is `component`, `theme`, or `template`. Editable fields differ per type (templates use numeric tag ids and have no visibility field).
+
+## Unpublish or delete
+
+```bash
+21st delete <id|slug> --type component --yes
+```
+
+`--yes` is required to confirm. For components and themes this **unpublishes** (sets visibility to private / clears the published date). For templates it is a **permanent delete**.

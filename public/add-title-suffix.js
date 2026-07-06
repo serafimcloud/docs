@@ -68,3 +68,50 @@
     }
   }, 200);
 })();
+
+// ---------------------------------------------------------------------------
+// Play-once videos: Mintlify force-adds loop="true" to every <video> in MDX,
+// so we can't opt out via attributes. Instead, strip loop from our /videos/*
+// players at runtime and freeze on the last frame when they end.
+// ---------------------------------------------------------------------------
+(function () {
+  function isOurVideo(v) {
+    return v && v.tagName === "VIDEO" && (v.currentSrc || v.src || "").includes("/videos/");
+  }
+
+  function makePlayOnce(v) {
+    if (!isOurVideo(v) || v.dataset.playOnce === "1") return;
+    v.dataset.playOnce = "1";
+    v.loop = false;
+    v.removeAttribute("loop");
+    // If Mintlify's React re-adds the loop attribute, clear it again.
+    new MutationObserver(function () {
+      if (v.loop || v.hasAttribute("loop")) {
+        v.loop = false;
+        v.removeAttribute("loop");
+      }
+    }).observe(v, { attributes: true, attributeFilter: ["loop"] });
+    // Freeze on the final frame instead of restarting.
+    v.addEventListener("ended", function () {
+      v.pause();
+    });
+  }
+
+  function scan() {
+    document.querySelectorAll("video").forEach(makePlayOnce);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", scan);
+  } else {
+    scan();
+  }
+  // Catch client-side (SPA) route changes that mount new videos.
+  new MutationObserver(scan).observe(document.documentElement, {
+    childList: true,
+    subtree: true,
+  });
+  setTimeout(scan, 100);
+  setTimeout(scan, 500);
+  setTimeout(scan, 1500);
+})();

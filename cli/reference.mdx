@@ -1,0 +1,90 @@
+---
+title: Command reference
+description: Every 21st CLI command and its key flags in one place.
+icon: "/icons/nav/terminal.svg"
+---
+
+Run `21st help` (or any command with `--help`) for inline usage. Add `--json` to most read commands for machine-readable output.
+
+## Auth & account
+
+| Command | Description |
+| --- | --- |
+| `21st login` | Browser sign-in, saved to `~/.config/21st/auth.json` |
+| `21st logout` | Clear the saved session |
+| `21st whoami` | Show the signed-in account |
+| `21st usage` | Tier + remaining free quota |
+
+Credential order: `--token`/`--api-key` flag → `TWENTYFIRST_TOKEN` → `API_KEY_21ST` → stored login.
+
+## Find & install
+
+| Command | Description |
+| --- | --- |
+| `21st search <query>` | Search components, themes, templates (free) |
+| `21st get <id>` | Fetch a component's code + demo |
+| `21st theme <id>` | Fetch a theme's CSS (free) |
+| `21st add <user>/<slug>` | Install via `npx shadcn@latest add` (`--print` to just print) |
+
+See [Find & install](/cli/find) for all search flags.
+
+## Bookmarks, lists & teams
+
+| Command | Description |
+| --- | --- |
+| `21st bookmarks` | List your bookmarks |
+| `21st bookmark <id> --type <kind>` | Bookmark / unbookmark (`--remove`) |
+| `21st lists` | Your named lists |
+| `21st list <listId>` | Items in a list |
+| `21st list-new <name>` | Create a list |
+| `21st list-add <listId> <id> --type <kind>` | Add / remove (`--remove`) an item |
+| `21st teams` | Your teams |
+| `21st team <teamId>` | A team's libraries |
+| `21st team-lists <teamId>` | A team's shared lists |
+| `21st team-components <teamId>` | Components in a team library (`--library <id>`) |
+
+## Generate with 21st AI
+
+| Command | Description |
+| --- | --- |
+| `21st generate <prompt>` | Start a generation, open preview (uses credits) |
+| `21st generation <projectId>` | List a generation's drafts (free) |
+| `21st iterate <projectId> "<change>"` | Refine a draft, `--take N` (uses credits) |
+| `21st take <projectId>` | Grab a draft's code, `--take N`, `--code` (free) |
+
+See [Generate with 21st AI](/cli/generate).
+
+## Publish & manage
+
+| Command | Description |
+| --- | --- |
+| `21st publish <file> --description "…"` | Publish a component |
+| `21st publish-theme <file.css> --name "…"` | Publish a theme (needs `:root` + `.dark`) |
+| `21st publish-template <name> --site <url> --preview <img>` | Submit a template listing |
+| `21st edit <id\|slug> --type <kind>` | Update name / description / tags / visibility |
+| `21st delete <id\|slug> --type <kind> --yes` | Unpublish (component/theme) or delete (template) |
+
+<Warning>
+Publishing and management commands require a secret API key (`21st_sk_…`), not a
+login session. See [Publish & manage](/cli/publish).
+</Warning>
+
+## Profile
+
+| Command | Description |
+| --- | --- |
+| `21st profile get` | Read your bento board as blocks |
+| `21st profile set --file <json>` | Replace the board (`--clear` to reset) |
+| `21st profile upload <image>` | Upload media, print its URL |
+
+See [Your profile](/cli/profile).
+
+## Editor & MCP setup
+
+| Command | Description |
+| --- | --- |
+| `21st init --client <name>` | Print MCP config (`--write` to save) |
+| `21st install-skill` | Install the global 21st.dev skills |
+| `21st help` | Full help text |
+
+See [Editor & MCP setup](/cli/setup).
