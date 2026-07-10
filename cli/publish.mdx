@@ -21,13 +21,13 @@ The CLI auto-detects the component name, slug, and tags from the source, and fin
 | Flag | Purpose |
 | --- | --- |
 | `--description` | Short description (recommended) |
-| `--to <registry-slug>` | Publish into a specific team library |
+| `--to <library-slug>` | Publish into a specific team library |
 | `--name` / `--slug` | Override the auto-detected name/slug |
 | `--tags a,b,c` | Set tags explicitly |
 | `--demo <file>` | Use a specific demo file |
 | `--preview <img>` | Attach a preview image |
 | `--registry ui\|hooks\|blocks\|icons` | Registry kind |
-| `--public` / `--unlisted` / `--private` | Visibility (default public) |
+| `--public` / `--unlisted` / `--private` | Visibility (default `unlisted`; `--public` goes through moderation) |
 | `--website <url>` | Link a live site |
 | `--registry-dep <dep>` | Declare a registry dependency (repeatable) |
 
