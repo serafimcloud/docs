@@ -27,11 +27,21 @@ The CLI auto-detects the component name, slug, and tags from the source, and fin
 | `--demo <file>` | Use a specific demo file |
 | `--preview <img>` | Attach a preview image |
 | `--registry ui\|hooks\|blocks\|icons` | Registry kind |
-| `--public` / `--unlisted` / `--private` | Visibility (default `unlisted`; `--public` goes through moderation) |
+| `--visibility published\|private` | Access (default `published`) |
 | `--website <url>` | Link a live site |
 | `--registry-dep <dep>` | Declare a registry dependency (repeatable) |
 
 See [Publishing → Quick Start](/publishing/quick-start) for the full flow and requirements.
+
+Publishing and catalog review are separate. A Published component is available
+by link and on your profile. Submit it for featuring only when it is ready:
+
+```bash
+21st submit <slug>
+21st withdraw <slug>
+21st resubmit <slug>
+21st remove-from-catalog <slug>
+```
 
 ## Publish a theme
 
@@ -59,7 +69,7 @@ Submits a template listing for moderation (it lands as a draft). For paid templa
 ## Edit your content
 
 ```bash
-21st edit <id|slug> --type component --visibility unlisted
+21st edit <id|slug> --type component --visibility published
 21st edit <id|slug> --type theme --name "New name" --tags a,b
 ```
 
