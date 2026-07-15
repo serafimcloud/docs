@@ -6,51 +6,100 @@ icon: "/icons/nav/publish.svg"
 
 You can publish from the web Studio or straight from your terminal with the [CLI](/cli).
 
-## Option A — Publish from Studio
+## Option A: Publish from Studio
 
 ### Start
 
-Go to **[21st.dev/studio](https://21st.dev/studio)** and click **Create new** (or open an existing sandbox and click **Publish**).
-
-### Create Files
-
-- `code.tsx` — main component
-- `demos/default/code.demo.tsx` — required demo
-- Add dependencies: community components or npm packages
-
-### Add Details
-
-- Name, short description, and tags (1–5)
-- Upload a **Cover image** (required) and a **Video** (optional)
-- Choose a destination: your personal library or a team library
-- Set visibility: public, unlisted, or private
-
-### Publish
+Open **[Studio](https://21st.dev/studio)**, go to **Components**, and choose
+**New component**. Opening a draft or choosing **Edit code** returns to the
+sandbox workspace; **Edit details** opens the details editor. The former
+publish page now redirects into Studio.
 
 <Steps>
-  <Step title="Submit for review">
-    Click **Publish** to submit your component for review.
+  <Step title="Files">
+    Select a component or demo file in the publishing sidebar, edit it beside
+    the live preview, and confirm that the result works.
+
+    - **Add dependency** installs a compatible component from the 21st registry.
+    - **New demo** creates another demo file.
+    - Keep one `src/demos/default.tsx` demo. It cannot be deleted.
   </Step>
-  <Step title="Status flow">
-    Your component moves through these stages (see
-    [Quality Guidelines](/publishing/quality-guidelines) for details):
-    - `on_review` — awaiting review
-    - `posted` — approved, available via direct link (not listed)
-    - `featured` — promoted and visible in public listings
+  <Step title="Component">
+    Add a name, a 10–280 character description, and the type: **UI**, **Hook**,
+    **Block**, or **Icon**. New drafts get a slug from the name; you can edit it
+    while the component is still a draft, and Studio checks that it is
+    available. The slug cannot change after the first publish.
+
+    New Studio components use the MIT license by default.
   </Step>
-  <Step title="If not approved">
-    Improve quality and **resubmit** for review.
+  <Step title="Demos">
+    Complete every demo before continuing:
+
+    - Name with at least 2 characters and **1–5 tags**
+    - Required **PNG or JPEG cover image**; use 4 MB or smaller
+    - Optional **MP4 or MOV video**, up to 50 MB
+
+    A demo's slug comes from its filename and cannot be edited here. Exactly one
+    demo must use the `default` slug. Add or remove draft demos from the
+    **Files** step.
+  </Step>
+  <Step title="Publish">
+    Check the marketplace card preview, then choose the destination and access:
+
+    - Pick **Personal** or a team, then choose **No library**, **Team default**,
+      an existing library, or **Create library**.
+    - **Published** is available by direct link and on the author profile.
+    - **Private** is available only to you or members of the destination team.
+
+    Team publishing requires owner or admin access and an active Team plan.
+    Click **Publish component** when everything is ready.
   </Step>
 </Steps>
 
-## Option B — Publish from the CLI
+<Tip>
+Use the back button at the top of the publishing sidebar to revisit an earlier
+step. The sidebar stays open because it contains the file list and publish
+controls.
+</Tip>
+
+### Background Publishing
+
+Studio takes a snapshot of the current publishable source files, metadata, and
+media, sends the build to the background queue, and immediately returns you to
+the destination's **Components** page. The progress dock shows whether the job
+is queued, building, published, or failed. You can cancel a pending job or
+retry a failed one from the dock.
+
+<Warning>
+The background job belongs to the current browser tab. You can keep navigating
+inside Studio, but do not close or reload the tab until the dock says
+**Published**.
+</Warning>
+
+### Publishing and Featuring Are Separate
+
+Publishing creates the component with the access you selected. It does not
+automatically put the component in the public catalog.
+
+When a **Published** component is ready for the catalog, open its actions on the
+Studio **Components** page and choose **Submit for featuring**. It becomes **In
+review**. Reviewers can mark it **Featured** or **Needs changes**; you can
+withdraw an active review, resubmit after changes, or remove a Featured
+component from the catalog.
+
+See [Quality Guidelines](/publishing/quality-guidelines) before submitting.
+
+## Option B: Publish from the CLI
 
 ```bash
 npm i -g @21st-dev/cli
 21st publish ./Component.tsx --description "A responsive pricing table"
 ```
 
-The CLI auto-detects the component name, tags, and a sibling demo file (`Component.demo.tsx` or `demos/default.tsx`). Add `--to <library-slug>` to publish into a team library, or `--public` to list it publicly.
+The CLI auto-detects the component name, tags, and a sibling demo file
+(`Component.demo.tsx` or `demos/default.tsx`). Add `--to <library-slug>` to
+publish into a team library, or use `--visibility private` for a Private
+component. The default visibility is Published.
 
 <Warning>
 Publishing requires a real API key (`21st_sk_…`) from
@@ -59,15 +108,14 @@ Publishing requires a real API key (`21st_sk_…`) from
 
 You can also publish **themes** (`21st publish-theme ./theme.css`) and **templates** (`21st publish-template "My starter"`).
 
-## Manage Visibility
+## Manage after Publishing
 
-Featured components can be set **private/hidden** later in Studio.
+Use the Studio **Components** page to edit code or details, switch between
+**Published** and **Private**, and manage featuring. Making a component Private
+also removes it from an active review or the public catalog.
 
-## Edit Details after Publish
-
-- In Studio: `⋯` → **Edit details**
-- On a component page: top-right `⋯` → **Edit**, or press **`E`**
-- From the CLI: `21st edit <id|slug>`
+From a component page, choose **Edit** from the top-right menu or press **E**.
+From the terminal, use `21st edit <id|slug>`.
 
 ## Get Paid or Promoted
 

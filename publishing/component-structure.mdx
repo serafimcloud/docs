@@ -4,29 +4,57 @@ description: Organize files for a clean publish
 icon: "/icons/nav/boxes.svg"
 ---
 
-## Minimal Layout
+## Studio Source Layout
 
 ```
-{component}/
-├── code.tsx
+src/
+├── components/
+│   └── ui/
+│       └── component.tsx
 ├── demos/
-│   └── default/
-│       └── code.demo.tsx
-├── globals.css
-└── tailwind.config.js
+│   ├── default.tsx
+│   └── advanced.tsx
+├── hooks/
+├── lib/
+└── index.css
+package.json
 ```
 
-## Rules
+The starter file is usually `src/components/ui/component.tsx`. A component file
+named after the final slug also works. The published snapshot includes the
+primary component, demos, supported source files under `src/components`,
+`src/hooks`, and `src/lib`, plus the recognized global CSS files
+`src/index.css`, `src/globals.css`, `src/app.css`, and `global.css`.
 
-- Keep logic in `code.tsx`, content in demos
-- Use props to customize behavior and content
-- Multiple demos allowed (e.g., `advanced/`)
-- Include realistic content and states in demos
+## Component and Demo Rules
+
+- Keep reusable behavior in the component and example content in demos.
+- Put demo files directly in `src/demos`.
+- Keep exactly one `src/demos/default.tsx` file.
+- The demo filename becomes its permanent slug. For example,
+  `advanced.tsx` becomes `advanced`.
+- The primary component and every demo must contain a real `export default`.
+- Multiple demos are allowed.
+- Use **Files → New demo** to create another demo with a unique filename.
+
+<Warning>
+Do not rename or delete `default.tsx`. Existing published demo slugs cannot be
+changed from the publishing flow.
+</Warning>
 
 ## Dependencies
 
-- Community components and npm packages are allowed
-- Declare and import what you use inside demos
+- Use **Add dependency** in the Files step for a compatible 21st registry
+  component.
+- Declare npm packages in `package.json` and import them normally.
+- Keep shared helpers in `src/lib` or `src/hooks` so Studio includes them in the
+  published snapshot.
+
+## Preview Metadata
+
+Preview assets are selected in the **Demos** step rather than stored beside the
+source files. Every demo needs 1–5 tags and a cover image. A demo video is
+optional.
 
 ## Tips
 
@@ -41,4 +69,3 @@ icon: "/icons/nav/boxes.svg"
 <Tip>
 **Provide sensible defaults** — Components should work out of the box.
 </Tip>
-
