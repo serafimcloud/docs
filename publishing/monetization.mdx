@@ -7,7 +7,10 @@ icon: "/icons/nav/credit-card.svg"
 21st.dev doesn't process payments on your behalf — there's no in-app checkout or payout system. Instead, every monetization feature works the same way: you drop in a link to a service you already use (a checkout page, a booking page, a donation platform), and 21st.dev surfaces it to the right audience at the right moment. This page covers all of them.
 
 <Info>
-**Components stay free.** There's no price field on individual components — monetization applies to **templates** (one-time paid listings) and to blocks on your **public profile** (hire, donate, pro catalog). If you want to sell a component-like product, package it as a template instead.
+  **Components stay free.** There's no price field on individual components —
+  monetization applies to **templates** (one-time paid listings) and to blocks
+  on your **public profile** (hire, donate, pro catalog). If you want to sell a
+  component-like product, package it as a template instead.
 </Info>
 
 ## Sell a Template
@@ -22,12 +25,17 @@ Templates are the only catalog item that supports a price. Each template has its
     Enter a **Price (USD)**. Leave it at `0` to keep the template free.
   </Step>
   <Step title="Add a buy link">
-    Set **Buy / download URL** to wherever the purchase actually happens — your own Gumroad/Lemon Squeezy/Stripe Payment Link, or a page on your own site.
+    Set **Buy / download URL** to wherever the purchase actually happens — your
+    own Gumroad/Lemon Squeezy/Stripe Payment Link, or a page on your own site.
   </Step>
 </Steps>
 
 <Warning>
-**21st.dev never touches the money.** There's no built‑in checkout, no Stripe integration on templates, and no payout system. When a visitor clicks buy, they see a disclaimer confirming they're leaving 21st.dev, then get redirected to your **Buy / download URL** to complete the purchase on your own site or storefront. You're responsible for delivery, receipts, and refunds.
+  **21st.dev never touches the money.** There's no built‑in checkout, no Stripe
+  integration on templates, and no payout system. When a visitor clicks buy,
+  they see a disclaimer confirming they're leaving 21st.dev, then get redirected
+  to your **Buy / download URL** to complete the purchase on your own site or
+  storefront. You're responsible for delivery, receipts, and refunds.
 </Warning>
 
 If your buy link already carries an affiliate/referral parameter for a third-party vendor (for example a template marketplace that pays you `?via=yourname`), set that same URL as your **Pro components link** (see below) — 21st.dev automatically appends your referral parameter to that template's buy link so you still get credit.
@@ -37,9 +45,9 @@ If your buy link already carries an affiliate/referral parameter for a third-par
 There is currently no price field, checkout, or paid tier for individual components — only templates carry a price. If you want to monetize component-style work, publish the free version to build reach, and link your paid catalog using the **Pro components** block below.
 
 Component **visibility** is separate from selling. Published components remain
-free to visitors. Builder with AI enabled can keep new personal components private;
-private components in an active Team workspace are available to its members.
-Private content is not a paid listing and has no customer checkout.
+free to visitors. Private personal components remain visible only to their
+owner, while private components in an active Team workspace are available to
+its members. Private content is not a paid listing and has no customer checkout.
 
 ## "Work with Me" Block
 
@@ -47,13 +55,13 @@ A hire-and-contact card that renders on your public profile (`21st.dev/@you`). C
 
 Fields (all optional — the block only appears once at least one is filled in):
 
-| Field | What it does |
-|---|---|
-| **Headline** | Defaults to "Work with me" if left blank. |
-| **Pitch** | One short paragraph under the headline (280 chars), e.g. "Available for freelance and contract work." |
-| **Hire link** | A booking or contact link — cal.com, Calendly, your contact form, etc. |
-| **Button label** | Overrides the CTA button text. Defaults to "Work with me". |
-| **Contact email** | Adds a separate Email button. |
+| Field                | What it does                                                                                                                                        |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Headline**         | Defaults to "Work with me" if left blank.                                                                                                           |
+| **Pitch**            | One short paragraph under the headline (280 chars), e.g. "Available for freelance and contract work."                                               |
+| **Hire link**        | A booking or contact link — cal.com, Calendly, your contact form, etc.                                                                              |
+| **Button label**     | Overrides the CTA button text. Defaults to "Work with me".                                                                                          |
+| **Contact email**    | Adds a separate Email button.                                                                                                                       |
 | **Right-side media** | Choose **None**, a built-in **preset** graphic, an uploaded **image/GIF**, or one of your own **published components** to display beside the block. |
 
 ## Get Tipped or Sponsored
@@ -74,7 +82,11 @@ Only links to known donation platforms are accepted:
 Liberapay, Boosty, Stripe Payment Links (`buy.stripe.com` / `donate.stripe.com`), and Lemon Squeezy links are also accepted even though they're not called out in the field's helper text.
 
 <Info>
-When a visitor clicks **Support**, they see your avatar, bio, and stats, then confirm a disclaimer ("21st doesn't process payments or issue refunds") before being redirected to your donation platform in a new tab. The tip itself happens entirely on that platform — 21st.dev only surfaces the link and shows a click count in your Studio analytics.
+  When a visitor clicks **Support**, they see your avatar, bio, and stats, then
+  confirm a disclaimer ("21st doesn't process payments or issue refunds") before
+  being redirected to your donation platform in a new tab. The tip itself
+  happens entirely on that platform — 21st.dev only surfaces the link and shows
+  a click count in your Studio analytics.
 </Info>
 
 ## Link Your Premium Catalog ("Pro Components")
@@ -82,13 +94,17 @@ When a visitor clicks **Support**, they see your avatar, bio, and stats, then co
 If you sell components or templates elsewhere — your own shop, a template marketplace, a Gumroad store — add that link under **Studio → Profile → Pro components**. It renders as a **"Pro components"** block on your profile pointing at your premium catalog.
 
 <Info>
-The profile block named **Pro components** is an outbound link to your own
-premium catalog. It is not tied to a 21st plan and does not
-change who can view your published 21st components.
+  The profile block named **Pro components** is an outbound link to your own
+  premium catalog. It is not tied to a 21st plan and does not change who can
+  view your published 21st components.
 </Info>
 
 <Tip>
-If this URL includes a referral/affiliate query parameter (e.g. `?via=yourname`), 21st.dev reuses it: any affiliate parameter found in your Pro components link is automatically appended to your own templates' buy links, so a template sale you drive through 21st.dev still credits your referral.
+  If this URL includes a referral/affiliate query parameter (e.g.
+  `?via=yourname`), 21st.dev reuses it: any affiliate parameter found in your
+  Pro components link is automatically appended to your own templates' buy
+  links, so a template sale you drive through 21st.dev still credits your
+  referral.
 </Tip>
 
 ## Arrange the Blocks

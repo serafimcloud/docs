@@ -5,9 +5,9 @@ icon: "/icons/nav/publish.svg"
 ---
 
 <Warning>
-All commands on this page require a real secret API key (`21st_sk_…`) from
-[Settings → API keys](https://21st.dev/settings/api-keys). A `21st login`
-session token is not enough. Pass it with `--api-key`, or set `API_KEY_21ST`.
+  All commands on this page require a real secret API key (`21st_sk_…`) from
+  [Settings → API keys](https://21st.dev/settings/api-keys). A `21st login`
+  session token is not enough. Pass it with `--api-key`, or set `API_KEY_21ST`.
 </Warning>
 
 ## Publish a component
@@ -18,27 +18,24 @@ session token is not enough. Pass it with `--api-key`, or set `API_KEY_21ST`.
 
 The CLI auto-detects the component name, slug, and tags from the source, and finds or synthesizes a demo file. Common flags:
 
-| Flag | Purpose |
-| --- | --- |
-| `--description` | Short description (recommended) |
-| `--to <library-slug>` | Publish into a specific team library |
-| `--name` / `--slug` | Override the auto-detected name/slug |
-| `--tags a,b,c` | Set tags explicitly |
-| `--demo <file>` | Use a specific demo file |
-| `--preview <img>` | Attach a preview image |
-| `--registry ui\|hooks\|blocks\|icons` | Registry kind |
-| `--visibility published\|private` | Access (default `published`) |
-| `--website <url>` | Link a live site |
-| `--registry-dep <dep>` | Declare a registry dependency (repeatable) |
+| Flag                                  | Purpose                                    |
+| ------------------------------------- | ------------------------------------------ |
+| `--description`                       | Short description (recommended)            |
+| `--to <library-slug>`                 | Publish into a specific team library       |
+| `--name` / `--slug`                   | Override the auto-detected name/slug       |
+| `--tags a,b,c`                        | Set tags explicitly                        |
+| `--demo <file>`                       | Use a specific demo file                   |
+| `--preview <img>`                     | Attach a preview image                     |
+| `--registry ui\|hooks\|blocks\|icons` | Registry kind                              |
+| `--visibility published\|private`     | Access (default `published`)               |
+| `--website <url>`                     | Link a live site                           |
+| `--registry-dep <dep>`                | Declare a registry dependency (repeatable) |
 
 See [Publishing → Quick Start](/publishing/quick-start) for the full flow and requirements.
 
 <Info>
-Publishing a new **private** component to your personal scope requires Builder
-with AI enabled.
-Private publishing to a team scope requires an active Team plan and owner or
-admin access. Existing private personal components remain private if you are on
-another plan.
+  Private personal components are visible only to you. Publishing privately to a
+  Team library requires an active Team plan and owner or admin access.
 </Info>
 
 Publishing and catalog review are separate. A Published component is available
@@ -82,10 +79,6 @@ Submits a template listing for moderation (it lands as a draft). For paid templa
 ```
 
 `--type` is `component`, `theme`, or `template`. Editable fields differ per type (templates use numeric tag ids and have no visibility field).
-
-Changing an existing personal component from published to private requires
-Builder with AI enabled.
-Editing an already-private component does not make it public.
 
 ## Unpublish or delete
 

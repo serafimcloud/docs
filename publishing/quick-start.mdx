@@ -23,6 +23,7 @@ publish page now redirects into Studio.
     - **Add dependency** installs a compatible component from the 21st registry.
     - **New demo** creates another demo file.
     - Keep one `src/demos/default.tsx` demo. It cannot be deleted.
+
   </Step>
   <Step title="Component">
     Add a name, a 10–280 character description, and the type: **UI**, **Hook**,
@@ -31,6 +32,7 @@ publish page now redirects into Studio.
     available. The slug cannot change after the first publish.
 
     New Studio components use the MIT license by default.
+
   </Step>
   <Step title="Demos">
     Complete every demo before continuing:
@@ -42,6 +44,7 @@ publish page now redirects into Studio.
     A demo's slug comes from its filename and cannot be edited here. Exactly one
     demo must use the `default` slug. Add or remove draft demos from the
     **Files** step.
+
   </Step>
   <Step title="Publish">
     Check the marketplace card preview, then choose the destination and access:
@@ -50,17 +53,17 @@ publish page now redirects into Studio.
       an existing library, or **Create library**.
     - **Published** is available by direct link and on the author profile.
     - **Private** is available only to you or members of the destination team.
-      New private personal components require Builder with AI enabled.
 
     Team publishing requires owner or admin access and an active Team plan.
     Click **Publish component** when everything is ready.
+
   </Step>
 </Steps>
 
 <Tip>
-Use the back button at the top of the publishing sidebar to revisit an earlier
-step. The sidebar stays open because it contains the file list and publish
-controls.
+  Use the back button at the top of the publishing sidebar to revisit an earlier
+  step. The sidebar stays open because it contains the file list and publish
+  controls.
 </Tip>
 
 ### Background Publishing
@@ -72,9 +75,9 @@ is queued, building, published, or failed. You can cancel a pending job or
 retry a failed one from the dock.
 
 <Warning>
-The background job belongs to the current browser tab. You can keep navigating
-inside Studio, but do not close or reload the tab until the dock says
-**Published**.
+  The background job belongs to the current browser tab. You can keep navigating
+  inside Studio, but do not close or reload the tab until the dock says
+  **Published**.
 </Warning>
 
 ### Publishing and Featuring Are Separate
@@ -103,8 +106,8 @@ publish into a team library, or use `--visibility private` for a Private
 component. The default visibility is Published.
 
 <Warning>
-Publishing requires a real API key (`21st_sk_…`) from
-[21st.dev/settings/api-keys](https://21st.dev/settings/api-keys).
+  Publishing requires a real API key (`21st_sk_…`) from
+  [21st.dev/settings/api-keys](https://21st.dev/settings/api-keys).
 </Warning>
 
 You can also publish **themes** (`21st publish-theme ./theme.css`) and **templates** (`21st publish-template "My starter"`).
