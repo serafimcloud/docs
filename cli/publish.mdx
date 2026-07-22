@@ -48,6 +48,41 @@ by link and on your profile. Submit it for featuring only when it is ready:
 21st remove-from-catalog <slug>
 ```
 
+## When a publish fails
+
+A failed publish prints what went wrong, which step it happened in, and the
+build output itself:
+
+```text
+Publish failed (HTTP 422): The "default" demo contains a code or import error. Open the build details, fix the error, and publish again.
+  Stage: component build (demo "default")
+  ---
+  src/demos/default.tsx:7:22 - error TS2304: Cannot find name 'Butonn'.
+  ---
+  Request ID: iad1::abcde-1745000000000-0123456789ab
+```
+
+Fix your source for a build error and publish again. For a temporary failure,
+publish again as-is. Quote the request ID if you contact support: it identifies
+the exact request on our side.
+
+| Error                             | What it means                                   | What to do                                 |
+| --------------------------------- | ----------------------------------------------- | ------------------------------------------ |
+| `dependency_install_failed`       | A dependency could not be installed             | Check the name and version, then republish |
+| `registry_generation_failed`      | Your files could not be prepared for publishing | Read the output, fix, republish            |
+| `component_build_failed`          | The component or its demo does not compile      | Fix the reported file, republish           |
+| `publish_command_timed_out`       | A build step ran past its limit                 | Retry; if it repeats, simplify the demo    |
+| `publish_runner_unavailable`      | Our build service was briefly unreachable       | Retry in a minute, your files are safe     |
+| `artifact_upload_failed`          | It built, but the files could not be uploaded   | Retry                                      |
+| `publish_persistence_unavailable` | It built and uploaded, but could not be saved   | Retry                                      |
+| `publish_completion_uncertain`    | It may have gone through, we could not confirm  | Check your profile before republishing     |
+
+The JSON body of a failed `POST /api/v1/components/publish` carries the same
+information: `error` (the code above), `message`, `retryable`, `request_id`, and
+`details` with `stage`, `demo_slug` or `dependency`, and `output`. Retry only
+when `retryable` is `true`. The rest will fail the same way until the source
+changes.
+
 ## Publish a theme
 
 ```bash
