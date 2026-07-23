@@ -19,13 +19,13 @@ Credential order: `--token`/`--api-key` flag → `TWENTYFIRST_TOKEN` → `API_KE
 
 ## Find & install
 
-| Command                  | Description                                                   |
-| ------------------------ | ------------------------------------------------------------- |
-| `21st search <query>`    | Search components, themes, templates (free)                   |
-| `21st logo <query>`      | Search brand + UI SVG logos (free, no login)                  |
-| `21st get <id>`          | Fetch a component's code + demo                               |
-| `21st theme <id>`        | Fetch a theme's CSS (free)                                    |
-| `21st add <user>/<slug>` | Install via `npx shadcn@latest add` (`--print` to just print) |
+| Command                  | Description                                                                            |
+| ------------------------ | -------------------------------------------------------------------------------------- |
+| `21st search <query>`    | Search components, themes, templates (free); add `--context auto` for grounded ranking |
+| `21st logo <query>`      | Search brand + UI SVG logos (free, no login)                                           |
+| `21st get <id>`          | Fetch a component's code + demo                                                        |
+| `21st theme <id>`        | Fetch a theme's CSS (free)                                                             |
+| `21st add <user>/<slug>` | Install via `npx shadcn@latest add` (`--print` to just print)                          |
 
 See [Find & install](/cli/find) for all search flags.
 
@@ -46,12 +46,12 @@ See [Find & install](/cli/find) for all search flags.
 
 ## Generate with 21st AI
 
-| Command                               | Description                                      |
-| ------------------------------------- | ------------------------------------------------ |
-| `21st generate <prompt>`              | Start a generation, open preview (uses credits)  |
-| `21st generation <projectId>`         | List a generation's drafts (free)                |
-| `21st iterate <projectId> "<change>"` | Refine a draft, `--take N` (uses credits)        |
-| `21st take <projectId>`               | Grab a draft's code, `--take N`, `--code` (free) |
+| Command                               | Description                                                |
+| ------------------------------------- | ---------------------------------------------------------- |
+| `21st generate <prompt>`              | Start a generation; supports `--context auto --variants N` |
+| `21st generation <projectId>`         | List a generation's drafts (free)                          |
+| `21st iterate <projectId> "<change>"` | Refine a draft, `--take N` (uses credits)                  |
+| `21st take <projectId>`               | Grab a draft's code, `--take N`, `--code` (free)           |
 
 See [Generate with 21st AI](/cli/generate).
 
@@ -119,12 +119,27 @@ need to be recreated.
 
 See [Your profile](/cli/profile).
 
+## Design Context & review
+
+| Command                                | Description                                         |
+| -------------------------------------- | --------------------------------------------------- |
+| `21st init --design-context`           | Extract `.21st/design.json` and generated docs      |
+| `21st init --design-context --check`   | Report project/design-context drift without writing |
+| `21st init --design-context --refresh` | Refresh facts while preserving decisions            |
+| `21st review <path...>`                | Run deterministic local UI review                   |
+| `21st review <path...> --fix`          | Apply conservative mechanical fixes                 |
+
+See [Project-aware design](/cli/design-runtime).
+
 ## Editor & MCP setup
 
-| Command                     | Description                          |
-| --------------------------- | ------------------------------------ |
-| `21st init --client <name>` | Print MCP config (`--write` to save) |
-| `21st install-skill`        | Install the global 21st.dev skills   |
-| `21st help`                 | Full help text                       |
+| Command                                   | Description                                 |
+| ----------------------------------------- | ------------------------------------------- |
+| `21st init --client <name>`               | Print MCP config (`--write` to save)        |
+| `21st skills install`                     | Install verified project-local skills       |
+| `21st skills list\|check\|update\|remove` | Manage installed skills safely              |
+| `21st skills catalog`                     | Inspect curated external compatibility      |
+| `21st install-skill`                      | Compatibility alias for global installation |
+| `21st help`                               | Full help text                              |
 
 See [Editor & MCP setup](/cli/setup).

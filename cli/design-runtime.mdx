@@ -1,0 +1,115 @@
+---
+title: Project-aware design
+description: Give 21st your project's real design context, explore grounded options, and run local UI review.
+icon: "/icons/nav/swatch-book.svg"
+---
+
+## Create Design Context
+
+From the project root:
+
+```bash
+21st init --design-context
+```
+
+This writes `.21st/design.json`, the machine-readable source of truth, and
+`.21st/DESIGN.md`, a readable summary. 21st detects the framework, Tailwind
+version, shadcn setup, token sources, component folders, installed primitives,
+assets, and project instruction files. Each inferred fact includes source
+evidence.
+
+Edit `constraints.must`, `constraints.avoid`, and `decisions` in
+`.21st/design.json`. Refreshing preserves those user-owned fields:
+
+```bash
+21st init --design-context --refresh
+21st init --design-context --check
+```
+
+`--check` never writes and exits non-zero when extracted project facts drift.
+
+## Find grounded inspiration
+
+```bash
+21st search "dense analytics table" --context auto
+21st search "account settings form" --context .21st/design.json --json
+```
+
+Context-aware search returns metadata, confidence, and concrete fit rationales.
+It does not retrieve metered component code.
+
+## Generate alternatives
+
+```bash
+21st generate "pricing section" --context auto --variants 3
+```
+
+Every take receives the same project stack, tokens, primitives, constraints,
+and accepted decisions. 21st also assigns a distinct named direction and
+rationale to each take, so variants differ in hierarchy and composition rather
+than only color. The preview URL remains the place to compare, select, and
+refine takes.
+
+## Review locally
+
+```bash
+21st review src/
+21st review src/components/pricing.tsx --json
+21st review src/ --fix
+```
+
+Review is local and free. It reports deterministic accessibility, interaction,
+responsive, motion, and design-system findings with file and line attribution.
+`--fix` only applies high-confidence mechanical fixes.
+
+Suppress a rule only with a reason:
+
+```tsx
+// 21st-review-disable-next-line a11y-img-alt -- CMS injects localized alt text
+<img src={image} />
+```
+
+## Manage skills
+
+Project-local installation is the default:
+
+```bash
+21st skills install
+21st skills list
+21st skills check
+21st skills update
+21st skills remove 21st-ui-explore
+```
+
+Add `--global` for a user-wide installation and
+`--agent claude|cursor|codex|all` to select harnesses. 21st verifies each skill
+hash, records ownership and license metadata in `.21st/skills.lock`, and refuses
+to overwrite or remove local modifications without `--force`.
+
+`21st install-skill` remains a compatibility alias for
+`21st skills install --global`.
+
+## Curated external skills
+
+21st does not duplicate the general skill marketplace. Browse the small
+reviewed compatibility catalog, or use skills.sh for broad discovery:
+
+```bash
+21st skills catalog
+21st skills catalog --json
+```
+
+An external install is always project-local and explicit. Skills containing
+scripts require a second consent flag:
+
+```bash
+21st skills install ui-ux-pro-max \
+  --external \
+  --agent codex \
+  --allow-scripts
+```
+
+21st pins the installer version, verifies the allowlist entry, inspects the
+installed file tree, records scripts/capabilities/license/source in the
+lockfile, and refuses silent global installation. It never combines external
+instructions with first-party skills automatically.

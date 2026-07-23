@@ -13,30 +13,44 @@ icon: "/icons/nav/cable.svg"
 
 `init` sets up the [21st MCP](/ai/mcp) server so your editor and AI agent can search, generate, and pull code directly. Supported clients:
 
-| Client | `--write` target |
-| --- | --- |
-| `cursor` | `.cursor/mcp.json` |
-| `vscode` | `.cursor/mcp.json` (VS Code MCP config) |
-| `windsurf` | `.cursor/mcp.json` |
-| `claude` | `.mcp.json` |
-| `codex` | print-only TOML for `~/.codex/config.toml` |
+| Client     | `--write` target                           |
+| ---------- | ------------------------------------------ |
+| `cursor`   | `.cursor/mcp.json`                         |
+| `vscode`   | `.cursor/mcp.json` (VS Code MCP config)    |
+| `windsurf` | `.cursor/mcp.json`                         |
+| `claude`   | `.mcp.json`                                |
+| `codex`    | print-only TOML for `~/.codex/config.toml` |
 
 Without `--write`, the config is printed so you can paste it yourself. With `--write` it merges into your existing config file.
 
 ## Install the skills
 
 ```bash
-21st install-skill
+21st skills install
 ```
 
-Installs the global 21st.dev skills into `~/.claude/skills` and `~/.cursor/skills`:
+Installs verified project-local skills for Claude Code, Cursor, and Codex. Add
+`--global` for installation under your home directory:
+
+```bash
+21st skills install --global
+21st skills check --global
+```
 
 - `21st-cli-use` — how to drive the CLI
 - `21st-ai` — generating and iterating UI
 - `21st-registry` — publishing and installing
 - `21st-design-sync` — keeping a design system in sync
+- `21st-ui-build` — building against the project's real design system
+- `21st-ui-explore` — comparing meaningful design directions
+- `21st-ui-review` — deterministic review and safe fixes
+
+The lockfile records hashes, versions, ownership, and licenses. Update and
+remove refuse to overwrite local modifications unless you explicitly pass
+`--force`. The old `21st install-skill` command remains an alias for global
+installation.
 
 <Note>
-The CLI and MCP share one endpoint and one login, so once you've run
-`21st login`, both surfaces are authenticated with the same account.
+  The CLI and MCP share one endpoint and one login, so once you've run `21st
+  login`, both surfaces are authenticated with the same account.
 </Note>
