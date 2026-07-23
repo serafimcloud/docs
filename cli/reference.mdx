@@ -94,10 +94,13 @@ need to be recreated.
 | Command                                                              | Description                                                                                                           |
 | -------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
 | `21st publish <file> [--component component:<id>] --description "…"` | Build a new component or an explicit owned revision, open CLI Review with Demos (N) and automatic media, then publish |
+| `21st publish <file> --prepare --wait-video --media-dir <dir>`       | Generate and download revision-bound cover/video without opening Studio or publishing                                 |
+| `21st publish <file> --draft draft:<uuid> --auto --wait-video`       | Publish a prepared draft entirely through the CLI                                                                     |
 | `21st publish-theme <file.css> --name "…"`                           | Publish a theme (needs `:root` + `.dark`)                                                                             |
 | `21st publish-template <name> --site <url> --preview <img>`          | Submit a template listing                                                                                             |
 | `21st edit component:<id> --type component`                          | Update exact component metadata; login sessions and API keys are accepted                                             |
 | `21st delete component:<id> --type component --yes`                  | Unpublish the exact component; login sessions and API keys are accepted                                               |
+| `21st delete draft:<uuid> --type draft --yes`                        | Permanently delete the exact owned draft and its unpublished sandbox                                                  |
 | `21st edit/delete <id> --type <theme\|template>`                     | Manage a theme/template with its existing API-key-scoped id semantics                                                 |
 
 <Warning>

@@ -74,6 +74,25 @@ source, pass its stable `--component component:<id>` ref; this creates a pending
 revision and sends it through the same CLI Review instead of updating the live
 component directly.
 
+Agents and scripts can complete the same review without opening Studio:
+
+```bash
+# Generate both assets, download them for inspection, and keep the draft.
+21st publish ./Component.tsx \
+  --description "A responsive pricing table" \
+  --prepare --wait-video --media-dir .21st-review
+
+# After inspection, publish that exact source revision.
+21st publish ./Component.tsx \
+  --description "A responsive pricing table" \
+  --draft draft:<uuid> --auto --wait-video
+```
+
+`--prepare` never publishes. It waits for revision-bound automatic media and
+optionally downloads it with `--media-dir`. `--auto` publishes only after every
+required cover is ready; `--wait-video` additionally requires a successful
+video. Both modes are CLI-only and never open a browser.
+
 Common flags:
 
 | Flag                                  | Purpose                                    |
@@ -90,6 +109,11 @@ Common flags:
 | `--visibility published\|private`     | Access (default `published`)               |
 | `--website <url>`                     | Link a live site                           |
 | `--registry-dep <dep>`                | Not supported by CLI Review yet            |
+| `--prepare`                           | Prepare media without publishing           |
+| `--auto`                              | Publish after required media is ready      |
+| `--wait-video`                        | Require successful generated video         |
+| `--media-dir <dir>`                   | Download generated media for inspection    |
+| `--draft draft:<uuid>`                | Resume the exact prepared draft            |
 
 See [Publishing → Quick Start](/publishing/quick-start) for the full flow and requirements.
 
@@ -224,6 +248,8 @@ field).
 
 ```bash
 21st delete component:<id> --type component --yes
+21st delete draft:<uuid> --type draft --yes
 ```
 
 `--yes` is required to confirm. For components and themes this **unpublishes** (sets visibility to private / clears the published date). For templates it is a **permanent delete**.
+Deleting a draft permanently removes its unpublished sandbox and code.
