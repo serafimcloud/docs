@@ -5,11 +5,58 @@ icon: "/icons/nav/publish.svg"
 ---
 
 <Warning>
-  Component publishing accepts a `21st login` session or a secret API key
-  (`21st_sk_…`). Theme/template publishing, editing, and deleting still require
-  an API key from [Settings → API keys](https://21st.dev/settings/api-keys),
-  passed with `--api-key` or `API_KEY_21ST`.
+  Component publishing and metadata management accept a `21st login` session or
+  a secret API key (`21st_sk_…`). Theme/template publishing, editing, and
+  deleting still require an API key from [Settings → API
+  keys](https://21st.dev/settings/api-keys), passed with `--api-key` or
+  `API_KEY_21ST`.
 </Warning>
+
+## Find or resume component work
+
+```bash
+21st components
+21st components --status draft --scope personal --json
+21st open component:123
+21st open draft:550e8400-e29b-41d4-a716-446655440000 --no-open
+```
+
+`21st components` lists every accessible personal or Team component and every
+owned saved draft, draining all result pages by default. Use
+`--status all|draft|published|private` and
+`--scope all|personal|team:<uuid>` to narrow the inventory. The returned
+`component:<id>` and `draft:<uuid>` values are stable references.
+
+`21st open draft:<uuid>` resumes an editable Studio draft.
+`21st open component:<id>` creates or resumes a server-owned CLI Review
+revision from the retained published component code and demos. The live
+component stays unchanged until that revision is published. Each demo needs a
+fresh cover; Studio prioritizes the required covers and attempts optional
+videos best-effort in the background. `--no-open` creates or resumes the
+workspace and prints its editor URL without launching a browser.
+
+Use a local file when you already changed the source:
+
+```bash
+21st publish ./Component.tsx --component component:123 --description "What changed"
+```
+
+The ref prevents a same-slug component from being selected accidentally.
+Only the original component author can check out its code. A Team manager can
+still edit or unpublish a teammate's component metadata by its exact stable
+ref.
+
+Checkout fails closed if retained source, dependencies, style, support files,
+or the default demo cannot be reproduced safely. In that case, use the local
+source command above to create the reviewed revision.
+
+A login session includes personal work and Teams the user can manage. A
+personal key is personal-only; a Team key is restricted to that Team.
+
+New CLI Review drafts persist their authenticated personal or Team/library
+scope, so Team filters and Team keys can resume them. Legacy proof-backed CLI
+drafts are recovered into the matching authenticated scope. An older unsigned
+draft whose scope cannot be proven may need to be recreated.
 
 ## Publish a component
 
@@ -18,41 +65,47 @@ icon: "/icons/nav/publish.svg"
 ```
 
 The CLI auto-detects the component name, slug, and tags from the source, and
-finds or synthesizes a demo file. A new slug is dependency-checked, installed,
-and built before its Studio draft opens. The CLI then waits while you review the
-live Component preview, add the required cover, and publish from Studio. An
-existing owned slug is updated directly.
+finds or synthesizes a demo file. A new slug or owned revision is
+dependency-checked, installed, and built before its Studio draft opens in the
+dedicated **CLI Review**. The sidebar shows the exact **Demos (N)** count and
+keeps the selected demo beside its live preview. Studio generates the required
+cover first, then attempts an optional video in the background. To update local
+source, pass its stable `--component component:<id>` ref; this creates a pending
+revision and sends it through the same CLI Review instead of updating the live
+component directly.
 
 Common flags:
 
-| Flag                                  | Purpose                                               |
-| ------------------------------------- | ----------------------------------------------------- |
-| `--description`                       | Short description (recommended)                       |
-| `--to <library-slug>`                 | Publish into a specific team library                  |
-| `--name` / `--slug`                   | Override the auto-detected name/slug                  |
-| `--tags a,b,c`                        | Set tags explicitly                                   |
-| `--demo <file>`                       | Use a specific demo file                              |
-| `--preview <img>`                     | Stage an initial cover for Studio review              |
-| `--no-open`                           | Print the draft URL without opening Studio            |
-| `--registry ui\|hooks\|blocks\|icons` | Registry kind                                         |
-| `--visibility published\|private`     | Access (default `published`)                          |
-| `--website <url>`                     | Link a live site                                      |
-| `--registry-dep <dep>`                | Registry dependency for an existing owned slug update |
+| Flag                                  | Purpose                                    |
+| ------------------------------------- | ------------------------------------------ |
+| `--description`                       | Short description (recommended)            |
+| `--component component:<id>`          | Revise this exact existing component       |
+| `--to <library-slug>`                 | Publish into a specific team library       |
+| `--name` / `--slug`                   | Override the auto-detected name/slug       |
+| `--tags a,b,c`                        | Set tags explicitly                        |
+| `--demo <file>`                       | Use a specific demo file                   |
+| `--preview <img>`                     | Stage an initial cover for Studio review   |
+| `--no-open`                           | Print the draft URL without opening Studio |
+| `--registry ui\|hooks\|blocks\|icons` | Registry kind                              |
+| `--visibility published\|private`     | Access (default `published`)               |
+| `--website <url>`                     | Link a live site                           |
+| `--registry-dep <dep>`                | Not supported by CLI Review yet            |
 
 See [Publishing → Quick Start](/publishing/quick-start) for the full flow and requirements.
 
 <Note>
-  A new Studio draft currently supports one component source file and one demo.
-  Additional local files, `21st.json`, and registry dependencies are not
-  supported for a new slug yet. `--registry-dep` remains available when the
-  command is updating an existing owned slug directly.
+  The current CLI Review command sends one self-contained component source file
+  and one demo. Additional local files, `21st.json`, and registry dependencies
+  are not supported for either a new component or an owned revision yet.
 </Note>
 
-### Review the live preview before publishing
+### Review the CLI draft before publishing
 
 The build check cannot detect every runtime, interaction, or theme problem.
-Review the right-side preview in the **Component** tab, test its meaningful
-states, and check both light and dark themes before uploading the cover.
+Before publishing, confirm that the build passed, every imported package is
+declared in the nearest `package.json`, and every demo works in the right-side
+live preview. Test meaningful states in both light and dark themes, including
+that the primary color resolves correctly.
 
 Use semantic Tailwind utilities such as `bg-primary` and
 `text-primary-foreground`. For custom CSS, use Tailwind v4 variables such as
@@ -60,10 +113,20 @@ Use semantic Tailwind utilities such as `bg-primary` and
 `hsl(var(--primary))`: projects can represent raw tokens differently, making
 otherwise valid CSS render the wrong color in Studio. Use an opacity utility
 such as `bg-primary/20`, or `color-mix()` with `var(--color-primary)`.
+The CLI rejects these known non-portable raw-token wrappers before it creates a
+draft.
 
-If the component is blank, throws, or looks wrong, fix it and run
-`21st publish` again. Capture and upload the cover only after the live component
-is correct; Studio will not allow a new component to publish without it.
+Studio starts media generation as soon as the draft is ready. It prioritizes the
+required cover, which must be ready before publishing. The optional video is
+best-effort in the background: publishing never waits for it and includes it
+only if it is ready. You can replace either generated asset manually.
+
+If the component is blank, throws, has unresolved dependencies, or renders the
+wrong primary color, fix the source in CLI Review and save it. Studio signs the
+new source revision, invalidates every cover and video from the old revision,
+and queues fresh media with the required cover first. Publishing stays blocked
+until that new cover is ready or you upload a replacement. An auto-generated
+cover does not replace the visual and interaction review.
 
 <Info>
   Private personal components are visible only to you. Publishing privately to a
@@ -146,16 +209,21 @@ Submits a template listing for moderation (it lands as a draft). For paid templa
 ## Edit your content
 
 ```bash
-21st edit <id|slug> --type component --visibility published
+21st edit component:<id> --type component --visibility published
 21st edit <id|slug> --type theme --name "New name" --tags a,b
 ```
 
-`--type` is `component`, `theme`, or `template`. Editable fields differ per type (templates use numeric tag ids and have no visibility field).
+`--type` is `component`, `theme`, or `template`. Component metadata edit and
+delete accept a saved `21st login` session or API key. A Team manager can manage
+a teammate's component metadata, but only its original author can check out a
+code revision. Theme/template management still requires an API key. Editable
+fields differ per type (templates use numeric tag ids and have no visibility
+field).
 
 ## Unpublish or delete
 
 ```bash
-21st delete <id|slug> --type component --yes
+21st delete component:<id> --type component --yes
 ```
 
 `--yes` is required to confirm. For components and themes this **unpublishes** (sets visibility to private / clears the published date). For templates it is a **permanent delete**.

@@ -55,20 +55,55 @@ See [Find & install](/cli/find) for all search flags.
 
 See [Generate with 21st AI](/cli/generate).
 
+## Components & drafts
+
+| Command                                                          | Description                                                                    |
+| ---------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| `21st components [--status <status>] [--scope <scope>] [--json]` | List every accessible personal/Team component and owned draft with stable refs |
+| `21st open <component:<id>\|draft:<uuid>> [--no-open]`           | Resume a draft or create/resume a CLI Review revision of an existing component |
+
+`21st components` drains every server page by default. Filter it with
+`--status all|draft|published|private` or
+`--scope all|personal|team:<uuid>`; each row keeps a stable
+`component:<id>` or `draft:<uuid>` reference for `21st open`.
+
+`21st open draft:<uuid>` resumes an editable Studio draft. `21st open
+component:<id>` creates or resumes a server-owned CLI Review revision from the
+retained published component code and demos. The live component stays
+unchanged until publish. Fresh covers are required; optional videos run
+best-effort in the background. Pass `--no-open` to create or resume the
+workspace and print its editor URL without launching a browser.
+
+Only the original component author can check out code. A Team manager can
+still edit or unpublish a teammate's component metadata by stable ref. Checkout
+fails closed when retained source, dependencies, style, support files, or the
+default demo cannot be reproduced safely. Use
+`21st publish <file> --component component:<id>` with a local source file
+instead.
+
+A login session includes personal work and Teams the user can manage. A
+personal key is personal-only; a Team key is restricted to that Team.
+
+New CLI Review drafts persist their authenticated personal or Team/library
+scope. Legacy proof-backed CLI drafts are recovered into the matching
+authenticated scope. An older unsigned draft whose scope cannot be proven may
+need to be recreated.
+
 ## Publish & manage
 
-| Command                                                     | Description                                                                                                                 |
-| ----------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| `21st publish <file> --description "…"`                     | Build a new component, open its Studio draft for preview/cover review, then publish; update an owned existing slug directly |
-| `21st publish-theme <file.css> --name "…"`                  | Publish a theme (needs `:root` + `.dark`)                                                                                   |
-| `21st publish-template <name> --site <url> --preview <img>` | Submit a template listing                                                                                                   |
-| `21st edit <id\|slug> --type <kind>`                        | Update name / description / tags / visibility                                                                               |
-| `21st delete <id\|slug> --type <kind> --yes`                | Unpublish (component/theme) or delete (template)                                                                            |
+| Command                                                              | Description                                                                                                           |
+| -------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `21st publish <file> [--component component:<id>] --description "…"` | Build a new component or an explicit owned revision, open CLI Review with Demos (N) and automatic media, then publish |
+| `21st publish-theme <file.css> --name "…"`                           | Publish a theme (needs `:root` + `.dark`)                                                                             |
+| `21st publish-template <name> --site <url> --preview <img>`          | Submit a template listing                                                                                             |
+| `21st edit component:<id> --type component`                          | Update exact component metadata; login sessions and API keys are accepted                                             |
+| `21st delete component:<id> --type component --yes`                  | Unpublish the exact component; login sessions and API keys are accepted                                               |
+| `21st edit/delete <id> --type <theme\|template>`                     | Manage a theme/template with its existing API-key-scoped id semantics                                                 |
 
 <Warning>
-  Component publishing accepts a login session or secret API key. Theme/template
-  publishing and management commands require a `21st_sk_…` key. See [Publish &
-  manage](/cli/publish).
+  Component publishing, metadata editing, and unpublishing accept a login
+  session or secret API key. Theme/template publishing and management commands
+  require a `21st_sk_…` key. See [Publish & manage](/cli/publish).
 </Warning>
 
 ## Profile
