@@ -97,18 +97,30 @@ See [Quality Guidelines](/publishing/quality-guidelines) before submitting.
 
 ```bash
 npm i -g @21st-dev/cli
+21st login
 21st publish ./Component.tsx --description "A responsive pricing table"
 ```
 
 The CLI auto-detects the component name, tags, and a sibling demo file
-(`Component.demo.tsx` or `demos/default.tsx`). Add `--to <library-slug>` to
-publish into a team library, or use `--visibility private` for a Private
-component. The default visibility is Published.
+(`Component.demo.tsx` or `demos/default.tsx`). For a new slug it validates
+dependencies, builds the component, and then opens a Studio draft on the
+**Component** tab. Review the live preview in light and dark themes, test its
+states, capture and upload the required cover, then finish publishing in
+Studio. The CLI waits and prints the component URL only after that final step.
 
-<Warning>
-  Publishing requires a real API key (`21st_sk_…`) from
-  [21st.dev/settings/api-keys](https://21st.dev/settings/api-keys).
-</Warning>
+Add `--to <library-slug>` to target a team library, or use
+`--visibility private` for a Private component. The default is Published. A
+`21st login` session or API key can create a component draft; editing and
+deleting require a `21st_sk_…` key from
+[Settings → API keys](https://21st.dev/settings/api-keys).
+
+An existing owned slug is updated directly. Use `--no-open` to print the draft
+URL without opening Studio, or <kbd>Ctrl</kbd>+<kbd>C</kbd> to stop waiting
+without deleting the draft.
+
+New CLI drafts currently accept one self-contained component file and one demo.
+Additional local files, `21st.json`, and registry dependencies are not supported
+for a new slug yet.
 
 You can also publish **themes** (`21st publish-theme ./theme.css`) and **templates** (`21st publish-template "My starter"`).
 

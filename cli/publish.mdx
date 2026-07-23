@@ -5,9 +5,10 @@ icon: "/icons/nav/publish.svg"
 ---
 
 <Warning>
-  All commands on this page require a real secret API key (`21st_sk_…`) from
-  [Settings → API keys](https://21st.dev/settings/api-keys). A `21st login`
-  session token is not enough. Pass it with `--api-key`, or set `API_KEY_21ST`.
+  Component publishing accepts a `21st login` session or a secret API key
+  (`21st_sk_…`). Theme/template publishing, editing, and deleting still require
+  an API key from [Settings → API keys](https://21st.dev/settings/api-keys),
+  passed with `--api-key` or `API_KEY_21ST`.
 </Warning>
 
 ## Publish a component
@@ -16,22 +17,53 @@ icon: "/icons/nav/publish.svg"
 21st publish ./Component.tsx --description "A responsive pricing table"
 ```
 
-The CLI auto-detects the component name, slug, and tags from the source, and finds or synthesizes a demo file. Common flags:
+The CLI auto-detects the component name, slug, and tags from the source, and
+finds or synthesizes a demo file. A new slug is dependency-checked, installed,
+and built before its Studio draft opens. The CLI then waits while you review the
+live Component preview, add the required cover, and publish from Studio. An
+existing owned slug is updated directly.
 
-| Flag                                  | Purpose                                    |
-| ------------------------------------- | ------------------------------------------ |
-| `--description`                       | Short description (recommended)            |
-| `--to <library-slug>`                 | Publish into a specific team library       |
-| `--name` / `--slug`                   | Override the auto-detected name/slug       |
-| `--tags a,b,c`                        | Set tags explicitly                        |
-| `--demo <file>`                       | Use a specific demo file                   |
-| `--preview <img>`                     | Attach a preview image                     |
-| `--registry ui\|hooks\|blocks\|icons` | Registry kind                              |
-| `--visibility published\|private`     | Access (default `published`)               |
-| `--website <url>`                     | Link a live site                           |
-| `--registry-dep <dep>`                | Declare a registry dependency (repeatable) |
+Common flags:
+
+| Flag                                  | Purpose                                               |
+| ------------------------------------- | ----------------------------------------------------- |
+| `--description`                       | Short description (recommended)                       |
+| `--to <library-slug>`                 | Publish into a specific team library                  |
+| `--name` / `--slug`                   | Override the auto-detected name/slug                  |
+| `--tags a,b,c`                        | Set tags explicitly                                   |
+| `--demo <file>`                       | Use a specific demo file                              |
+| `--preview <img>`                     | Stage an initial cover for Studio review              |
+| `--no-open`                           | Print the draft URL without opening Studio            |
+| `--registry ui\|hooks\|blocks\|icons` | Registry kind                                         |
+| `--visibility published\|private`     | Access (default `published`)                          |
+| `--website <url>`                     | Link a live site                                      |
+| `--registry-dep <dep>`                | Registry dependency for an existing owned slug update |
 
 See [Publishing → Quick Start](/publishing/quick-start) for the full flow and requirements.
+
+<Note>
+  A new Studio draft currently supports one component source file and one demo.
+  Additional local files, `21st.json`, and registry dependencies are not
+  supported for a new slug yet. `--registry-dep` remains available when the
+  command is updating an existing owned slug directly.
+</Note>
+
+### Review the live preview before publishing
+
+The build check cannot detect every runtime, interaction, or theme problem.
+Review the right-side preview in the **Component** tab, test its meaningful
+states, and check both light and dark themes before uploading the cover.
+
+Use semantic Tailwind utilities such as `bg-primary` and
+`text-primary-foreground`. For custom CSS, use Tailwind v4 variables such as
+`var(--color-primary)`. Do not write `oklch(var(--primary))` or
+`hsl(var(--primary))`: projects can represent raw tokens differently, making
+otherwise valid CSS render the wrong color in Studio. Use an opacity utility
+such as `bg-primary/20`, or `color-mix()` with `var(--color-primary)`.
+
+If the component is blank, throws, or looks wrong, fix it and run
+`21st publish` again. Capture and upload the cover only after the live component
+is correct; Studio will not allow a new component to publish without it.
 
 <Info>
   Private personal components are visible only to you. Publishing privately to a
@@ -66,16 +98,21 @@ Fix your source for a build error and publish again. For a temporary failure,
 publish again as-is. Quote the request ID if you contact support: it identifies
 the exact request on our side.
 
-| Error                             | What it means                                   | What to do                                 |
-| --------------------------------- | ----------------------------------------------- | ------------------------------------------ |
-| `dependency_install_failed`       | A dependency could not be installed             | Check the name and version, then republish |
-| `registry_generation_failed`      | Your files could not be prepared for publishing | Read the output, fix, republish            |
-| `component_build_failed`          | The component or its demo does not compile      | Fix the reported file, republish           |
-| `publish_command_timed_out`       | A build step ran past its limit                 | Retry; if it repeats, simplify the demo    |
-| `publish_runner_unavailable`      | Our build service was briefly unreachable       | Retry in a minute, your files are safe     |
-| `artifact_upload_failed`          | It built, but the files could not be uploaded   | Retry                                      |
-| `publish_persistence_unavailable` | It built and uploaded, but could not be saved   | Retry                                      |
-| `publish_completion_uncertain`    | It may have gone through, we could not confirm  | Check your profile before republishing     |
+| Error                                     | What it means                                   | What to do                                                           |
+| ----------------------------------------- | ----------------------------------------------- | -------------------------------------------------------------------- |
+| `dependency_install_failed`               | A dependency could not be installed             | Check the name and version, then republish                           |
+| `draft_dependency_install_failed`         | A new draft dependency could not be installed   | Fix an invalid package/version, or retry a temporary network failure |
+| `draft_build_failed`                      | The new draft component or demo does not build  | Fix the reported source and publish again                            |
+| `draft_readiness_unavailable`             | Draft install/build/preview readiness timed out | Retry with the same source                                           |
+| `unsupported_draft_files`                 | A new draft includes extra local source files   | Publish one self-contained component and demo                        |
+| `unsupported_draft_registry_dependencies` | A new draft declares a registry dependency      | Remove it or update an existing owned slug                           |
+| `registry_generation_failed`              | Your files could not be prepared for publishing | Read the output, fix, republish                                      |
+| `component_build_failed`                  | The component or its demo does not compile      | Fix the reported file, republish                                     |
+| `publish_command_timed_out`               | A build step ran past its limit                 | Retry; if it repeats, simplify the demo                              |
+| `publish_runner_unavailable`              | Our build service was briefly unreachable       | Retry in a minute, your files are safe                               |
+| `artifact_upload_failed`                  | It built, but the files could not be uploaded   | Retry                                                                |
+| `publish_persistence_unavailable`         | It built and uploaded, but could not be saved   | Retry                                                                |
+| `publish_completion_uncertain`            | It may have gone through, we could not confirm  | Check your profile before republishing                               |
 
 The JSON body of a failed `POST /api/v1/components/publish` carries the same
 information: `error` (the code above), `message`, `retryable`, `request_id`, and

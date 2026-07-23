@@ -18,7 +18,13 @@ icon: "/icons/nav/shield-check.svg"
 
 ## Theming
 
-- Use CSS variables (e.g., `hsl(var(--background))`)
+- Prefer semantic Tailwind utilities such as `bg-background`, `bg-primary`,
+  `text-foreground`, and `border-border`
+- In custom CSS, use Tailwind v4 theme variables such as
+  `var(--color-primary)`, not wrappers such as `oklch(var(--primary))` or
+  `hsl(var(--primary))` that assume a raw token format
+- For opacity, use utilities such as `bg-primary/20` or `color-mix()` with a
+  semantic `--color-*` variable
 - Respect theme tokens; no hardcoded colors
 - Works in both light and dark modes
 
@@ -45,9 +51,9 @@ icon: "/icons/nav/shield-check.svg"
 ## Review Flow
 
 <Info>
-Publishing and catalog review are separate. A **Published** component is
-available by direct link and on your profile, but it is not listed in the public
-catalog until it is **Featured**.
+  Publishing and catalog review are separate. A **Published** component is
+  available by direct link and on your profile, but it is not listed in the
+  public catalog until it is **Featured**.
 </Info>
 
 <Steps>
@@ -62,8 +68,8 @@ catalog until it is **Featured**.
   </Step>
   <Step title="Respond to the result">
     **Featured** components appear in the catalog. If the status is **Needs
-    changes**, read the feedback, update the component, and choose **Resubmit for
-    featuring**.
+    changes**, read the feedback, update the component, and choose **Resubmit
+    for featuring**.
   </Step>
 </Steps>
 
