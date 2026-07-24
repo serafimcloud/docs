@@ -66,13 +66,22 @@ draft whose scope cannot be proven may need to be recreated.
 
 The CLI auto-detects the component name, slug, and tags from the source, and
 finds or synthesizes a demo file. A new slug or owned revision is
-dependency-checked, installed, and built before its Studio draft opens in the
-dedicated **CLI Review**. The sidebar shows the exact **Demos (N)** count and
-keeps the selected demo beside its live preview. Studio generates the required
-cover first, then attempts an optional video in the background. To update local
-source, pass its stable `--component component:<id>` ref; this creates a pending
-revision and sends it through the same CLI Review instead of updating the live
-component directly.
+dependency-checked, installed, and built, then the CLI waits for the required
+cover before opening the draft in the dedicated **CLI Review** — the browser
+gets a component that is ready to publish, not a build in progress. An optional
+video keeps generating in the background and is included only if it finishes.
+
+CLI Review is an overview: the component, its demos and their media, and the
+tags each state their status, with the matching form one click behind them.
+Above the preview, a switcher flips between the live demo, the captured cover,
+the video, and the component's card as it appears in a listing. Access lives on
+the same screen — Public or Private, plus whether to submit the component to
+the catalog — so `--visibility` only sets the default. Publishing lands on the
+published component.
+
+To update local source, pass its stable `--component component:<id>` ref; this
+creates a pending revision and sends it through the same CLI Review instead of
+updating the live component directly.
 
 Agents and scripts can complete the same review without opening Studio:
 
@@ -143,7 +152,12 @@ draft.
 Studio starts media generation as soon as the draft is ready. It prioritizes the
 required cover, which must be ready before publishing. The optional video is
 best-effort in the background: publishing never waits for it and includes it
-only if it is ready. You can replace either generated asset manually.
+only if it is ready. An interaction video is accepted only when a click, press,
+typing, keyboard, or scroll beat produces a visible result. Give interactive
+controls stable semantic selectors such as an `id`, native role, or
+`data-slot`; a missing selector or a visually unchanged interaction is retried
+once and then fails closed instead of attaching a cursor-only clip. You can
+replace either generated asset manually.
 
 If the component is blank, throws, has unresolved dependencies, or renders the
 wrong primary color, fix the source in CLI Review and save it. Studio signs the

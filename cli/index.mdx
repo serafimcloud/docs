@@ -35,6 +35,9 @@ You can also authenticate with an [API key](https://21st.dev/settings/api-keys) 
 3. `API_KEY_21ST` env var
 4. the stored `21st login` session
 
+A retired `an_…` key left in either env var is skipped, so an old export can no
+longer shadow a working `21st login` session.
+
 <Warning>
 `21st publish <component>` accepts a stored `21st login` session or a secret API
 key. Theme/template publishing and management commands (`edit`, `delete`,
