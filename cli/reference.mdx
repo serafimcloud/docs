@@ -98,6 +98,10 @@ need to be recreated.
 | `21st publish <file> --draft draft:<uuid> --auto --wait-video`       | Publish a prepared draft entirely through the CLI                                                                     |
 | `21st publish-theme <file.css> --name "…"`                           | Publish a theme (needs `:root` + `.dark`)                                                                             |
 | `21st publish-template <name> --site <url> --preview <img>`          | Submit a template listing                                                                                             |
+| `21st publish-gradient <recipe.json> --name "…" --thumbnail <img>`   | Publish a Gradient Builder recipe                                                                                     |
+| `21st publish-ascii <recipe.json> --name "…" --thumbnail <img>`      | Publish an ASCII recipe (`--video`, `--mask`, `--private`)                                                            |
+| `21st submit <slug>` / `withdraw` / `resubmit`                       | Submit a Published component for featuring, withdraw it, or resubmit after changes                                    |
+| `21st remove-from-catalog <slug>`                                    | Return a Featured component to Published                                                                              |
 | `21st edit component:<id> --type component`                          | Update exact component metadata; login sessions and API keys are accepted                                             |
 | `21st delete component:<id> --type component --yes`                  | Unpublish the exact component; login sessions and API keys are accepted                                               |
 | `21st delete draft:<uuid> --type draft --yes`                        | Permanently delete the exact owned draft and its unpublished sandbox                                                  |
@@ -128,6 +132,7 @@ See [Your profile](/cli/profile).
 | `21st init --design-context --refresh` | Refresh facts while preserving decisions            |
 | `21st review <path...>`                | Run deterministic local UI review                   |
 | `21st review <path...> --fix`          | Apply conservative mechanical fixes                 |
+| `21st inspiration-feedback <feedbackId> --outcome accepted\|rejected` | Record a privacy-safe inspiration decision |
 
 See [Project-aware design](/cli/design-runtime).
 
