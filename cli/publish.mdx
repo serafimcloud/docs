@@ -79,6 +79,13 @@ the same screen — Public or Private, plus whether to submit the component to
 the catalog — so `--visibility` only sets the default. Publishing lands on the
 published component.
 
+Along with the Studio URL the CLI prints a **review link**. It opens the same
+screen in a browser that is signed into nothing — an agent's browser, a phone,
+a colleague's laptop — because it carries its own one-draft capability instead
+of relying on a session. The link opens once, expires in 24 hours, and dies the
+moment the draft is published or deleted; it can do nothing outside that draft.
+Treat it like the draft itself: whoever holds it can finish this publish.
+
 To update local source, pass its stable `--component component:<id>` ref; this
 creates a pending revision and sends it through the same CLI Review instead of
 updating the live component directly.
