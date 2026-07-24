@@ -66,10 +66,10 @@ draft whose scope cannot be proven may need to be recreated.
 
 The CLI auto-detects the component name, slug, and tags from the source, and
 finds or synthesizes a demo file. A new slug or owned revision is
-dependency-checked, installed, and built, then the CLI waits for the required
-cover before opening the draft in the dedicated **CLI Review** — the browser
-gets a component that is ready to publish, not a build in progress. An optional
-video keeps generating in the background and is included only if it finishes.
+dependency-checked, installed, and built before its draft opens in the
+dedicated **CLI Review**. Studio then generates the required cover and attempts
+an optional video in the background; publishing stays locked until every demo
+has a cover, but never waits for video.
 
 CLI Review is an overview: the component, its demos and their media, and the
 tags each state their status, with the matching form one click behind them.
