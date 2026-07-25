@@ -58,6 +58,23 @@ scope, so Team filters and Team keys can resume them. Legacy proof-backed CLI
 drafts are recovered into the matching authenticated scope. An older unsigned
 draft whose scope cannot be proven may need to be recreated.
 
+## Look at a component without publishing it
+
+```bash
+21st render ./Component.tsx --demo ./Component.demo.tsx --out ./preview
+21st render ./Component.tsx --video --json
+```
+
+`21st render` builds the component in a Studio workspace, photographs its demo,
+writes `default.png` (and `default.mp4` with `--video`) into `--out`, then
+deletes the workspace — including on Ctrl-C. Nothing is published, nothing is
+listed, and no draft is left behind for you to find later. Use it to check a
+change before spending a publish on it.
+
+It borrows one Studio workspace while it runs, so it counts against the same
+draft limit as publishing; `--keep` leaves the workspace in place if you want
+to open it in Studio afterwards.
+
 ## Publish a component
 
 ```bash
