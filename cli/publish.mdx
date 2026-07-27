@@ -130,6 +130,25 @@ its own, so `--auto --preview` neither waits for nor fails on capture.
 `--wait-video` additionally requires a successful video. Both modes are
 CLI-only and never open a browser.
 
+### One draft, many edits
+
+`--draft` sends the file you pass into that draft before anything else, so
+fixing the component and running the command again keeps working in the same
+draft instead of creating a sandbox per edit:
+
+```bash
+# Fix Component.tsx, then push it into the draft you already have.
+21st publish ./Component.tsx \
+  --description "A responsive pricing table" \
+  --draft draft:<uuid> --prepare
+```
+
+The draft re-signs its revision and captures the cover and video again, exactly
+as an edit made in the review screen does. Media you uploaded yourself is kept.
+The component slug and the set of demos are fixed when the draft is created, so
+a push changes code only; add `--no-push` to resume a draft without touching
+its source, for example to finish a publish that was interrupted.
+
 With `--json`, stdout carries exactly one JSON document (`state`, and on
 success `component_id`, `url`, `install_ref`); all progress moves to stderr.
 Exit codes are stable for scripting: `0` published, `1` generic failure,
@@ -160,7 +179,8 @@ Common flags:
 | `--auto`                              | Publish after required media is ready      |
 | `--wait-video`                        | Require successful generated video         |
 | `--media-dir <dir>`                   | Download generated media for inspection    |
-| `--draft draft:<uuid>`                | Resume the exact prepared draft            |
+| `--draft draft:<uuid>`                | Push this file into that draft and resume  |
+| `--no-push`                           | Resume without replacing the draft's source |
 
 See [Publishing → Quick Start](/publishing/quick-start) for the full flow and requirements.
 
