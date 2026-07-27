@@ -22,7 +22,10 @@ icon: "/icons/nav/publish.svg"
 ```
 
 `21st components` lists every accessible personal or Team component and every
-owned saved draft, draining all result pages by default. Use
+owned saved draft, draining all result pages by default. It closes with how
+many new drafts you may still start this hour, so the limit is visible before a
+publish runs into it. Drafts nobody returns to are reclaimed automatically
+after a day of silence. Use
 `--status all|draft|published|private` and
 `--scope all|personal|team:<uuid>` to narrow the inventory. The returned
 `component:<id>` and `draft:<uuid>` values are stable references.
