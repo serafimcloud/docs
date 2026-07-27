@@ -144,7 +144,9 @@ draft instead of creating a sandbox per edit:
 ```
 
 The draft re-signs its revision and captures the cover and video again, exactly
-as an edit made in the review screen does. Media you uploaded yourself is kept.
+as an edit made in the review screen does. Anything the new code imports is
+installed into the draft first, so adding a dependency between runs works.
+Media you uploaded yourself is kept.
 The component slug and the set of demos are fixed when the draft is created, so
 a push changes code only; add `--no-push` to resume a draft without touching
 its source, for example to finish a publish that was interrupted.
