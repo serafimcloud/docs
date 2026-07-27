@@ -78,6 +78,22 @@ It borrows one Studio workspace while it runs, so it counts against the same
 draft limit as publishing; `--keep` leaves the workspace in place if you want
 to open it in Studio afterwards.
 
+## Manage a library
+
+```bash
+21st library
+21st library show sophon
+21st library create design-system --name "Design System"
+21st library update sophon --logo ./logo.svg --display-name "Sophon" --public
+```
+
+`21st library` lists every library you can manage — your own and those of
+teams where you are an owner or admin. `update` changes only what you pass:
+`--name`, `--description`, `--display-name`, `--logo <file>` or
+`--logo-url <url>`, `--website`, `--github`, `--x`, and `--public` /
+`--private` for the library's public page. Logos accept PNG, JPEG, WebP or
+SVG up to 2 MiB. Add `--json` to any of them for machine-readable output.
+
 ## Publish a component
 
 ```bash
