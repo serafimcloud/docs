@@ -146,7 +146,11 @@ draft instead of creating a sandbox per edit:
 The draft re-signs its revision and captures the cover and video again, exactly
 as an edit made in the review screen does. Anything the new code imports is
 installed into the draft first, so adding a dependency between runs works.
-Media you uploaded yourself is kept.
+Media you uploaded yourself is kept. A push carries the whole set: repeat
+`--demo` to add demos, drop one from the command to remove it, and edited
+`--description`, `--name` or `--tags` travel with the code. The slug and the
+registry are fixed when the draft is created, since they decide what it
+publishes as.
 The component slug and the set of demos are fixed when the draft is created, so
 a push changes code only; add `--no-push` to resume a draft without touching
 its source, for example to finish a publish that was interrupted.
@@ -170,7 +174,7 @@ Common flags:
 | `--to <library-slug>`                 | Publish into a specific team library       |
 | `--name` / `--slug`                   | Override the auto-detected name/slug       |
 | `--tags a,b,c`                        | Set tags explicitly                        |
-| `--demo <file>`                       | Use a specific demo file                   |
+| `--demo <file>`                       | Use a specific demo file (repeat for more) |
 | `--preview <img>`                     | Use this image as the demo's cover         |
 | `--no-open`                           | Print the draft URL without opening Studio |
 | `--registry ui\|hooks\|blocks\|icons` | Registry kind                              |
