@@ -130,6 +130,16 @@ its own, so `--auto --preview` neither waits for nor fails on capture.
 `--wait-video` additionally requires a successful video. Both modes are
 CLI-only and never open a browser.
 
+With `--json`, stdout carries exactly one JSON document (`state`, and on
+success `component_id`, `url`, `install_ref`); all progress moves to stderr.
+Exit codes are stable for scripting: `0` published, `1` generic failure,
+`2` draft handed off without publishing (CI), `3` auth, `4` rate limited,
+`5` build failed, `6` cover/media not ready, `7` conflict, `130` interrupted.
+
+To read a draft the same way without publishing, `21st draft <draft:uuid>`
+prints its state, editor URL and per-demo media states; `--watch` streams
+every transition until the draft publishes, fails or is deleted.
+
 Common flags:
 
 | Flag                                  | Purpose                                    |

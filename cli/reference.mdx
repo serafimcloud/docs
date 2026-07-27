@@ -61,6 +61,7 @@ See [Generate with 21st AI](/cli/generate).
 | ---------------------------------------------------------------- | ------------------------------------------------------------------------------ |
 | `21st components [--status <status>] [--scope <scope>] [--json]` | List every accessible personal/Team component and owned draft with stable refs |
 | `21st open <component:<id>\|draft:<uuid>> [--no-open]`           | Resume a draft or create/resume a CLI Review revision of an existing component |
+| `21st draft <draft:<uuid>> [--watch] [--json]`                   | Draft state, editor URL and per-demo media states without a browser; `--watch` prints transitions until published/failed/deleted |
 
 `21st components` drains every server page by default. Filter it with
 `--status all|draft|published|private` or
@@ -103,8 +104,8 @@ need to be recreated.
 | `21st submit <slug>` / `withdraw` / `resubmit`                       | Submit a Published component for featuring, withdraw it, or resubmit after changes                                    |
 | `21st remove-from-catalog <slug>`                                    | Return a Featured component to Published                                                                              |
 | `21st edit component:<id> --type component`                          | Update exact component metadata; login sessions and API keys are accepted                                             |
-| `21st delete component:<id> --type component --yes`                  | Unpublish the exact component; login sessions and API keys are accepted                                               |
-| `21st delete draft:<uuid> --type draft --yes`                        | Permanently delete the exact owned draft and its unpublished sandbox                                                  |
+| `21st delete component:<id> --yes`                                   | Unpublish the exact component; login sessions and API keys are accepted (`--type` is inferred from the ref)           |
+| `21st delete draft:<uuid> --yes`                                     | Permanently delete the exact owned draft and its unpublished sandbox (`--type` is inferred from the ref)              |
 | `21st edit/delete <id> --type <theme\|template>`                     | Manage a theme/template with its existing API-key-scoped id semantics                                                 |
 
 <Warning>
