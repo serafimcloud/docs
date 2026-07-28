@@ -4,7 +4,7 @@ description: Every 21st CLI command and its key flags in one place.
 icon: "/icons/nav/terminal.svg"
 ---
 
-Run `21st help` (or any command with `--help`) for inline usage. Add `--json` to most read commands for machine-readable output.
+Run `21st help` for the full inline usage; a command invoked without its required arguments prints its own usage line. Add `--json` to most read commands for machine-readable output.
 
 ## Auth & account
 
@@ -95,6 +95,8 @@ need to be recreated.
 | Command                                                              | Description                                                                                                           |
 | -------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
 | `21st publish <file> [--component component:<id>] --description "…"` | Build a new component or an explicit owned revision, open CLI Review with Demos (N) and automatic media, then publish |
+| `21st render <file> [--demo <f>] [--out <dir>] [--video] [--keep]`   | Build and photograph a component without publishing it; the workspace is deleted afterwards unless `--keep` |
+| `21st library [list\|show\|create\|update] <slug>`                   | Read and edit a library's identity (`--name`, `--description`, `--display-name`, `--logo`/`--logo-url`, `--website`, `--github`, `--x`, `--public`/`--private`) |
 | `21st publish <file> --prepare --wait-video --media-dir <dir>`       | Generate and download revision-bound cover/video without opening Studio or publishing                                 |
 | `21st publish <file> --draft draft:<uuid> --auto --wait-video`       | Publish a prepared draft entirely through the CLI                                                                     |
 | `21st publish-theme <file.css> --name "…"`                           | Publish a theme (needs `:root` + `.dark`)                                                                             |

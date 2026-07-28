@@ -209,6 +209,16 @@ Common flags:
 
 See [Publishing → Quick Start](/publishing/quick-start) for the full flow and requirements.
 
+### Controls come from the demo file
+
+A demo that declares a module-level `const settings = { … }` and takes it as
+props publishes with a live controls panel next to its preview, and visitors
+copy code carrying the values they tuned. The CLI needs no flag for it: the
+defaults are read from the source you publish. Labels and ranges are edited
+afterwards from the component's **Edit** dialog without a re-publish, but which
+knobs exist and what they start at change only by publishing again. See
+[Demo Controls](/publishing/demo-controls).
+
 <Note>
   The current CLI Review command sends one self-contained component source file
   and one demo. Additional local files, `21st.json`, and registry dependencies

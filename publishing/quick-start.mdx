@@ -4,16 +4,126 @@ description: Publish your first component in minutes.
 icon: "/icons/nav/publish.svg"
 ---
 
-You can publish from the web Studio or straight from your terminal with the [CLI](/cli).
+The [CLI](/cli) is the primary way to publish: you stay in the project the
+component already lives in, and one command builds it, generates its media, and
+publishes it. The web **Studio** does the same work in the browser and is the
+better choice when you are writing the component from scratch or have no local
+copy of it.
 
-## Option A: Publish from Studio
+## Publish from the terminal
 
-### Start
+```bash
+npm i -g @21st-dev/cli
+21st login
+21st publish ./Component.tsx --description "A responsive pricing table"
+```
+
+The CLI auto-detects the component name, slug, tags, and a sibling demo file
+(`Component.demo.tsx` or `demos/default.tsx`). For a new slug it validates
+dependencies, builds the component, and opens the dedicated Studio **CLI
+Review** — an overview of the component, its demos and their media, and its
+tags, with the matching form one click behind each. Its sidebar shows
+**Demos (N)** and the selected demo stays live in the preview.
+
+Studio generates each required cover at the highest priority, then attempts an
+optional video in the background. Video is best-effort: publishing never waits
+for it and includes it only if it is ready; the cover is required. Replace
+either generated asset manually before publishing.
+
+Along with the Studio URL the CLI prints a **review link** that opens the same
+screen in a browser signed into nothing — an agent's browser, a phone, a
+colleague's laptop. It opens once, expires in 24 hours, and dies the moment the
+draft is published or deleted.
+
+<Steps>
+  <Step title="Check the build">
+    Confirm the build succeeded and that every imported package is declared in
+    the nearest `package.json`.
+  </Step>
+  <Step title="Check every demo">
+    Test meaningful states in light and dark themes and verify semantic theme
+    tokens, including the primary color. Use `bg-primary` and
+    `var(--color-primary)`; never `oklch(var(--primary))` or
+    `hsl(var(--primary))`.
+  </Step>
+  <Step title="Choose access">
+    Public or Private, and whether to submit to the catalog, live on the same
+    screen — `--visibility` only sets the default. Add `--to <library-slug>` to
+    publish into a team library.
+  </Step>
+  <Step title="Publish">
+    The CLI waits and prints the component URL after the final Studio step.
+    Press <kbd>Ctrl</kbd>+<kbd>C</kbd> to stop waiting without deleting the
+    draft.
+  </Step>
+</Steps>
+
+### Without a browser
+
+Agents and scripts complete the same review headlessly:
+
+```bash
+# Generate the media, download it for inspection, keep the draft.
+21st publish ./Component.tsx --description "…" \
+  --prepare --wait-video --media-dir .21st-review
+
+# After inspection, publish that exact revision.
+21st publish ./Component.tsx --description "…" \
+  --draft draft:<uuid> --auto --wait-video
+```
+
+`--prepare` never publishes; `--auto` publishes once every required cover is
+ready. With `--json`, stdout carries exactly one JSON document and the exit code
+is stable for scripting (`3` auth, `4` rate limited, `5` build, `6` media, `7`
+conflict). See [CLI → Publish & manage](/cli/publish) for every flag.
+
+### Continue existing work
+
+```bash
+21st components
+21st open component:123
+21st open draft:<uuid> --no-open
+```
+
+`21st components` returns every accessible personal or Team component and every
+owned draft, draining all pages by default. `21st open draft:<uuid>` resumes
+that draft. `21st open component:<id>` creates or resumes a server-owned CLI
+Review revision from its retained published code and demos; the live component
+does not change until the revision is published. `--no-open` prints the
+workspace URL without opening Studio.
+
+Only the original author can check out a component's code. A Team manager can
+still edit or unpublish a teammate's metadata. Checkout fails closed if retained
+source, dependencies, style, support files, or the default demo cannot be
+reproduced safely. If you already changed the local source, or checkout is not
+supported, create the revision explicitly:
+
+```bash
+21st publish ./Component.tsx \
+  --component component:123 \
+  --description "What changed"
+```
+
+A `21st login` session or an API key can create a component draft and edit or
+unpublish component metadata. Theme and template management still requires a
+`21st_sk_…` key from
+[Settings → API keys](https://21st.dev/settings/api-keys).
+
+<Note>
+  The current CLI command sends one self-contained component file and one demo.
+  Additional local files, `21st.json`, and registry dependencies are not
+  supported for a new slug or a local revision yet — publish those from Studio.
+</Note>
+
+You can also publish **themes** (`21st publish-theme ./theme.css`) and
+**templates** (`21st publish-template "My starter"`).
+
+## Publish from Studio
 
 Open **[Studio](https://21st.dev/studio)**, go to **Components**, and choose
 **New component**. Opening a draft or choosing **Edit code** returns to the
-sandbox workspace; **Edit details** opens the details editor. The former
-publish page now redirects into Studio.
+sandbox workspace; **Edit details** opens the details editor. The former publish
+page now redirects into Studio.
 
 <Steps>
   <Step title="Files">
@@ -80,98 +190,42 @@ retry a failed one from the dock.
   **Published**.
 </Warning>
 
-### Publishing and Featuring Are Separate
+## Give the demo a controls panel
+
+If a demo declares a module-level `const settings = { … }` and takes it as
+props, its preview gets a live panel of sliders, toggles, and color pickers, and
+"Copy code" hands the visitor the values they tuned. This works the same from
+the CLI and from Studio. See [Demo Controls](/publishing/demo-controls).
+
+## Publishing and featuring are separate
 
 Publishing creates the component with the access you selected. It does not
 automatically put the component in the public catalog.
 
-When a **Published** component is ready for the catalog, open its actions on the
-Studio **Components** page and choose **Submit for featuring**. It becomes **In
-review**. Reviewers can mark it **Featured** or **Needs changes**; you can
-withdraw an active review, resubmit after changes, or remove a Featured
-component from the catalog.
+When a **Published** component is ready for the catalog, submit it — from the
+Studio **Components** page (**Submit for featuring**) or from the terminal:
+
+```bash
+21st submit <slug>
+21st withdraw <slug>
+21st resubmit <slug>
+21st remove-from-catalog <slug>
+```
+
+It becomes **In review**. Reviewers can mark it **Featured** or **Needs
+changes**; you can withdraw an active review, resubmit after changes, or remove
+a Featured component from the catalog.
 
 See [Quality Guidelines](/publishing/quality-guidelines) before submitting.
 
-## Option B: Publish from the CLI
+## Manage after publishing
 
-```bash
-npm i -g @21st-dev/cli
-21st login
-21st publish ./Component.tsx --description "A responsive pricing table"
-```
+From a component page, choose **Edit** from the top-right menu or press
+<kbd>E</kbd> to change metadata, media, and the demo's controls panel. The
+Studio **Components** page edits code or details, switches between **Published**
+and **Private**, and manages featuring. Making a component Private also removes
+it from an active review or the public catalog.
 
-The CLI auto-detects the component name, tags, and a sibling demo file
-(`Component.demo.tsx` or `demos/default.tsx`). For a new slug it validates
-dependencies, builds the component, and then opens the dedicated Studio
-**CLI Review**. Its sidebar shows **Demos (N)** with the exact count and the
-selected demo stays visible in the live preview.
-
-Studio automatically generates each required cover at the highest priority,
-then attempts an optional video in the background. Video generation
-is best-effort: publishing never waits for it and includes it only if it is
-ready; the cover is still required. You can replace either generated asset
-manually before publishing.
-
-Before publishing, confirm the build succeeded, imported packages are declared
-in the nearest `package.json`, and every demo works in the live preview. Test
-meaningful states in light and dark themes and verify semantic theme tokens,
-including the primary color. Fix blank, broken, or incorrectly colored output
-and run `21st publish` again. The CLI waits and prints the component URL only
-after the final Studio step.
-
-Add `--to <library-slug>` to target a team library, or use
-`--visibility private` for a Private component. The default is Published. A
-`21st login` session or API key can create a component draft and edit or
-unpublish component metadata. Theme/template management still requires a
-`21st_sk_…` key from
-[Settings → API keys](https://21st.dev/settings/api-keys).
-
-Use the stable refs from inventory to continue old work:
-
-```bash
-21st components
-21st open component:123
-21st open draft:<uuid> --no-open
-```
-
-`21st components` returns every accessible personal or Team component and
-every owned draft, draining all pages by default. `21st open draft:<uuid>`
-resumes that draft. `21st open component:<id>` creates or resumes a
-server-owned CLI Review revision from its retained published code and demos.
-The live component does not change until the revision is published. Each demo
-needs a fresh cover; optional videos run best-effort in the background.
-`--no-open` prints the workspace URL without opening Studio.
-
-Only the original author can check out a component's code. A Team manager can
-still edit or unpublish a teammate's metadata. Checkout fails closed if retained
-source, dependencies, style, support files, or the default demo cannot be
-reproduced safely. If you already changed the local source, or checkout is not
-supported, create the revision explicitly:
-
-```bash
-21st publish ./Component.tsx \
-  --component component:123 \
-  --description "What changed"
-```
-
-Proof-backed legacy CLI drafts are recovered into their authenticated scope.
-An older unsigned draft whose scope cannot be proven may need to be recreated.
-Press <kbd>Ctrl</kbd>+<kbd>C</kbd> to stop waiting without deleting a draft.
-
-The current CLI command sends one self-contained component file and one demo.
-Additional local files, `21st.json`, and registry dependencies are not
-supported for a new slug or local revision yet.
-
-You can also publish **themes** (`21st publish-theme ./theme.css`) and **templates** (`21st publish-template "My starter"`).
-
-## Manage after Publishing
-
-Use the Studio **Components** page to edit code or details, switch between
-**Published** and **Private**, and manage featuring. Making a component Private
-also removes it from an active review or the public catalog.
-
-From a component page, choose **Edit** from the top-right menu or press **E**.
 From the terminal, use the exact stable ref:
 
 ```bash
@@ -179,6 +233,6 @@ From the terminal, use the exact stable ref:
 21st delete component:<id> --type component --yes
 ```
 
-## Get Paid or Promoted
+## Get paid or promoted
 
 Want to sell a template, get hired, or collect tips? See [Monetization & Promotion](/publishing/monetization).

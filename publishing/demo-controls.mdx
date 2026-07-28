@@ -1,0 +1,130 @@
+---
+title: Demo Controls
+description: Give a demo a live controls panel visitors can tune, and copy code that matches what they see.
+icon: "/icons/nav/variant.svg"
+---
+
+A published demo can show a **controls panel** next to its preview: sliders,
+toggles, selects, and color pickers that drive the live demo without a rebuild.
+When a visitor copies the code, the values they tuned are written back into the
+source they take with them.
+
+You opt in from the demo file. There is no flag to pass and nothing to enable in
+Studio.
+
+## The `settings` contract
+
+A controllable demo declares exactly one module-level object named `settings`
+and takes it as props:
+
+```tsx src/demos/default.tsx
+const settings = {
+  particleCount: 1200,
+  speed: 0.4,
+  glow: true,
+  palette: ["#7c3aed", "#22d3ee"],
+}
+
+export default function Demo(props: Partial<typeof settings>) {
+  const s = { ...settings, ...props }
+  return <Particles count={s.particleCount} speed={s.speed} glow={s.glow} colors={s.palette} />
+}
+```
+
+Both halves have to hold:
+
+1. a module-level `const settings = { … }` object literal, and
+2. a default export that **accepts props** and merges them over `settings`.
+
+A demo with `settings` but no props would render knobs that move nothing, so it
+gets no panel at all.
+
+At publish time the values inside that literal become the demo's defaults. Only
+a JSON-ish subset is read: strings, numbers, booleans, `null`, arrays, and
+nested objects. A value the parser does not understand (a function call, a
+spread, a template string, an imported identifier) is skipped per key, not per
+file, so one exotic value does not cost you the whole panel.
+
+<Note>
+  Nested paths are not addressable. Every control drives one **top-level** key
+  of `settings`. Group knobs visually instead of nesting data.
+</Note>
+
+## What the panel looks like
+
+If you author nothing else, 21st infers the panel from your values:
+
+| Value in `settings`                | Control            |
+| ---------------------------------- | ------------------ |
+| `true` / `false`                    | Toggle             |
+| a number                            | Slider (`min`, `max`, `step` guessed from the value's magnitude) |
+| a CSS color string (`#7c3aed`, `oklch(…)`) | Color picker |
+| an array of colors                  | Color set (add / remove swatches) |
+| a short string                      | Text field         |
+
+Inferred labels are humanized keys (`particleCount` → "Particle count") and
+inferred ranges are guesses. Every value is clamped to its range before it
+reaches the preview or the copied code, so an inferred panel is always safe —
+it is just not always well named. That is what editing it is for.
+
+A panel supports up to **6 groups**, **24 controls**, and **12 presets**.
+
+## Editing the panel after publishing
+
+Open the component's **Edit** dialog (component page → top-right menu, or press
+<kbd>E</kbd>). Under each demo, the **Controls** section shows the panel and is
+labelled **Detected** (inferred) or **Edited** (authored by you).
+
+There you can rename any row and retune a slider's `min`, `max`, and `step`.
+Those live in the database, not in the bundle, so **a mislabelled knob is a
+rename, not a re-publish** — saves apply as you type. Reset returns the panel to
+the detected one.
+
+<Warning>
+  **Which knobs exist, and what they start at, come from the published bundle.**
+  Adding a key to `settings`, removing one, or changing a default value means
+  publishing the demo again. An edit that names a setting the published demo
+  does not have is rejected with that reason rather than silently dropped.
+</Warning>
+
+Grouping, presets, and dropdown options are part of the same schema, but they
+are curated by 21st rather than edited here; labels and ranges you saved are
+kept when a richer panel lands on your demo.
+
+## Demos that own their state
+
+A canvas loop, a particle engine, or anything that reads its props once on mount
+will not react to a changed prop. The panel can rebuild the demo subtree instead
+of updating it in place for exactly those controls, which is one of the things
+curation sets. If your demo ignores a knob that clearly maps to a real setting,
+that is why.
+
+## What the visitor gets
+
+- **Live preview** — changes drive the published bundle directly; no rebuild, no
+  round trip.
+- **A shareable link** — the tuned state travels in the preview URL's fragment
+  (`#c=…`), and only the diff against your defaults is encoded, so an untouched
+  panel produces the usual URL.
+- **Copy code that matches** — copying writes the tuned values back into the
+  `settings` literal of the source they take. Comments, formatting, and any
+  value 21st did not parse survive byte for byte.
+
+That last point is the reason the defaults are derived from your code instead of
+being stored separately: the panel can never drift away from what a visitor
+copies.
+
+## Checklist
+
+- One module-level `const settings = { … }` per demo.
+- The default export takes props and merges them over `settings`.
+- Keep the keys flat and give them names that read well as labels.
+- Ship sensible default values — they are what the marketplace card, the cover,
+  and the copied code all start from.
+- After publishing, open **Edit** and spend a minute on the labels and ranges
+  inference guessed.
+
+<Tip>
+  Older components show no panel: bundles built before the controls runtime
+  cannot receive values. Publish the component again to give it one.
+</Tip>

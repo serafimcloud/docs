@@ -54,6 +54,7 @@
           "cli/find",
           "cli/generate",
           "cli/publish",
+          "cli/design-runtime",
           "cli/profile",
           "cli/setup",
           "cli/reference"
@@ -76,6 +77,7 @@
           "publishing/quick-start",
           "publishing/quality-guidelines",
           "publishing/component-structure",
+          "publishing/demo-controls",
           "publishing/monetization"
         ]
       }
