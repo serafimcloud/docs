@@ -307,6 +307,8 @@ the exact request on our side.
 | `artifact_upload_failed`                  | It built, but the files could not be uploaded   | Retry                                                                |
 | `publish_persistence_unavailable`         | It built and uploaded, but could not be saved   | Retry                                                                |
 | `publish_completion_uncertain`            | It may have gone through, we could not confirm  | Check your profile before republishing                               |
+| `cli_draft_waking`                        | The draft's workspace was still waking up       | Nothing: the CLI waits and sends the source again                    |
+| `database_busy`                           | Our database was busy for a moment              | Nothing: the CLI retries after `Retry-After` seconds                 |
 
 The JSON body of a failed `POST /api/v1/components/publish` carries the same
 information: `error` (the code above), `message`, `retryable`, `request_id`, and
