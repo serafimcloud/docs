@@ -26,9 +26,11 @@ tags, with the matching form one click behind each. Its sidebar shows
 **Demos (N)** and the selected demo stays live in the preview.
 
 Studio generates each required cover at the highest priority, then attempts an
-optional video in the background. Video is best-effort: publishing never waits
-for it and includes it only if it is ready; the cover is required. Replace
-either generated asset manually before publishing.
+optional video in the background. Every cover is captured in both themes, and
+the dark version is kept only when the component genuinely renders differently
+in dark. Video is best-effort: publishing never waits for it and includes it
+only if it is ready; the cover is required. Replace either generated asset
+manually before publishing.
 
 Along with the Studio URL the CLI prints a **review link** that opens the same
 screen in a browser signed into nothing — an agent's browser, a phone, a
