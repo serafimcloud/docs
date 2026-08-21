@@ -52,9 +52,19 @@ Prints each match's name and its SVG url(s) to `curl`. Free, no login required.
 ```bash
 21st add <user>/<slug>            # install into your project
 21st add <user>/<slug> --print    # just print the command, don't run it
+21st add @<registry>              # install every component in a tracked registry
 ```
 
 `add` installs through 21st's shadcn-compatible registry by shelling out to `npx shadcn@latest add` against `/r/<user>/<slug>`, so the component and its dependencies land in your project like any other shadcn component.
+
+Given a namespace instead of a `user/slug` pair, `add` installs a whole shadcn registry: it reads that registry's index from 21st and passes every component to one `shadcn add`. Nothing is fetched from 21st in that case, the components come from the registry that publishes them, and no login is needed.
+
+```bash
+21st add @limeplay          # all 19 components from the limeplay registry
+21st add @limeplay --print  # print the expanded shadcn command instead
+```
+
+Browse the registries at [21st.dev/community/shadcn-directory](https://21st.dev/community/shadcn-directory).
 
 ## Bookmarks
 
