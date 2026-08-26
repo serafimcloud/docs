@@ -19,10 +19,10 @@ The fastest way is the [CLI](/cli):
 21st init --client cursor --write
 ```
 
-Supported clients: `cursor`, `claude`, `codex`, `vscode`, `windsurf`. This merges a `21st` server into your client config without touching other MCP servers you already have.
+Supported clients: `cursor`, `claude`, `codex`, `vscode`, `devin`. This merges a `21st` server into your client config without touching other MCP servers you already have. Windsurf became Devin Desktop in June 2026, and `--client windsurf` still works as an alias.
 
 <Tabs>
-  <Tab title="Cursor / VS Code / Windsurf">
+  <Tab title="Cursor">
     Writes `.cursor/mcp.json`:
 
     ```json
@@ -35,6 +35,55 @@ Supported clients: `cursor`, `claude`, `codex`, `vscode`, `windsurf`. This merge
       }
     }
     ```
+  </Tab>
+  <Tab title="VS Code">
+    Writes `.vscode/mcp.json`. VS Code has its own schema: servers live under
+    `servers`, and the key comes from an input it prompts for once and then
+    stores securely, so nothing secret ends up in a file you commit.
+
+    ```json
+    {
+      "inputs": [
+        {
+          "type": "promptString",
+          "id": "21st-api-key",
+          "description": "21st API key (https://21st.dev/settings/api-keys)",
+          "password": true
+        }
+      ],
+      "servers": {
+        "21st": {
+          "type": "http",
+          "url": "https://21st.dev/api/mcp",
+          "headers": { "x-api-key": "${input:21st-api-key}" }
+        }
+      }
+    }
+    ```
+  </Tab>
+  <Tab title="Devin Desktop">
+    Writes `.devin/mcp_config.local.json`, the config Devin Local reads. It is
+    gitignored, so a personal key is safe to keep there:
+
+    ```json
+    {
+      "mcpServers": {
+        "21st": {
+          "url": "https://21st.dev/api/mcp",
+          "transport": "http",
+          "headers": { "x-api-key": "${API_KEY_21ST}" }
+        }
+      }
+    }
+    ```
+
+    Devin's docs describe `${env:VAR}` expansion for OAuth fields but say
+    nothing about header values, so if the server answers 401, paste the key
+    itself in place of `${API_KEY_21ST}`.
+
+    Still on the legacy Cascade agent? It reads
+    `~/.codeium/windsurf/mcp_config.json` instead, and calls the url field
+    `serverUrl` there.
   </Tab>
   <Tab title="Claude">
     Writes `.mcp.json`:
@@ -62,7 +111,8 @@ Supported clients: `cursor`, `claude`, `codex`, `vscode`, `windsurf`. This merge
   </Tab>
 </Tabs>
 
-Set `API_KEY_21ST` in your environment to the key from your settings.
+Set `API_KEY_21ST` in your environment to the key from your settings. VS Code is
+the exception: it prompts for the key instead of reading the environment.
 
 ## What the tools do
 
