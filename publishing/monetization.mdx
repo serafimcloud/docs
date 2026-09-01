@@ -4,7 +4,7 @@ description: Sell templates and get hired, tipped, or sponsored from your profil
 icon: "/icons/nav/credit-card.svg"
 ---
 
-21st.dev doesn't process payments on your behalf — there's no in-app checkout or payout system. Instead, every monetization feature works the same way: you drop in a link to a service you already use (a checkout page, a booking page, a donation platform), and 21st.dev surfaces it to the right audience at the right moment. This page covers all of them.
+Most monetization on this page works the same way: you drop in a link to a service you already use (a checkout page, a booking page, a donation platform), and 21st.dev surfaces it to the right audience at the right moment. The one exception is selling a template on 21st itself: for those listings, checkout, delivery, and your payout are handled here (see [Get Paid by 21st](#get-paid-by-21st)). This page covers all of it.
 
 <Info>
   **Components stay free.** There's no price field on individual components —
@@ -34,15 +34,40 @@ Templates are the only catalog item that supports a price. Each template has its
   **A listing you create is bought on your own site.** You set a price and a
   **Buy / download URL**; a visitor who clicks buy sees a disclaimer confirming
   they're leaving 21st.dev, then lands on your storefront. You're responsible
-  for delivery, receipts, and refunds.
-
-  Buying on 21st.dev — card checkout here, instant download, no redirect —
-  exists for a small number of listings released one at a time, and is not open
-  for self‑serve publishing yet. Write to support@21st.dev if you'd like your
-  template considered.
+  for delivery, receipts, and refunds. To sell with checkout on 21st instead,
+  see [Get Paid by 21st](#get-paid-by-21st) below.
 </Warning>
 
 If your buy link already carries an affiliate/referral parameter for a third-party vendor (for example a template marketplace that pays you `?via=yourname`), set that same URL as your **Pro components link** (see below) — 21st.dev automatically appends your referral parameter to that template's buy link so you still get credit.
+
+## Get Paid by 21st
+
+Some templates are sold on 21st.dev itself: card checkout on the template page, instant download, no redirect. For these listings 21st handles the payment and pays you your share.
+
+<Steps>
+  <Step title="Upload the code">
+    Attach your template's code to the listing: a zip in the Studio editor, or
+    `21st template publish` from the CLI. Hosted delivery is what makes
+    on-site checkout possible.
+  </Step>
+  <Step title="Price it">
+    The minimum price is **$3**. As you type a price, the editor shows exactly
+    what you receive per sale.
+  </Step>
+  <Step title="Get released for sale">
+    After review, listings are released for sale individually. This is not
+    self-serve yet: write to support@21st.dev to have your template
+    considered.
+  </Step>
+</Steps>
+
+**Your share.** You receive **70% of what's left after the card fee**; on a $39 sale that's $26.30. The split is locked in at purchase time, so a later price change never restates a sale already made.
+
+**Payouts.** Each sale's share stays on hold for **30 days** (the refund and chargeback window), then joins your available balance. Once the cleared balance reaches **$50** it's paid out in **USDC**, on **Base** or **Polygon**. Set the wallet in **Studio → Earnings**: paste the address, hold to confirm it, pick a network. The same page lists every sale (who bought, when it clears, what came back) and every payout with its transaction link.
+
+**Refunds.** A refund or chargeback returns the buyer's money, revokes their download access, and removes that sale's share from your balance.
+
+Buyers keep lifetime access to what they bought and can re-download any time from **Settings → Purchases**.
 
 ## Components Are Free-Only
 
@@ -118,5 +143,5 @@ If you sell components or templates elsewhere — your own shop, a template mark
 ## What's Not There (Yet)
 
 - No price/checkout on individual components — templates only.
-- No in-app payments, invoicing, or payout system for anything on this page — every flow above ends with an outbound redirect to a service you control.
+- The profile blocks (hire, donation, pro catalog) never move money through 21st: each of those flows ends at a service you control. Templates sold on 21st are the exception, paying out as described in [Get Paid by 21st](#get-paid-by-21st).
 - Builder and Team subscriptions pay for 21st access. Builder can enable AI with a monthly credit allowance, and Team Builder + AI seats include monthly generation credits. These plans are not a way for authors to receive money. Use the **Donation** block or an external premium catalog for that.
