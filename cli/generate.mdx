@@ -6,6 +6,25 @@ icon: "/icons/nav/magic-chat.svg"
 
 The CLI drives [21st AI](/ai) end to end: kick off a generation, watch it build, refine the draft you like, and pull its code. It's the same engine as the web app and [MCP](/ai/mcp).
 
+## Check AI access
+
+```bash
+21st usage
+```
+
+CLI 1.17.1 adds `21st usage --json`. Older versions show the same AI access
+in the `21st AI generation` line. The MCP `get_usage` tool reports it as
+`aiGenerationEnabled`.
+
+`generate` and `iterate` require `aiGenerationEnabled: true` and available
+[AI credits](/ai/pricing). This field reports AI access, not the credit balance.
+Builder and Team start with AI off; a base subscription does not enable
+generation.
+
+When `aiGenerationEnabled` is `false`, use `21st search` and `21st get` to
+retrieve components, then adapt them with your own coding agent. If a generation
+call returns `ai_subscription_required`, use this workflow instead of retrying.
+
 ## Start a generation
 
 ```bash
@@ -42,8 +61,9 @@ Edits one take in natural language. Without `--take` it refines the default take
 By default `take` prints a paste-ready **copy-prompt** you can drop into your editor or agent to recreate the UI in your own stack. Use `--code` to print the raw HTML. Free.
 
 <Info>
-`generate` and `iterate` consume [credits](/ai/pricing). Listing drafts
-(`generation`) and taking code (`take`) are free.
+`generate` and `iterate` consume [credits](/ai/pricing). Listing existing drafts
+(`generation`) and taking their code (`take`) are free and remain available
+without AI enabled.
 </Info>
 
 ## Typical flow

@@ -124,9 +124,9 @@ the exception: it prompts for the key instead of reading the environment.
 - `get_theme` — fetch a theme's CSS (free and unmetered, no quota attached)
 
 **21st AI (credits)**
-- `generate` — start a sketch or code generation
+- `generate` — start a sketch or code generation (shown when AI is enabled)
 - `get_generation` — list a generation's drafts (free)
-- `iterate_generation` — refine a draft
+- `iterate_generation` — refine a draft (shown when AI is enabled)
 - `get_take` — fetch a draft's code + copy-prompt (free)
 
 **Bookmarks, lists & teams**
@@ -138,10 +138,21 @@ the exception: it prompts for the key instead of reading the environment.
 - `get_profile` / `edit_profile` / `upload_profile_media`
 
 **Account**
-- `get_usage` — tier and remaining credits / daily quota
+- `get_usage` — account tier, `aiGenerationEnabled`, and remaining free daily component-code retrieval quota; it does not report the AI credit balance
 
 <Info>
-Search and metadata tools are free. Generation and iteration require a paid plan
-and available credits; code retrieval is free on paid plans and metered on the
-free tier. See [credits](/ai/pricing).
+Search and metadata tools are free. Generation and iteration require AI enabled
+on the account and available credits. Builder and Team start with AI off; a base
+Builder subscription covers component retrieval, not 21st AI generation. Code
+retrieval is free on paid plans and metered on the free tier. See
+[credits](/ai/pricing).
 </Info>
+
+The server lists `generate` and `iterate_generation` only when AI is enabled for
+your account. Without AI, your agent can use `search` → `get_component` and adapt
+the code itself. Reading existing drafts with `get_generation` and `get_take`
+remains available.
+
+After enabling AI, refresh your client's tool list or reconnect the MCP server.
+If an older cached tool returns `ai_subscription_required`, the agent should
+stop generation attempts and use search and component retrieval instead.

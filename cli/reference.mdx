@@ -13,9 +13,13 @@ Run `21st help` for the full inline usage; a command invoked without its require
 | `21st login`  | Browser sign-in, saved to `~/.config/21st/auth.json` |
 | `21st logout` | Clear the saved session                              |
 | `21st whoami` | Show the signed-in account                           |
-| `21st usage`  | Tier + remaining free quota                          |
+| `21st usage [--json]` | Account tier, AI access, and remaining free daily component-code retrieval quota |
 
 Credential order: `--token`/`--api-key` flag → `TWENTYFIRST_TOKEN` → `API_KEY_21ST` → stored login.
+
+CLI 1.17.1 adds `21st usage --json` for machine-readable account status. Its
+`aiGenerationEnabled` field reports AI access, not the remaining credit balance.
+On older versions, run `21st usage` and read the `21st AI generation` line.
 
 ## Find & install
 
@@ -46,6 +50,10 @@ See [Find & install](/cli/find) for all search flags.
 | `21st team-components <teamId>`             | Components in a team library (`--library <id>`) |
 
 ## Generate with 21st AI
+
+`generate` and `iterate` require AI enabled on the account and available
+[credits](/ai/pricing). Builder and Team start with AI off. Check
+`aiGenerationEnabled` with `21st usage --json` before starting.
 
 | Command                               | Description                                                |
 | ------------------------------------- | ---------------------------------------------------------- |

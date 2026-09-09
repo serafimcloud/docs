@@ -26,7 +26,8 @@ npx @21st-dev/cli search "pricing table"
 ```bash
 21st login     # sign in via the browser, saved locally to ~/.config/21st/auth.json
 21st whoami    # show the signed-in account
-21st usage     # tier + remaining free quota
+21st usage     # tier, AI access, and remaining daily component-code retrieval quota
+21st usage --json # structured account status in CLI 1.17.1+
 21st logout    # clear the saved session
 ```
 
@@ -39,6 +40,13 @@ You can also authenticate with an [API key](https://21st.dev/settings/api-keys) 
 
 A retired `an_…` key left in either env var is skipped, so an old export can no
 longer shadow a working `21st login` session.
+
+Generation and iteration require AI enabled on your account and available
+[credits](/ai/pricing). Base Builder and Team subscriptions start with AI off.
+`21st usage --json` reports this access as `aiGenerationEnabled`; it does not
+report the AI credit balance. On older CLI versions, read the `21st AI generation`
+line from `21st usage`. Without AI, search and retrieve components, then
+adapt the code with your own coding agent.
 
 <Warning>
 `21st publish <component>` accepts a stored `21st login` session or a secret API
