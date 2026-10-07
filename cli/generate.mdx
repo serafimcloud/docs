@@ -17,7 +17,8 @@ in the `21st AI generation` line. The MCP `get_usage` tool reports it as
 `aiGenerationEnabled`.
 
 `generate` and `iterate` require `aiGenerationEnabled: true` and available
-[AI credits](/ai/pricing). This field reports AI access, not the credit balance.
+[AI credits](/ai/pricing). Read `credits.balance` for the current balance,
+`credits.resetsAt` for its reset time, and `credits.scope` for personal/team usage.
 Builder and Team start with AI off; a base subscription does not enable
 generation.
 
@@ -33,6 +34,16 @@ call returns `ai_subscription_required`, use this workflow instead of retrying.
 
 Starts a 21st AI sketch generation and opens a browser preview so you can watch the drafts build. Returns a `projectId` you use with the commands below.
 
+Use `--wait --no-open --json` for an agent or script. Non-interactive output
+waits automatically without opening the browser. A timeout exits with code 4
+and retains the accepted project UUID: check `21st generation` later rather
+than generating again. Not signed in exits with code 3; blocked AI access or
+credits exits with code 2.
+
+`--models <comma-separated-keys>`, `--theme <slug>` and
+`--remix <demo-id|author/component>` select explicit inputs. CLI includes
+`.21st/design.json` automatically when present; `--context none` skips it.
+
 ## List the drafts
 
 ```bash
@@ -46,9 +57,23 @@ Lists the "takes" (drafts) of a generation with their take numbers and ready sta
 ```bash
 21st iterate <projectId> "make it darker and add a footer"
 21st iterate <projectId> "tighten the spacing" --take 2
+21st iterate <projectId> --take 2 --part nav --note "Make it sticky" --lock hero,pricing --wait
+21st iterate <projectId> "Simplify pricing" --part pricing --scope every-take --wait
 ```
 
 Edits one take in natural language. Without `--take` it refines the default take; pass `--take N` to target a specific one.
+
+Use `--wait` to wait for the accepted refinement job and `--base-version N` to
+choose the saved source version. Versions are one-based. Sketch and Code
+refinements run as durable server jobs with the same producer as the web editor.
+Code uses the exact saved source snapshot and preserves file scopes and locks.
+An older base
+appends a branch and preserves newer versions. `--part` and `--lock` take stable
+addresses from a pulled version, with comma-separated lists. A new `--note`
+attaches to each selected part, or the whole take when no part is selected.
+`--scope every-take` submits independent jobs and waits for each; a failed take
+does not hide the others. Each accepted refinement uses the same owner,
+credit, scope and lock guards as the web editor.
 
 ## Grab the code
 
@@ -56,14 +81,98 @@ Edits one take in natural language. Without `--take` it refines the default take
 21st take <projectId>            # paste-ready copy-prompt (default)
 21st take <projectId> --take 2   # a specific take
 21st take <projectId> --code     # raw HTML instead of the copy-prompt
+21st take <projectId> --take 2 --version 3 --agent-prompt
+21st take <projectId> --take 2 --version 3 --files ./new-take-directory
+21st take <projectId> --take 2 --version 3 --spec
+21st take <projectId> --take 2 --version 3 --part hero --code
+21st take <projectId> --take 2 --version 3 --elements --tokens --json
 ```
 
 By default `take` prints a paste-ready **copy-prompt** you can drop into your editor or agent to recreate the UI in your own stack. Use `--code` to print the raw HTML. Free.
 
+Always use the full project UUID. Takes and versions are one-based;
+`--version N` retrieves exactly that saved version. Code returns saved private
+source snapshots and dependencies when available, including when the preview
+is asleep. `--files` refuses an existing directory. `take --latest` suggests a
+recent handoff for confirmation and does not automatically retrieve its source.
+The existing Remix trial take-out wall applies to every export format.
+`--part` fetches only selected saved source fragments. Code accepts stable
+addresses, exact file paths, or `src/App.tsx:10-20`. Shared CSS and imports may
+need the full take. `--elements` includes stable addresses with `rect: null`
+until a live preview supplies geometry. `--tokens` reports declared CSS custom
+properties, not computed styles. Empty, missing and oversized selections are
+rejected rather than replaced with an entire take.
+
+## Free edits
+
+Pull the exact current saved take before editing. `21st take-edit <projectId>
+--take 2 --version 3 --ops '[{"type":"duplicate","target":"card"}]'`
+clones that saved subtree after the original with fresh addresses. To move it
+into a saved container, use
+`--ops '[{"type":"move","target":"card","anchor":"main","position":"into"}]'`.
+The same deterministic edit path saves with zero credits. Static Code JSX
+requires one tree and an unlocked source and destination; dynamic expressions,
+handlers or imported components need an explicit note. Unsupported edits never
+start paid generation automatically. Save and pull again before addressing a
+new clone.
+
+Sketch style operations accept `"media":"phone"`, for example
+`--ops '[{"type":"style","target":"title","property":"font-size","value":"18px","media":"phone"}]'`.
+This changes the exact unlocked target only at widths up to 639px, preserving
+its desktop inline styles. An empty value removes that Phone override. Omit
+`media` for the usual inline edit. Code Phone styles are saved as actual media
+CSS in React source only when the server proves a static default App and one
+literal main/index entry render. Dynamic or reused components, unknown imports,
+ambiguous targets and locks are rejected without starting AI. An empty value
+removes the exact Phone override and keeps its desktop style.
+
+## Notes, changes and outcomes
+
+```bash
+21st notes latest --json
+21st notes done <note-id,...> --summary "Used our existing pricing card"
+21st changes <projectId> --take 2 --since pulled
+21st take <projectId> --take 2 --version 3 --done adapted --by agent --typecheck passed --build not_run
+21st feedback "The preview was blank" --bug --project <projectId> --take 2 --reason blank_or_broken
+```
+
+Note status can be `in_progress`, `done` or `wont_do`; the last requires a
+one-line summary. Add `--status sent|open|all` when reading notes, and
+`--files src/App.tsx,src/Menu.tsx` when reporting actual changed files.
+
+Attach up to eight references to a note with
+`iterate --note "Match this reference" --refs '[{"kind":"link","url":"https://example.com/reference"}]'`.
+Supported references are HTTP(S) links or images, an exact saved
+`{"kind":"take","take":2,"version":3,"id":"hero"}` in the same project, and
+`{"kind":"component","slug":"author/component"}`. References provide context;
+they do not claim a component was installed or an image was fetched.
+To save notes without generating, use
+`take-edit <projectId> --take 2 --version 3 --notes '[{"id":"pricing-note","target":"pricing","text":"Use annual pricing","refs":[]}]'`.
+The server stamps the creator and validates referenced access. Supplied authors
+are discarded; existing creators remain intact when notes are edited.
+
+`--since pulled` uses your latest successful CLI or agent retrieval, including
+a historical version. It also includes notes changed after that retrieval on
+the same version. A web copy does not move this cursor. Without a previous pull,
+fetch the take first; `--since N` selects an explicit saved version.
+
+Outcomes are `landed`, `adapted` or `abandoned`, with separate
+agent/user attribution and observed build checks. Abandoned requires a reason.
+The server accepts an outcome only after that exact version was taken out
+recently. Forward feedback only at the user's explicit request, in their words.
+
+In a script, one outcome reminder per day goes to stderr after a successful
+take-out. JSON and source output on stdout stay unchanged. If a saved login
+expires within 24 hours, the CLI also warns once a day to run `21st login`.
+
+JSON results include `takeState` from the persisted attempt and producer lease.
+`failed`, `stopped` and `blocked` end a wait immediately; unknown historical model
+or credit amounts remain `null`. Reuse the accepted project after a timeout.
+
 <Info>
-`generate` and `iterate` consume [credits](/ai/pricing). Listing existing drafts
-(`generation`) and taking their code (`take`) are free and remain available
-without AI enabled.
+  `generate` and `iterate` consume [credits](/ai/pricing). Listing existing
+  drafts (`generation`) and taking their code (`take`) are free and remain
+  available without AI enabled.
 </Info>
 
 ## Typical flow
@@ -71,14 +180,14 @@ without AI enabled.
 ```bash
 # 1. start
 21st generate "a pricing section, 3 tiers, annual toggle"
-#    → projectId: pr_abc123
+#    → projectId: ab12cd34-5e6f-4a1b-9c2d-0e3f4a5b6c7d
 
 # 2. see what came back
-21st generation pr_abc123
+21st generation ab12cd34-5e6f-4a1b-9c2d-0e3f4a5b6c7d
 
 # 3. refine the one you like
-21st iterate pr_abc123 "make the middle tier the highlighted one" --take 3
+21st iterate ab12cd34-5e6f-4a1b-9c2d-0e3f4a5b6c7d "make the middle tier the highlighted one" --take 3 --wait
 
 # 4. take the code
-21st take pr_abc123 --take 3 --code
+21st take ab12cd34-5e6f-4a1b-9c2d-0e3f4a5b6c7d --take 3 --code
 ```

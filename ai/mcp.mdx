@@ -35,6 +35,7 @@ Supported clients: `cursor`, `claude`, `codex`, `vscode`, `devin`. This merges a
       }
     }
     ```
+
   </Tab>
   <Tab title="VS Code">
     Writes `.vscode/mcp.json`. VS Code has its own schema: servers live under
@@ -60,6 +61,7 @@ Supported clients: `cursor`, `claude`, `codex`, `vscode`, `devin`. This merges a
       }
     }
     ```
+
   </Tab>
   <Tab title="Devin Desktop">
     Writes `.devin/mcp_config.local.json`, the config Devin Local reads. It is
@@ -84,6 +86,7 @@ Supported clients: `cursor`, `claude`, `codex`, `vscode`, `devin`. This merges a
     Still on the legacy Cascade agent? It reads
     `~/.codeium/windsurf/mcp_config.json` instead, and calls the url field
     `serverUrl` there.
+
   </Tab>
   <Tab title="Claude">
     Writes `.mcp.json`:
@@ -99,6 +102,7 @@ Supported clients: `cursor`, `claude`, `codex`, `vscode`, `devin`. This merges a
       }
     }
     ```
+
   </Tab>
   <Tab title="Codex">
     Add to `~/.codex/config.toml`:
@@ -108,6 +112,7 @@ Supported clients: `cursor`, `claude`, `codex`, `vscode`, `devin`. This merges a
     url = "https://21st.dev/api/mcp"
     bearer_token_env_var = "API_KEY_21ST"
     ```
+
   </Tab>
 </Tabs>
 
@@ -117,6 +122,7 @@ the exception: it prompts for the key instead of reading the environment.
 ## What the tools do
 
 **Search & browse (free)**
+
 - `search` — find components, themes, and templates with filters, as plain data
 - `search_picker` — same as `search`, but renders an inline picker in hosts that support it (use when you want to browse and pick a result visually)
 - `search_logo` — find brand and UI SVG logos by name (returns the SVG urls)
@@ -124,28 +130,38 @@ the exception: it prompts for the key instead of reading the environment.
 - `get_theme` — fetch a theme's CSS (free and unmetered, no quota attached)
 
 **21st AI (credits)**
+
 - `generate` — start a sketch or code generation (shown when AI is enabled)
 - `get_generation` — list a generation's drafts (free)
 - `iterate_generation` — refine a draft (shown when AI is enabled)
-- `get_take` — fetch a draft's code + copy-prompt (free)
+- `get_generation_job` — poll an accepted refinement by its job ID (free)
+- `get_take` — fetch the exact saved take/version, code, copy-prompt, agent prompt and structure (free, with the existing Remix trial take-out wall)
+- `get_notes`, `update_note` — read sent editor notes and report progress on their existing IDs (free)
+- `get_changes` — read saved edits and a change plan since a version or the last pull (free)
+- `edit_take` — apply deterministic Sketch edits using stable target IDs and an exact current version (free)
+- `record_take_outcome` — report landed, adapted or abandoned after taking out that exact version (free)
+- `send_feedback` — forward the user's requested feedback with server-derived take context (free)
 
 **Bookmarks, lists & teams**
+
 - `list_bookmarks`, `bookmark`, `create_bookmark_list`, `add_to_list`
 - `list_teams`, `list_team_libraries`, `list_team_components`
 
 **Manage your own items (API key required)**
+
 - `edit_component` / `delete_component`, `edit_theme` / `delete_theme`, `edit_template` / `delete_template`
 - `get_profile` / `edit_profile` / `upload_profile_media`
 
 **Account**
-- `get_usage` — account tier, `aiGenerationEnabled`, and remaining free daily component-code retrieval quota; it does not report the AI credit balance
+
+- `get_usage` — account tier, `aiGenerationEnabled`, free daily component-code retrieval quota, and AI credits balance, reset time and personal/team scope
 
 <Info>
-Search and metadata tools are free. Generation and iteration require AI enabled
-on the account and available credits. Builder and Team start with AI off; a base
-Builder subscription covers component retrieval, not 21st AI generation. Code
-retrieval is free on paid plans and metered on the free tier. See
-[credits](/ai/pricing).
+  Search and metadata tools are free. Generation and iteration require AI
+  enabled on the account and available credits. Builder and Team start with AI
+  off; a base Builder subscription covers component retrieval, not 21st AI
+  generation. Code retrieval is free on paid plans and metered on the free tier.
+  See [credits](/ai/pricing).
 </Info>
 
 The server lists `generate` and `iterate_generation` only when AI is enabled for
@@ -156,3 +172,56 @@ remains available.
 After enabling AI, refresh your client's tool list or reconnect the MCP server.
 If an older cached tool returns `ai_subscription_required`, the agent should
 stop generation attempts and use search and component retrieval instead.
+
+## Draft and hand off
+
+Use the full project UUID in every call. Take numbers and saved versions are
+one-based; a short label such as `ab12cd34/2@v3` is for display only.
+
+Sketch starts server-side. Poll `get_generation` until each take is ready,
+failed or stopped. A timeout keeps the existing project addressable; polling
+must never start another `generate`. Code returns `needsBrowser:true` until the
+user opens the existing preview. Sketch and Code refinements return durable job
+IDs and use the same production producers as the web editor: poll
+`get_generation_job`, then retrieve the new saved version with `get_take`.
+Code starts from the exact saved source snapshot and applies file scopes and
+locks; an unavailable historical source is rejected instead of substituted.
+
+`get_take {projectId, take, version}` fetches that exact version. Sketch returns
+HTML and an integration spec; Code returns a private source snapshot and
+dependencies when available. An exact Code version without a snapshot returns
+`snapshot_unavailable`; opening preview does not recover its historical source.
+Latest legacy Code can use the current web preview. `get_take {latest:true}` only suggests a recent
+handoff for confirmation and does not fetch its source.
+
+Editor notes are available with `get_notes`; the default is the take whose
+notes the user last sent. Report `in_progress`, `done` or `wont_do` with
+`update_note {ids, status}`. `wont_do` requires a one-line `summary`. Free
+`edit_take` requires a current version and stable target IDs from `get_take`;
+it saves a new version and rejects stale or locked edits.
+`{type:"duplicate", target:"card"}` inserts a fresh-addressed clone after the
+original. `{type:"move", target:"card", anchor:"main", position:"into"}` moves
+it into an existing saved container. Code accepts only static JSX within one
+tree, protecting source and destination locks. Dynamic expressions, handlers
+and imported components require an explicit note; there is no paid fallback.
+Save and fetch again before addressing the new clone.
+`get_changes {projectId, take, since:"pulled"}` uses your latest successful
+agent or CLI retrieval, including a historical version, and includes notes
+changed since that retrieval on the same version. Web copy does not move this
+cursor. If there was no pull, fetch `get_take` first.
+
+After integration, `record_take_outcome` records the actual result for the
+retrieved version with separate `agent` or `user` attribution. Include the
+observed typecheck/build result, using `not_run` when appropriate. Abandoned
+takes require a reason. `send_feedback` is for the user's original words at
+their explicit request; never send repository code, paths or secrets.
+
+Hosts that support MCP Apps can display `ui://21st/ai-takes-v1` for Generate,
+generation status and take retrieval. Select a saved take to preview it and use
+free text or hide controls on unlocked targets. Each edit requires the exact
+current version; stale edits prompt a fresh pull. Opening the resource never
+starts a paid generation. Other hosts receive the normal text and JSON results.
+
+`takeState` reports the persisted lifecycle. Historical model and accounting
+values stay `null` when unknown. Access denials include `generationBlock`;
+signed-out agents should sign in or reconnect instead of retrying generation.

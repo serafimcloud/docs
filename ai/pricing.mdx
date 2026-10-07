@@ -8,14 +8,14 @@ Browsing and searching the marketplace is free. **21st AI generation** runs on *
 
 ## What uses credits
 
-| Action                                           | Cost                                         |
-| ------------------------------------------------ | -------------------------------------------- |
-| Search the marketplace                           | Free                                         |
-| List a generation's drafts / take a draft's code | Free                                         |
-| Generate (sketch or code)                        | Credits                                      |
-| Refine / iterate a draft                         | Credits (varies with the model used)         |
-| Design Bug Bot pull request reviews              | 5 successful reviews free in the first week on a paid plan, then AI credits |
-| Retrieve a component's code                      | Free on paid plans; metered on the free tier |
+| Action                                           | Cost                                                                                         |
+| ------------------------------------------------ | -------------------------------------------------------------------------------------------- |
+| Search the marketplace                           | Free                                                                                         |
+| List a generation's drafts / take a draft's code | Free                                                                                         |
+| Generate (sketch or code)                        | Credits                                                                                      |
+| Refine / iterate a draft                         | Credits (varies with the model used)                                                         |
+| Design Bug Bot reviews                           | 5 successful reviews free with no expiration, then an AI-enabled subscription and AI credits |
+| Retrieve a component's code                      | Free on paid plans; metered on the free tier                                                 |
 
 ## Plans
 
@@ -39,35 +39,33 @@ Browsing and searching the marketplace is free. **21st AI generation** runs on *
     capacity.
   </Card>
   <Card title="Team" icon="/icons/nav/users.svg">
-    Seats start with AI off at **\$10/month billed quarterly** or
-    **\$7.50/month billed yearly**. For AI-enabled seats, choose **500, 1,000,
-    or 2,000 credits / month per seat**. Their configured per-seat totals are
-    **\$25, \$50, or \$100 per month billed quarterly**, or **\$18.75, \$37.50,
-    or \$75 per month billed yearly**. Monthly allowances combine in the Team's
-    shared pool. Includes
-    centralized billing, shared collections, and admin controls.
+    Seats start with AI off at **\$10/month billed quarterly** or **\$7.50/month
+    billed yearly**. For AI-enabled seats, choose **500, 1,000, or 2,000 credits
+    / month per seat**. Their configured per-seat totals are **\$25, \$50, or
+    \$100 per month billed quarterly**, or **\$18.75, \$37.50, or \$75 per month
+    billed yearly**. Monthly allowances combine in the Team's shared pool.
+    Includes centralized billing, shared collections, and admin controls.
   </Card>
 </CardGroup>
 
 ## Design Bug Bot
 
 [Design Bug Bot](https://21st.dev/design-bug-bot) reviews connected GitHub pull
-requests for UI problems and suggests code to fix them. It is included when AI
-is enabled on your paid plan and uses the same AI credit balance as generation.
-When a preview cannot be rendered, the review can describe the problem and
-suggest code from the source, clearly marked as not visually verified.
+requests and periodically checks the default branch for UI problems. It suggests
+specific code changes. Screenshots add visual evidence when rendering works; a
+complete source analysis still returns its recommendations as **Code-backed
+recommendations** when a screenshot is unavailable.
 
-Every eligible paid personal account or team can try **five successful reviews
-free during the first seven days**. The week starts with the first review,
-not signup or repository setup. Failed, skipped, and partial reviews do not
-use a successful-review slot. A team shares one allowance across its repositories;
-reconnecting or adding another repository does not reset it.
+Every personal account or team gets **five successful reviews free**, with no
+subscription or expiration. **No UI changes**, failed, and incomplete reviews do
+not use a successful-review slot. A team shares one allowance across its
+repositories; reconnecting or adding another repository does not reset it.
 
-After five successful reviews or seven days, whichever comes first, new reviews
-automatically use available AI credits. If AI is off, reviews pause until you
-enable it; if the AI balance is empty, reviews pause until credits are available.
-The trial does not automatically upgrade your subscription. You can disable
-reviews in repository settings. Reviews started for free stay free.
+After five successful reviews, new reviews require a subscription with AI
+enabled and use its available AI credits. A Builder subscription without AI or
+leftover credits without an AI-enabled subscription do not unlock more reviews.
+If access or credits are missing, reviews pause and show the next step. You can
+disable reviews in repository settings. Reviews started for free stay free.
 
 ## Buying more credits
 
