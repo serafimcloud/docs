@@ -28,6 +28,6 @@ View your local preview at `http://localhost:3000`.
 ## Links
 
 - Website: [21st](https://21st.dev)
-- Discord: [discord.gg/Qx4rFunHfm](https://discord.gg/Qx4rFunHfm)
+- Community: [X group chat](https://x.com/i/chat/group_join/g2125028106708885761/4228PQksjd)
 - Twitter: [@21st_dev](https://x.com/21st_dev)
 - GitHub: [github.com/serafimcloud/21st](https://github.com/serafimcloud/21st)
